@@ -1,4 +1,4 @@
-import InputCrudFloating from "@/features/crud/components/InputCrudFloating";
+import InputCrudFloating from "@/features/form/components/InputCrudFloating";
 
 function FormProduct({ children, className, crudHook }) {
 
@@ -9,6 +9,8 @@ function FormProduct({ children, className, crudHook }) {
       {children}
 
       <>
+
+        <p className='fw-medium'>General</p>
 
         <div className="d-flex gap-2 flex-column flex-lg-row">
         <InputCrudFloating

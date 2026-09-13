@@ -1,7 +1,7 @@
+import { useValidationFormModes } from "@/features/form/hooks/useValidationFormModes.js";
 import { useFetchElem } from "@/hooks/useFetchElem";
 import { useService } from "@/hooks/useService";
 import { userService } from "@f/user/service/userService.js";
-import { useCrudForm } from "@features/crud/hooks/useCrudForm.js";
 import { useState } from "react";
 
 
@@ -21,7 +21,7 @@ export const useUserForm = (fetchProfile=true) => {
   const { id, setId, loading, error: errorItem, currentItem,  setCurrentItem, refreshElem }
      = useFetchElem({...configElem})
 
-    const { ... formCrud } = useCrudForm(currentItem, scheme, "create");
+    const { ... formCrud } = useValidationFormModes(currentItem, scheme, "create");
     const { ...servicesMethods} = useService({ ...configService});
 
     return ({

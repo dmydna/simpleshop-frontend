@@ -81,7 +81,7 @@ function Cataloge() {
                   {...p}
                   key={p.id}
                 >
-                  <AddToCartButton variant="outline-success" product={p} />
+                  <AddToCartButton className="m-2" variant="outline-success" product={p} />
                 </ListingCard>
               ))}
             </Row>

@@ -1,6 +1,6 @@
 import CopyButton from '@/components/common/CopyButton';
 import SortByParam from '@/components/common/SortButton';
-import { useListCrudSync } from '@/features/crud/hooks/useListCrudSync';
+import { useListManagerSync } from '@/features/form/hooks/useListManagerSync';
 import { useUrlState } from '@/hooks/useUrlState';
 import DataView from '@common/DataView';
 import PlaceholderIcon from "@common/PlaceholderIcon";
@@ -17,7 +17,7 @@ function ProductTable({ children, baseHook, className }) {
 
     const { setSearchParams } = useUrlState()
     const navigate = useNavigate()
-    const { idParam } = useListCrudSync({ baseHook: baseHook })
+    const { idParam } = useListManagerSync({ baseHook: baseHook })
 
     const toggleSelect = (item) => {
         setSearchParams(prev => ({

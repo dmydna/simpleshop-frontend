@@ -2,7 +2,7 @@
 import FetchStateToast from "@/components/common/FetchStateToast";
 import PublicRoute from "@/components/common/PublicRoute";
 import FormProfile from "@/features/profile/components/FormProfile";
-import { CompleteUserRegister } from "@/utils/schemas";
+import { UpdateProfileDTO } from "@/utils/schemas";
 import { useProfile } from "@features/profile/contexts/ProfileContext.jsx";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect } from 'react';
@@ -19,7 +19,7 @@ function CompleteRegisterForm({ children, className, style }) {
 
     const { reset, register, handleSubmit, formState: { errors } } 
         = useForm({ 
-            resolver: zodResolver(CompleteUserRegister), 
+            resolver: zodResolver(UpdateProfileDTO), 
             defaultValues: profile,
             // mode: 'onTouched', 
             // reValidateMode: 'onChange'
@@ -31,6 +31,7 @@ function CompleteRegisterForm({ children, className, style }) {
     }, [profile])
 
     const onSubmit = async (data) => {
+        console.log(data)
         await updatePerfil(data)
     };
 

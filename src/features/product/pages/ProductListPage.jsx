@@ -26,12 +26,13 @@ export default function ProductListPage(){
     return (
         
         <>
-            <div>
+            <div className="visually-hidden">
                 <p className="h5 mb-3">
                     Products List
                 </p>
+                
             </div>
-            <div className="d-flex justify-content-between my-4 flex-wrap" >
+            <div className="d-flex justify-content-between mb-4 flex-wrap" >
                 <Button
                     variant="light"
                     onClick={() => navigate(`${FORM_URL}?mode=create`)}

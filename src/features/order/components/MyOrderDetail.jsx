@@ -1,12 +1,9 @@
 import { Card } from "react-bootstrap";
-import { useOrderDetailContext } from "@f/order/contexts/OrderDetailContext";
 import CartNavButton from "@/features/cart/components/CartNavButton";
 import { useMemo } from "react";
 
 
-export const MyOrderDetail = ({ check }) => {
-
-    const { currentOrder } = useOrderDetailContext()
+export const MyOrderDetail = ({ check, currentOrder, children }) => {
     
     const formatDate = ([year, month, day, hour, min]) => {
         const hh = hour > 12 ? 'pm' : 'am';
@@ -42,7 +39,7 @@ export const MyOrderDetail = ({ check }) => {
     return (
         <>
             <Card // style={{top: (width > 900 ? "55px" : 0)  }}
-                className={`m-2 p-4 island`} >
+                className={`my-2 p-4 island card mx-0 mx-lg-2`} >
                 <Card.Text className="h5 fw-bold text-secondary py-2">
                     Order Details
                 </Card.Text>
@@ -72,7 +69,7 @@ export const MyOrderDetail = ({ check }) => {
                     <Card.Text className="text-secondary small fw-semibold  m-0">
                         Subtotal ({currentOrder?.totalQuantity} unidades)</Card.Text>
                     <Card.Text className="fw-bold">
-                        ${(Number(currentOrder?.totalAmount) || 0).toFixed(2)}
+                        ${(Number(currentOrder?.totalAmount) + Number(totalAmountDiscounts) || 0).toFixed(2) }
                     </Card.Text>
                 </div>
 
@@ -81,7 +78,7 @@ export const MyOrderDetail = ({ check }) => {
                     <Card.Text className="text-secondary small fw-semibold  m-0">
                         Descuento (total) {check && '(1 cupon)'} </Card.Text>
                     <Card.Text className="fw-bold">
-                        - $ {(Number(totalAmountDiscounts) || 0).toFixed(2)}
+                        - $ { (Number(totalAmountDiscounts) || 0).toFixed(2)}
                     </Card.Text>
                 </div>
 
@@ -105,13 +102,17 @@ export const MyOrderDetail = ({ check }) => {
 
             </Card>
 
-            <div style={{ marginTop: '10px' }} className="border p-3 mx-2 d-flex justify-content-center gap-3 island">
+            <div style={{ marginTop: '10px' }} className="border p-3 mx-0 mx-lg-2 d-flex justify-content-center gap-3 island">
+                
+                {!children && 
                 <CartNavButton  
                     visible={true} 
                     variant="success disabled"
-                    title={"ENTREGADO"} // currentOrder.status 
+                    title={"ENTREGADO"} // 
                     icon="bi bi-check-circle me-2"
                 />
+                } 
+                { children}
               
             </div>
 

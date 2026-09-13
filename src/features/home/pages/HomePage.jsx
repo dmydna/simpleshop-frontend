@@ -69,10 +69,10 @@ function HomePage() {
 
                 {/** Banner ads */}
 
-                <Container fluid="xl" className={`mb-3`}>
+                <Container fluid="xl" className={``}>
                     <Row className="g-0">
                         <BannerAds
-                            className={"bg-color-heaven my-3 me-md-2 me-0"}
+                            className={"bg-color-heaven rounded-4 mb-3 me-md-2 me-0"}
                             image={Img10}
                             btnText={'ver ofertas'}
                         >
@@ -81,7 +81,7 @@ function HomePage() {
                         </BannerAds>
                         <BannerAds
                             image={Img3}
-                            className={"bg-wave-0 my-3 ms-md-2 ms-0"}
+                            className={"bg-wave-0 rounded-4 mb-3 ms-md-2 ms-0"}
                             btnText={'ver marcas'}
                         >
                             <h5 className="mb-0"> Temporada Invierno </h5>
@@ -98,21 +98,21 @@ function HomePage() {
                         <TopSection
                             maxElems={4}
                             maxCols={4}
-                            className="border p-4 my-3 island"
+                            className="mb-3 p-3f island border rounded-4"
                             top="visits"
                         >
-                            <p className="fs-4 fw-medium pb-0 m-0">Lo mas visto</p>
+                            <p className="fs-5 fw-medium pb-0 m-0">Lo mas visto</p>
                             <Link to={'/products'} className="text-decoration-none fw-bold">ver mas</Link>
                         </TopSection>
                     </Row>
 
 
                     <Row className="g-0">
-                        <Col className="p-0 my-3" md={12} lg={4}>
+                        <Col className="p-0 mb-3" md={12} lg={4}>
                             <ListingSection
                                 maxCols={1}
                                 maxElems={1}
-                                className="border p-4 m-0 me-lg-3 island"
+                                className="m-0 me-lg-3 p-3f island border rounded-4 "
                                 filter={{ tags : ["vegetables"] }}
                             >
                                 <p className="fs-5 fw-medium pb-0 m-0 ">Oferta del día</p>
@@ -120,11 +120,11 @@ function HomePage() {
                             </ListingSection>
                         </Col>
 
-                        <Col className="p-0 my-3" md={12} lg={8}>
+                        <Col className="p-0 mb-3" md={12} lg={8}>
                             <TopSection
                                 maxCols={3}
                                 maxElems={3}
-                                className="border p-4 island"
+                                className="p-3f island border rounded-4"
                                 top="onsale"
                             >
                                 <p className="fs-5 fw-medium pb-0 m-0 ">Mejores Rebajas</p>
@@ -139,7 +139,7 @@ function HomePage() {
 
                     <Row className="g-0">
                         <TopCarousel
-                            className="border mx-0 my-3 p-4 island"
+                            className="mx-0 mb-3 p-3f island border rounded-4"
                             top="rated"
                             maxCols={4}
                             maxElems={8}>
@@ -155,13 +155,13 @@ function HomePage() {
                     {/** Card Promos */}
 
                     <Row className="g-0">
-                        <CardPromo className="my-3 me-md-1 me-0" Img={Img1} variant="primary" 
+                        <CardPromo className="mb-3 island rounded-4 me-md-1 me-0" Img={Img1} variant="primary bg-opacity-75" 
                             to={'/products/filter?category=beauty'} cta="comprar ahora">
                             <p className="mb-1">6 cuotas sin interés</p>
                             <p className="h5 fw-bold mb-1">HASTA 40% OFF EN</p>
                             <p className="h5 fw-bold">PERFUMES Y BELLEZA</p>
                         </CardPromo>
-                        <CardPromo className="my-3 ms-md-1 ms-0" Img={Img2} variant="success" 
+                        <CardPromo className="mb-3  island rounded-4 ms-md-1 ms-0" Img={Img2} variant="success" 
                             to={`${PATHS.products.filter}?category=furniture`} cta="ver ofertas">
                             <p className="mb-1">6 cuotas sin interés</p>
                             <p className="h5 fw-bold mb-1">2X1 EN ARTICULOS</p>

@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import { Card } from "react-bootstrap";
 import { useMatch } from "react-router-dom";
 
-export const MyOrderCart = ({check, oncheck, handle}) => {
+export const MyOrderCart = () => {
 
     const {totalPrice,totalDiscount, cartItems, cartCount,  couponDiscount} = useCart()
 
@@ -35,20 +35,20 @@ export const MyOrderCart = ({check, oncheck, handle}) => {
     }, [cartItems]);
 
     const Order = useMemo(() => {
-        const descuento = couponDiscount ? 5.0 : 0;
+        const cupontDiscount = couponDiscount ? 5.0 : 0;
         const envio = 0.0;
         return ({
             envio: envio,
-            descuento: totalDiscount,
+            descuento: totalDiscount + cupontDiscount,
             subtotal: totalPrice,
-            total: totalPrice + envio - descuento
+            total: totalPrice + envio - totalDiscount - cupontDiscount
         });
-    }, [check, totalPrice, totalDiscount]);
+    }, [couponDiscount, totalDiscount, totalPrice]);
 
     return (
         <Card className={`mx-0 mt-3 mt-md-0 mx-md-2 p-3 island`} >
             <Card.Text className="h5 fw-bold text-secondary py-2">
-                Mi pedido
+                My order
             </Card.Text>
             <hr/>
 
@@ -57,14 +57,14 @@ export const MyOrderCart = ({check, oncheck, handle}) => {
                 <Card.Text className="text-secondary small fw-semibold  m-0">
                     Subtotal ({cartCount} unidades)</Card.Text>
                 <Card.Text className="fw-bold">
-                    ${totalPrice?.toFixed(2)}
+                    ${Order.subtotal?.toFixed(2)}
                 </Card.Text>
             </div>
 
             {/* DESCUENTOS */}
             <div className="d-flex align-items-center justify-content-between py-2">
                 <Card.Text className="text-secondary small fw-semibold  m-0">
-                     Descuentos {check && '(1 cupon)'} </Card.Text>
+                     Descuentos </Card.Text>
                 <Card.Text className="fw-bold">
                     - ${totalAmountDiscounts.toFixed(2)}
                 </Card.Text>

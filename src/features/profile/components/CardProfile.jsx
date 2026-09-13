@@ -1,11 +1,9 @@
-import { placeholder } from "@utils/image.js";
-import { useProfile } from "@features/profile/contexts/ProfileContext.jsx";
-import { useEffect } from "react";
-import { Card } from "react-bootstrap";
-import userDefaultXL from "/user-default-xl.png"
 import ImgAction from "@/components/common/ImgAction";
+import OffCanvasToggle from "@/components/common/OffCanvasToggle";
+import { useProfile } from "@features/profile/contexts/ProfileContext.jsx";
+import { Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import OffCanvasButton from "@/components/common/OffCanvasButton";
+import userDefaultXL from "/user-default-xl.png";
 
 function CardProfile({ name, image, children, className, imgSize }) {
 
@@ -21,9 +19,12 @@ function CardProfile({ name, image, children, className, imgSize }) {
     }
 
     return (
-        <Card  className={`mb-2 island border text-start flex-row`}>
+        <Card  className={`p-0 border-0 text-start flex-row`}>
             
-            <OffCanvasButton className={"d-block d-md-none"} />
+            {/*<OffCanvasButton className={"d-block d-md-none"} />*/}
+
+            <OffCanvasToggle/>
+
 
             <div className="d-block mx-auto position-relative">
                 <ImgAction

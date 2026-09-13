@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 
 
-export default function FetchStateModal({ children, hook, version = false }) {
+export default function FetchStateModal({ children, hook, version = false, onSuccess = null }) {
 
     const { loading, error, setError, success, setSuccess } = hook;
     const { setSearchParams } = useUrlState()
@@ -58,6 +58,7 @@ export default function FetchStateModal({ children, hook, version = false }) {
                             }} />}
                         {success && !error && !loading && 
                             <FallbackSuccess handle={() => {
+                                typeof onSuccess === "function" ? onSuccess() : ()=>{} 
                                 setShow(false)
                                 setSuccess(null) 
                                 versionHandle()

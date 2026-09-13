@@ -1,4 +1,5 @@
 import CardEntity from "@/components/common/CardEntity";
+import { PageLayout } from "@/components/layout/PageLayout";
 import ProductActions from "@/features/product/components/ProductActions";
 import ProductFilter from "@/features/product/components/ProductFilter";
 import { statsService } from "@/features/stats/services/statsService";
@@ -15,96 +16,81 @@ import { Toaster } from 'react-hot-toast';
 
 export default function ProductLayout({ children }) {
 
-    const {idParam, modeParam} = useUrlParams()
+    const { idParam, modeParam } = useUrlParams()
 
-    const {data, loading, error} = useFetchTrigger({ 
+    const { data, loading, error } = useFetchTrigger({ 
         fetchMethod: statsService.getStatsByField, 
-        initialTriggers: {field: "status", entity: "products" } 
+        initialTriggers: { field: "status", entity: "products" } 
     })
 
-    const description = useMemo(()=>{
-        if(idParam){
+    const description = useMemo(() => {
+        if (idParam) {
             return `# ${idParam}` 
         }
-        if(Array.isArray(data)){
-            const {name, count} = data[0];
+        if (Array.isArray(data)) {
+            const { name, count } = data[0];
             return `${count} (${name.toLowerCase()})` 
         }
         return "";
           
-    },[idParam, data])
+    }, [idParam, data])
 
 
     return (
         <ProtectedRouteAdmin>
-        <>
-            <Container fluid="xl" className="px-sm-4 px-md-4 px-lg-5">
-                <Row>
 
-                    <Col lg={3} style={{ top: '60px' }}
-                        className={`sticky-lg-bottom h-100 p-0 mb-2 d-none d-md-block`}
-                    >
-                        {/* -- Sidebar -- */}
+            <PageLayout>
 
-                        <div className="">
+                <PageLayout.Card>
 
-                            <CardEntity
-                                activeBack={modeParam}
-                                to={ URL_PRODUCT_LIST }
-                                title={"Products"}
-                                ico={"bi-box-seam"} 
-                                description={ description  } 
-                                variant={"success"} 
-                            />
+                    <CardEntity
+                        activeBack={modeParam}
+                        to={URL_PRODUCT_LIST}
+                        title={"Products"}
+                        ico={"bi-box-seam"} 
+                        description={description} 
+                        variant={"success"} 
+                    />
 
-                            <ParamGuard param="id||hash||mode">
-                                <ProductActions className={"border p-3 island rounded-4 shadow-none"} />
-                            </ParamGuard>
+                </PageLayout.Card>
 
-                            <ParamGuard param="id||hash||mode" inverse>
-                                <ProductFilter className={"border p-3 island rounded-4 shadow-none"}  />
-                            </ParamGuard>
+                <PageLayout.Sidebar>
 
-                        </div>
+                    <ParamGuard param="id||hash||mode">
+                        <ProductActions/>
+                    </ParamGuard>
 
-                        {/* -- Modal CRUD-ACTIONS -- */}
-                        <ModalParam param="dialog=action">
-                            {(close) => 
-                            <ProductActions
-                                className={"border p-3 island rounded-4 shadow-none"} 
+                    <ParamGuard param="id||hash||mode" inverse>
+                        <ProductFilter/>
+                    </ParamGuard>
+                                
+                </PageLayout.Sidebar>    
+     
+                <PageLayout.Toolkit>
+
+                    {/* -- Modal CRUD-ACTIONS -- */}
+                    <ModalParam param="dialog=action">
+                        {(close) => 
+                            <ProductActions className={"border p-3 island rounded-4 shadow-none"}
                                 close={() => close()} 
                             />}
-                        </ModalParam>
+                    </ModalParam>
 
-                        {/* -- Modal LIST-FILTER -- */}
-                        <ModalParam param="dialog=filter">
-                            {(close) => <ProductFilter 
-                            className="island border p-3 rounded-4" 
+                    {/* -- Modal LIST-FILTER -- */}
+                    <ModalParam param="dialog=filter">
+                        {(close) => <ProductFilter className={"border p-3 island rounded-4 shadow-none"}
                             close={() => close()} />}
-                        </ModalParam>
+                    </ModalParam>
 
-                    </Col>
+                    <Toaster duration="7000" position="bottom-length" />
+                </PageLayout.Toolkit>
 
-                    <Col lg={9} className="p-0">
+                <PageLayout.Main>
+                    {children}
+                </PageLayout.Main>    
 
-                        <CardEntity
-                            className={"d-flex d-md-none"}
-                            to={ URL_PRODUCT_LIST }
-                            title={"Products"}
-                            ico="bi-box-seam" 
-                            description={ description  } 
-                            variant={"success"} 
-                        />
-
-                        <div className="p-4 rounded-4 island border mb-3 mx-0 mx-md-2">
-                            {children}
-                        </div>
-                    </Col>
-
-                </Row>
-            </Container>
-            <Toaster duration="7000" position="bottom-length" />
-        </>
-        </ProtectedRouteAdmin>
+            
+            </PageLayout>
+        </ProtectedRouteAdmin >
     )
 }

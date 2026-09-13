@@ -23,8 +23,9 @@ function CardPromo({Img, children, variant , to, cta, className, p, m}){
             {children}
          </div>
    
-         <div className="d-flex align-items-center mt-3 fw-semibold">
-           <LinkArrow to={to}>
+         <div className="d-inline-flex align-items-center mt-3 fw-semibold">
+           <LinkArrow style={
+            {background: "#0000003b",borderRadius: "10px",padding: "0px 10px"}} to={to}>
              {cta}
            </LinkArrow>
          </div>

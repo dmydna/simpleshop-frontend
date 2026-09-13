@@ -8,7 +8,6 @@ function SidebarProfile({ role, border = false }) {
     const navigate = useNavigate()
 
     return (
-        <>
             <ul className="list-group list-group-flush">
  
 
@@ -52,7 +51,6 @@ function SidebarProfile({ role, border = false }) {
                 </Tintify>                  
 
             </ul>
-        </>
 
     )
 }

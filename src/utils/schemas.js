@@ -1,16 +1,27 @@
 import { z } from 'zod';
 
 
-export const CompleteUserRegister = z.object({
-  firstName: z.string().min(1, "campo no valido").default(""),
-  lastName:  z.string().min(1, "campo no valido").default(""),
+export const UpdateProfileDTO = z.object({
+  firstName: z.string().min(1, "campo requerido").default(""),
+  lastName:  z.string().min(1, "campo requerido").default(""),
   address:   z.string().min(1, "direccion no valido").default(""),
   phone:     z.string().min(1, "telefono es obligatorio").default(""),
   email:     z.string().email("formato de correo inválido").default(""),
+  state:     z.string().default(""),
+  city:      z.string().default(""),
+  zipCode:   z.coerce.number().min(0, "zipCode no puede ser negativo").default(0),
 });
 
+export const checkout = z.object({
+  fullname: z.string().min(1, "campo requerido").default(""),
+  address: z.string().min(1, "campo requerido").default(""),
+  zipCode: z.string().min(1, "campo requerido").default(""),
+  city: z.string().min(1, "campo requerido").default(""),
+  state: z.string().min(1, "campo requerido").default(""),
+  email: z.string().email("formato de correo inválido").default(""),
+})
 export const RegisterUser = z.object({
-  username: z.string().min(1, "El nombre es obligatorio"),
+  username: z.string().min(1,"El nombre es obligatorio"),
   password: z.string().min(4,"contraseña debe contener mas de 4 caracteres"),
 });
 
@@ -51,9 +62,8 @@ export const ListingDTO = z.object({
 
 export const ListingDraftDTO = z.object({
   title: z.string().min(1, "Título requerido").default(""),
-  sku: z.string().min(1, "sku requerido").default(""),
+/*  sku: z.string().min(1, "sku requerido").default(""),*/
 });
 
 
-// Opcional: Inferir el tipo si usas TypeScript
-// export type ProductDTO = z.infer<typeof ProductDTO>;
+

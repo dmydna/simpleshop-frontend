@@ -1,54 +1,58 @@
 import { useCart } from "@features/cart/contexts/CartContext.jsx";
-import { usePayment } from "@features/payment/hooks/usePayment.js";
 import { Col, Container, Row } from "react-bootstrap";
 import { ToastContainer } from "react-toastify";
-import { CartLayout } from "@features/cart/layout/CartLayout";
 import MyOrderLayout from "@features/cart/layout/MyOrderLayout";
-import { PaymentProvider } from "@features/payment/contexts/PaymentContext";
-import MyCartLayout from "@features/cart/layout/MyCartLayout";
+import FetchStateCart from "@/features/order/layout/FetchStateCart";
+import { useAsync } from "@/hooks/useAsync";
+import { orderService } from "@/features/order/services/orderService";
+import { useNavigate } from "react-router-dom";
+import { MyCart } from "../components/MyCart";
 
 
 function Cart() {
 
-  const { cartItems, clearCart } = useCart()
-  const methods  = usePayment()
-  const successHandle = () => {
-    clearCart()
-    methods?.setSuccess(null)
+  const cartHook = useCart()
 
-  }
+  const navigate = useNavigate();
+
+  const createOrder = useAsync(orderService.createMyOrder, 
+    { onSuccess: (order) => navigate(`/checkouts/${order.orderId}`) })   
 
   return (
-    <PaymentProvider { ...methods } >
 
-      <CartLayout
-        isEmpty={!methods?.success && cartItems?.length == 0}
-      >
-         <Container fluid="xl" className="mt-4">
-          <div className="h1 d-none">Cart</div>
-          <Row className="g-0" md={4}>
+    <FetchStateCart
+      hook={{ ...createOrder }}
+      isEmpty={ cartHook.cartItems?.length == 0}
+    >
+      <Container fluid="xl" className="mt-4">
+        <div className="h1 d-none">Cart</div>
+        <Row className="g-0" md={4}>
 
-            {/* MY CART */}
+          {/* MY CART */}
 
-            <Col className={`col-12 col-md-12 col-lg-12 col-xl-7`}>
+          <Col className={`col-12 col-md-12 col-lg-12 col-xl-7`}>
               
-              <MyCartLayout />
+            <MyCart  className="p-4 island" {...cartHook} >
+              <p className="h5 fw-bold">
+                My cart({cartHook.cartItems.length})
+              </p>
+            </MyCart>
               
-            </Col>
+          </Col>
 
-            {/* ORDER */}
+          {/* ORDER */}
 
-            <Col className={`col-12 col-md-12 col-lg-12 col-xl-5`}>
-              
-              <MyOrderLayout />
+          <Col className={`col-12 col-md-12 col-lg-12 col-xl-5`}>
+            
 
-            </Col>
-            <ToastContainer />
-          </Row>
-        </Container>
+            <MyOrderLayout createOrder={createOrder} {...cartHook} />
 
-      </CartLayout>
-  </PaymentProvider>
+          </Col>
+          <ToastContainer />
+        </Row>
+      </Container>
+
+    </FetchStateCart>
   )
 
 }

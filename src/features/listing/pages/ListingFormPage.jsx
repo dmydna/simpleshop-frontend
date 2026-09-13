@@ -1,84 +1,75 @@
-import FormCrud from "@/features/crud/components/FormCrud";
-import ModalCrud from "@/features/crud/components/ModalCrud";
-import MultiImageUploaderCrud from "@/features/crud/components/MultiImageUploaderCrud";
-import ListingActions from "@/features/listing/components/ListingActions";
+import FetchState from "@/components/common/FetchState";
+import TitleForm from "@/components/common/TitleForm";
+import MultiImageUploaderCrud from "@/features/form/components/MultiImageUploaderCrud";
 import FormBasic from "@/features/listing/components/ListingForm/FormBasic";
 import FormDetails from "@/features/listing/components/ListingForm/FormDetails";
 import FormSku from "@/features/listing/components/ListingForm/FormSku";
 import { useListingForm } from "@/features/listing/hooks/useListingForm";
 import { useUrlParams } from "@/hooks/useUrlParams";
-import { ListingDraftDTO, ListingDTO } from "@/utils/schemas";
+import { useUrlState } from "@/hooks/useUrlState";
+import { URL_LISTING_LIST } from "@/utils/links";
+import CreateButton from "@features/listing/components/ListingForm/CreateButton";
+import DraftButton from "@features/listing/components/ListingForm/DraftButton";
+import UpdateButton from "@features/listing/components/ListingForm/UpdateButton";
+import UpdateDraftButton from "@features/listing/components/ListingForm/UpdateDraftButton";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function ListingFormPage() {
 
     const baseHook = useListingForm()
-    const { showModal, setShowModal, setScheme } = baseHook
+    const { loading, error, setError, success, setSuccess, setId, currentItem } = baseHook
 
-    const { edit_draftMode, create_draftMode, createMode } = useUrlParams()
+    const navigate = useNavigate()
+    
+    const {searchParams, setSearchParams} = useUrlState()
 
-    // Validaciones Zod Especificas:
+    const { idParam } = useUrlParams()
+
     useEffect(()=>{
-        if(createMode)       { setScheme(ListingDTO) }
-        if(create_draftMode) { setScheme(ListingDraftDTO) }
-        if(edit_draftMode)   { setScheme(ListingDraftDTO) }
-    },[edit_draftMode, create_draftMode, createMode, setScheme])
+        if(idParam) setId(idParam)
+    },[idParam])
+
+    const handleSuccess=()=>{
+        navigate(URL_LISTING_LIST)
+    }
 
 
     return (
-        <>
-            <FormCrud
-                type="Listing"
-                {...baseHook}
-                enableEdit
-                enableDraft
-                enableCreate
-            >
-                <>
+        <FetchState.Modal 
+            onSuccess={ handleSuccess }
+            hook={{ loading, error, setError, success, setSuccess }} 
+        >
+            <>
+                <TitleForm/>
 
-                    <div className="mb-4">
-                        <p className="fw-medium">Post & description</p>
-                        <FormBasic 
-                            baseHook={baseHook}
-                        />
-                    </div>
+                <FormBasic className={"mb-4"} baseHook={baseHook}>
+                    General
+                </FormBasic>
+                <FormDetails className={"mb-4"} baseHook={baseHook}>
+                    Details
+                </FormDetails>
+                <FormSku className={"mb-4"} baseHook={baseHook}>
+                    Specs
+                </FormSku>
 
-                    <div className="mb-4">
-                        <p className="fw-medium">Details & Shipping</p>
-                        <FormDetails 
-                            baseHook={baseHook}
-                        />
-                    </div>
-
-                    <div className="mb-4">
-                        <p className="fw-medium">Product Specs</p>
-                        <FormSku 
-                            baseHook={baseHook}
-                        />
-                    </div>
+                <MultiImageUploaderCrud className={"mb-4"} baseHook={baseHook}>
+                    Images
+                </MultiImageUploaderCrud>    
 
 
-                    <div className="mb-4">
-                        <p className="fw-medium">Product Images</p>
-                        <MultiImageUploaderCrud
-                            baseHook={baseHook}
-                        />
-                    </div>
+                <div className="d-flex mt-5 justify-content-center gap-3">
+                    
+                    <CreateButton      {...baseHook} />
+                    <UpdateButton      {...baseHook} />
+                    <UpdateDraftButton {...baseHook} />
+                    <DraftButton       {...baseHook} />
+                
+                </div>
 
 
-                    <ModalCrud
-                        show={showModal}
-                        onHide={setShowModal}
-                    >
-                        <ListingActions
-                            close={() => setShowModal(false)}
-                        />
-                    </ModalCrud>
-
-                </>
-            </FormCrud>
-        </>
-
+            </>
+        </FetchState.Modal>
     )
 }
 

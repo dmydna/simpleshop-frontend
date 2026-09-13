@@ -21,7 +21,7 @@ function ProductBuyCard({ className, ...item }) {
 
   return (
     <Card className={`${className}`}>
-      <Card.Body>
+      <Card.Body className="p-0">
         <div className="d-flex justify-content-between w-100">
           <Card.Title>
             {item.title}
@@ -43,15 +43,15 @@ function ProductBuyCard({ className, ...item }) {
           <i className="bi bi-truck"></i> {item.shippingInformation || '...'}
         </Card.Text>
       </Card.Body>
-      <InputGroup className="w-100 align-items-center gap">
+      <InputGroup className="w-100 align-items-center gap-2">
         {item?.meta?.status === "ACTIVE" && (
           <>
             <BuyNowButton
-              className='m-2'
+              className='m-0'
               variante='primary'
               handle={handleClick} 
             />
-            <AddToCartButton  product={item} /> 
+            <AddToCartButton className="m-0" product={item} /> 
           </>
         )}
         {item?.meta?.status === "INACTIVE" && 

@@ -1,7 +1,5 @@
 import CopyButton from "@/components/common/CopyButton";
 import LockButton from "@/components/common/LockButton";
-import { CRUD } from "@utils/enums.js";
-import { useEffect } from "react";
 import { FloatingLabel, Form } from "react-bootstrap";
 
 // NOTA este componente es multi-contexto, 
@@ -12,21 +10,14 @@ function InputCrudFloating({
     type = "text", 
     placeholder, 
     as, 
-    rows, 
-    baseHook: crudHook,
-    // crudHook
+    rows,
     watch,
     errors,
     register,
-    isFieldDisabled,
-    handleEnableField,
-    lockedFields,
-    showEditButton,
-    showCopyButton,
+    isFieldDisabled
 }) {
 
     // Obtener el valor actual para el botón de copiar
-    const currentValue = watch(name);
     const isDisabled = isFieldDisabled(name);
 
     return (
@@ -57,28 +48,7 @@ function InputCrudFloating({
                         {errors[name].message}
                     </div>
                 )}
-
-                {/* Botón Editar: Solo en modo UPDATE y si el campo NO está bloqueado */}
-                {showEditButton && isDisabled && !lockedFields[name] && (
-                    <LockButton
-                        style={{ top: 11, right: 3, opacity: '.7' }}
-                        className="pointer position-absolute"
-                        locked={false} // Visualmente desbloqueado porque el campo está habilitado
-                        handle={() => handleEnableField(name)}
-                        title="Editar campo"
-                    />
-                )}
-
-                {/* Botón Copiar: Solo en modo READ */}
-                {showCopyButton && (
-                    <CopyButton
-                        style={{ top: 10, right: 3, opacity: '.7' }}
-                        className="pointer position-absolute"
-                        showMessage={false}
-                        value={currentValue}
-                        title="Copiar valor"
-                    />
-                )}
+                
             </FloatingLabel>
         </Form.Group>
     );

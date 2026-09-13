@@ -40,7 +40,7 @@ function TopSection({ children, maxElems = 1, top, maxCols, className }) {
 
 
     return (
-        <div className={`${className} rounded h-100 p-4`}>
+        <div className={`${className} h-100`}>
             <div className='row'>
                 {children}
                 {Array.isArray(data) && data?.map((p) => (

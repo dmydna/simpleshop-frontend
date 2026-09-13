@@ -34,7 +34,7 @@ export function CarrouselChunk({ elems, children, title, chunkSize, className })
 					.carousel-control-prev, .carousel-control-next {width: 40px !important;}
 				 `}</style>
 				<div className={`row ${className} rounded  h-100`}>
-					<div className='col-12 d-flex justify-content-between'>
+					<div className='col-12 d-flex justify-content-between p-0'>
 						<div>
 							{title} {/* header */}
 						</div>

@@ -1,7 +1,6 @@
-import { useCrudForm } from "@/features/crud/hooks/useCrudForm.js";
+import { useValidationFormModes } from "@/features/form/hooks/useValidationFormModes.js";
 import { useFetchElem } from "@/hooks/useFetchElem.js";
 import { useService } from "@/hooks/useService.js";
-import { ListingDTO } from "@/utils/schemas.js";
 import { listingService } from '@f/listing/services/listingService.js';
 import { useState } from "react";
 
@@ -19,10 +18,7 @@ import { useState } from "react";
 export const useListingForm = () => {
 
     // General states
-    const [showModal, setShowModal] = useState(false)
     const [dataItem, setDataItem] = useState({});
-    const [crudMode, setCrudMode] = useState()
-    const [scheme, setScheme] = useState(ListingDTO)
 
     // config hooks
     const configService = {service: listingService}
@@ -31,7 +27,7 @@ export const useListingForm = () => {
     const { id, setId, loading, error: errorItem, currentItem,  setCurrentItem, refreshElem }
      = useFetchElem({...configElem})
 
-    const { ... formCrud } = useCrudForm(currentItem, scheme, "create" ,{});
+    const { ... formCrud } = useValidationFormModes(currentItem);
     const { ...servicesMethods} = useService({ ...configService});
 
 
@@ -39,8 +35,6 @@ export const useListingForm = () => {
         ...servicesMethods,
         // Form
         ...formCrud,
-        scheme,
-        setScheme,
 
         // Fetch state
         loading,
@@ -54,12 +48,6 @@ export const useListingForm = () => {
         refreshElem,
         dataItem,
         setDataItem,
-
-        // Mode
-        crudMode, 
-        setCrudMode,
-        showModal, 
-        setShowModal,
     
     })
 }

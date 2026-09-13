@@ -23,6 +23,7 @@ export const useUrlParams = () => {
     const createMode = searchParams.get('mode') === 'create';
     const create_draftMode = searchParams.get('mode') === 'create.draft';
     const edit_draftMode = searchParams.get('mode') === 'edit.draft';
+    const validate = searchParams.get('validate');
 
     const availabilityParam = searchParams.get('availability');
     const tableVersion = searchParams.get('tableVersion');
@@ -55,6 +56,7 @@ export const useUrlParams = () => {
        availabilityParam, tableVersion, tagsParam, hashParam, pageParam,
        idParam, searchParam, categoryParam, statusParam, roleParam, skuParam,
        sortParam, filterParam, allParams, create_banMode, update_banMode,
-       pageVersion, modeParam, minPrice, maxPrice, dialogParam
+       pageVersion, modeParam, minPrice, maxPrice, dialogParam,
+       validate,
     }
 }

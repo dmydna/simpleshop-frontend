@@ -22,7 +22,7 @@ function ListingSection({children, maxElems=1 ,filter, maxCols, className, borde
 
 
     return(
-      <div className={`${className} rounded  h-100 p-4`}>
+      <div className={`${className}  h-100`}>
         <div className='row'>
           {children}
         {listings?.slice(0, maxElems).map((p) => (

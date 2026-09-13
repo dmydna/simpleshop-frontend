@@ -7,7 +7,7 @@ function CardFeature({title, image, text, id }){
   return(
        <Col id={id} key={title} xs={12} sm={6} md={4} lg={3}>
          <Card
-           className="h-100 text-center border hover-shadow transition"
+           className="h-100 text-center border-0 rounded-4 hover-shadow transition"
            style={{ cursor: "pointer" }}
          >
          <div className="p-4">

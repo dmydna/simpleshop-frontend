@@ -10,11 +10,11 @@ function ProductSpecs({ producto, children }) {
     <>
       {children}
 
-      <div className="d-flex gap-3 my-2">
+      <div className="d-flex gap-3 my-2 flex-wrap flex-sm-nowrap">
 
         <div className="w-100">
           <p className="fw-medium small mb-2">Caracteristicas principales</p>
-          <Table style={{ overflowX: 'hidden' }} className="small rounded" striped hover>
+          <Table style={{ overflowX: 'hidden' }} className="small rounded m-0" striped hover>
         <tbody className="rounded">
           <tr className="small border-0">
             <td className="fw-medium border-0">Brand</td>
@@ -45,7 +45,7 @@ function ProductSpecs({ producto, children }) {
         
         <div className="w-100">
           <p className="fw-medium small mb-2">Dimensiones</p>
-          <Table style={{ overflowX: 'auto' }} className="small rounded" striped hover>
+          <Table style={{ overflowX: 'auto' }} className="small rounded m-0" striped hover>
         <tbody className="rounded">
 
           <tr className="border-0 small">

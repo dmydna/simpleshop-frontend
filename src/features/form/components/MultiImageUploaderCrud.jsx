@@ -1,9 +1,9 @@
 import MultiImageUploader from "@/components/common/MultiImageUploader";
 import { CRUD } from "@/utils/enums";
-import { useEffect, useState } from "react";
+import { Children, useEffect, useState } from "react";
 
 
-function MultiImageUploaderCrud({useCrudHook, title, baseHook, locked}) {
+function MultiImageUploaderCrud({useCrudHook, children, className, baseHook, locked}) {
 
    const { currentItem, mode, setValue, setSelectedFile } = baseHook
    const [images, setImages] = useState([]); // Array de objetos { id, url, file }
@@ -34,11 +34,14 @@ function MultiImageUploaderCrud({useCrudHook, title, baseHook, locked}) {
    }, [images])
 
     return (
+    <div className={className}>
+    <p className="fw-medium">{children}</p>  
     <MultiImageUploader 
        locked={mode != CRUD.READ}
        setImages={setImages}
        images={images}
     />
+   </div>
     )
 }
 

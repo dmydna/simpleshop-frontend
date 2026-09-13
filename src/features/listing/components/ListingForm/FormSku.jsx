@@ -1,14 +1,12 @@
-import InputCrudFloating from "@/features/crud/components/InputCrudFloating.jsx";
+import InputCrudFloating from "@/features/form/components/InputCrudFloating.jsx";
 
 function FormSku({children, className, baseHook}){
 
 
     return (
-        <>
-            {/* Detalles */}
-            {children}
+      <div className={className}>
 
-        <div className="d-flex gap-2 flex-column flex-lg-row">
+        <p className="fw-medium">{children}</p>
 
           <InputCrudFloating
             name={"sku"}
@@ -17,14 +15,7 @@ function FormSku({children, className, baseHook}){
             showEditButton={false}
           />
 
-          <InputCrudFloating
-            name={"stock"}
-            label={"stock"}
-            {...baseHook}
-          />
-
-        </div>
-          </>
+      </div>
     )
 }
 

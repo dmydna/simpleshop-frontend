@@ -6,7 +6,7 @@ import { MSG_LISTING_ACTIVE, MSG_LISTING_DELETE, MSG_LISTING_INACTIVE } from "@/
 import { useListingForm } from "@/features/listing/hooks/useListingForm";
 import { useUrlParams } from "@/hooks/useUrlParams";
 import { useUrlState } from "@/hooks/useUrlState";
-import { URL_LISTING_CRUD, URL_LISTING_LIST } from "@/utils/links";
+import { URL_LISTING_CRUD, URL_LISTING_LIST, URL_PRODUCT_CRUD } from "@/utils/links";
 import { useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -35,6 +35,7 @@ export default function ListingActions({ close, className }) {
     // URLs
     const FORM_URL = URL_LISTING_CRUD;
     const LIST_URL = URL_LISTING_LIST;
+
 
     useEffect(() => {
         if (idParam) { setId(idParam) } else { setCurrentItem(null) }
@@ -89,7 +90,7 @@ export default function ListingActions({ close, className }) {
    }),[currentItem])
 
     const handle = useMemo(()=> ({
-        specs :  () => navigate(`${FORM_URL}?mode=view&id=${currentItem?.productId}`) ,
+        specs :  () => navigate(`${URL_PRODUCT_CRUD}?mode=view&id=${currentItem?.productId}`) ,
         create:  () => navigate(`${FORM_URL}?mode=create`),
         edit2:   () => navigate(`${FORM_URL}?mode=edit.draft&id=${currentItem?.id}`), 
         clone:   () => navigate(`${FORM_URL}?mode=create&id=${currentItem.id}`),
@@ -108,13 +109,6 @@ export default function ListingActions({ close, className }) {
 
             <CrudActions close={close} {...crudHook} >
             
-                    <ButtonLink
-                        visible={!currentItem}
-                        icon="bi-plus-lg"
-                        handle={ handle.create }
-                    >
-                        Create
-                    </ButtonLink>
 
                     <ButtonLink
                         handle={ handle.specs }
@@ -167,7 +161,7 @@ export default function ListingActions({ close, className }) {
                         Summary
                     </ButtonLink>
 
-                    <hr className="my-1"/> 
+                    {modeParam != 'create' && <hr className="my-1"/>} 
 
                     <ButtonLink
                         handle={ handle.deactive }

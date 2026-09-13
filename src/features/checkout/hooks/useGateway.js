@@ -1,12 +1,21 @@
+import { gatewayService } from "@/features/checkout/service/gatewayService.js";
 import { useProfile } from "@/features/profile/contexts/ProfileContext";
-import { gatewayService } from "@features/payment/service/gatewayService.js";
+import { useFetch } from "@/hooks/useFetch";
 import { useService } from "@hooks/useService.js";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 
-export const useGateway = ({buy, setLoading, setError, onSuccess, orderResponse}) => {
+export const useGateway = () => {
 
+    const {orderId} = useParams()
     const {profile} = useProfile()
+
+
+
+    const { loading, setLoading, setSuccess, success, error, setError } = useFetch()
+
     const [tokenGateway, setTokenGateway] = useState(null)
+
     const {create: paymentRequest } = useService({service: gatewayService})
 
     const handleGatewayRequest = async() => {
@@ -14,11 +23,11 @@ export const useGateway = ({buy, setLoading, setError, onSuccess, orderResponse}
         setError(null)
         try {
             const token = await paymentRequest(
-                { "orderId": orderResponse.orderId,  "userEmail": profile.email }
+                { "orderId": orderId,  "userEmail": profile.email }
             )
             setTokenGateway(token)
             return  (
-                { "orderId": orderResponse.orderId , "paymentToken" : token }
+                { "orderId": orderId , "paymentToken" : token }
             )
         }catch(error){
             setError(true)
@@ -28,14 +37,13 @@ export const useGateway = ({buy, setLoading, setError, onSuccess, orderResponse}
         }
     }
 
-    const handleValidateGateway = async(tokenRequest)=>{
+    const handleValidateGateway = async(func, tokenRequest)=>{
         setLoading(true)
         setError(null)
         try{
-           const response = await buy(tokenRequest)
+           const response = await func(tokenRequest)
            // console.log(response, "-- FINISH BUY [OK] --")
            setLoading(false)
-           onSuccess()
            setError(false)
         }catch(error){
            // console.log(error, "-- FINISH BUY [FAIL] --")
@@ -46,20 +54,11 @@ export const useGateway = ({buy, setLoading, setError, onSuccess, orderResponse}
         }
     }
 
-    const handleConfirmPay = async() => {
-        try {
-          const tokenRequest = await handleGatewayRequest()
-          await handleValidateGateway(tokenRequest)
-        }
-        catch(err){
-            setError(true)
-        }
 
-    }
 
 
     return ({
-      handleConfirmPay, 
+      handleValidateGateway, handleGatewayRequest
     })
 
 }

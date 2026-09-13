@@ -4,7 +4,7 @@ import { useCart } from "@f/cart/contexts/CartContext.jsx";
 
 
 
-function AddToCartButton({product, variant='success', children}){
+function AddToCartButton({product, className = '',variant='success', children}){
 
     const { cartItems, addToCart} = useCart()
 
@@ -23,7 +23,7 @@ function AddToCartButton({product, variant='success', children}){
                   product && addToCart(product);
                   handleAddToCart();
               }}
-              className="m-2 flex-fill rounded text-truncate"
+              className={`flex-fill rounded text-truncate ${className}`}
               variant={variant}
               type="submit"
               style={{cursor: "pointer"}}

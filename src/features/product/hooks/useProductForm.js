@@ -1,4 +1,4 @@
-import { useCrudForm } from "@/features/crud/hooks/useCrudForm.js";
+import { useValidationFormModes } from "@/features/form/hooks/useValidationFormModes.js";
 import { productService } from '@/features/product/services/productService.js';
 import { useFetchElem } from "@/hooks/useFetchElem";
 import { useService } from "@/hooks/useService";
@@ -19,7 +19,7 @@ export const useProductForm = () => {
 
     const { id, setId, loading, error: errorItem, currentItem,  setCurrentItem, refreshElem } = 
     useFetchElem({...configElem})
-    const { ... formCrud } = useCrudForm(currentItem, scheme, "create");
+    const { ... formCrud } = useValidationFormModes(currentItem, scheme, "create");
     const { ...servicesMethods } = useService({ ...configService});
 
     return ({
