@@ -20,14 +20,14 @@ export const processUser = (u) => ({
 
 export const db = {
 
-  users:    [...userData.content.map( processUser )],
-  products: [...productData.content ],
-	listings: [...listingData.content ],
-  reviews:  [...reviewsData.content ],
-	favorites: [],
-	orders: [],
+  users: [...userData.content.map(processUser)],
+  products: [...productData.content],
+  listings: [...listingData.content],
+  reviews: [...reviewsData.content],
+  favorites: [],
+  orders: [],
   orders_items: [],
-  product_tags :[],
+  product_tags: [],
 
   
   configDB: configDB,
@@ -35,11 +35,11 @@ export const db = {
 
   /**metodos privados**/
 
-	__generateId(collection){
-		return this[collection].length;
-	},
+  __generateId(collection) {
+    return this[collection].length;
+  },
 
-  __getIndex(collection, id){
+  __getIndex(collection, id) {
     return this[collection].findIndex(i => i.id == id);
   },
 
@@ -56,18 +56,18 @@ export const db = {
     }
 
 
-    if(config.validation && config.validation.uniqueKeys){
-    const { validation } = config
-    for (const field of validation.uniqueKeys) {
-      if (data[field] !== undefined) { // Solo verificar si el campo viene en data
-        const exists = this[collection].find(
-          (item) => field in item && item[field] === data[field]
-        );
-        if (exists) {
-          throw new Error(`El valor '${field}' ya existe en otro registro.`)
+    if (config.validation && config.validation.uniqueKeys) {
+      const { validation } = config
+      for (const field of validation.uniqueKeys) {
+        if (data[field] !== undefined) { // Solo verificar si el campo viene en data
+          const exists = this[collection].find(
+            (item) => field in item && item[field] === data[field]
+          );
+          if (exists) {
+            throw new Error(`El valor '${field}' ya existe en otro registro.`)
+          }
         }
       }
-    }
 
     }
 
@@ -75,7 +75,7 @@ export const db = {
   },
 
 
-__saveItem(collection, data) {
+  __saveItem(collection, data) {
     // Generar ID
     const id = this.__generateId(collection);
     
@@ -83,10 +83,12 @@ __saveItem(collection, data) {
     const DATE = createMockDate(new Date());
 
     // Crear objeto con estructura base
+    const status = data.status == "DRAFT" ? "DRAFT" : data.status 
+
     const newItem = {
       id: id,
       ...data,
-      status: "ACTIVE",
+      status:  status,
       createdAt: DATE,
       updatedAt: null,
       deletedAt: null 
@@ -97,212 +99,213 @@ __saveItem(collection, data) {
 
 
 
-  __update(collection, filterFn, update){
+  __update(collection, filterFn, update) {
     const data = this[collection].find(filterFn);
-    if(!data) return null;
-    const DATE =  createMockDate( new Date() );
-    const {id, meta} = data;
+    if (!data) return null;
+    const DATE = createMockDate(new Date());
+    const { id, meta } = data;
     const index = this.__getIndex(collection, id);
     this[collection][index] = {
       id, ...update, 
-      meta: { ...meta,...update?.meta, updatedAt: DATE}
+      meta: { ...meta, ...update?.meta, updatedAt: DATE }
     }
-    return this[collection].find((item)=> item.id === id)
+    return this[collection].find((item) => item.id === id)
   },
 
-  __delete(collection, filterFn){
+  __delete(collection, filterFn) {
     const data = this[collection].find(filterFn);
     //console.log("DELTED ITEM:", data)
-    if(!data) return false;
-    const DATE =  createMockDate( new Date() );
+    if (!data) return false;
+    const DATE = createMockDate(new Date());
     const index = this.__getIndex(collection, data.id);
-    const meta =  { deletedAt: DATE, status: "HARD_DELETED" }
-    this[collection][index] = {...data, ...meta }
+    const meta = { deletedAt: DATE, status: "HARD_DELETED" }
+    this[collection][index] = { ...data, ...meta }
     return true;
   },
 
 
-_loadRelations(entity, parentCol){
-  const meta = db.configDB[parentCol];
+  _loadRelations(entity, parentCol) {
+    const meta = db.configDB[parentCol];
   
-  if (!meta) return entity;
-  if (!meta.relations) return entity;
+    if (!meta) return entity;
+    if (!meta.relations) return entity;
 
-  const parentId = entity.id;   // id del padre
+    const parentId = entity.id;   // id del padre
 
-  /* ----------  oneToMany (el hijo posee la FK) ---------- */
-  if (meta.relations.oneToMany) {
-    meta.relations.oneToMany.forEach(rel => {
-      const childCol = db[rel.collection];
-      if (!Array.isArray(childCol)) return;
+    /* ----------  oneToMany (el hijo posee la FK) ---------- */
+    if (meta.relations.oneToMany) {
+      meta.relations.oneToMany.forEach(rel => {
+        const childCol = db[rel.collection];
+        if (!Array.isArray(childCol)) return;
 
-      // FK que se guarda en la colección hija
-      const fkField = rel.FK || meta.FK;
+        // FK que se guarda en la colección hija
+        const fkField = rel.FK || meta.FK;
 
-      entity[rel.key] = childCol.filter(item => item[fkField] === parentId);
-    });
-  }
+        entity[rel.key] = childCol.filter(item => item[fkField] === parentId);
+      });
+    }
 
-  /* ---------- oneToOne (puede ser cualquiera) ---------- */
-  if (meta.relations.oneToOne) {
-    meta.relations.oneToOne.forEach(rel => {
-      const childCol = db[rel.collection];
-      const childMeta = db.configDB[rel.collection];
+    /* ---------- oneToOne (puede ser cualquiera) ---------- */
+    if (meta.relations.oneToOne) {
+      meta.relations.oneToOne.forEach(rel => {
+        const childCol = db[rel.collection];
+        const childMeta = db.configDB[rel.collection];
       
-      if (!Array.isArray(childCol)) return;
+        if (!Array.isArray(childCol)) return;
 
-      const fkField = childMeta.FK || rel.FK || meta.FK; // nombre del campo FK
+        const fkField = childMeta.FK || rel.FK || meta.FK; // nombre del campo FK
 
-      if (rel.owner) {
-        /* 2.a  El padre posee la FK  */
-        const fkVal = entity[fkField];    
-        //console.log("fkVal:",fkVal)  
-        //console.log("childCol:",childCol)       // valor de la FK en el padre
+        if (rel.owner) {
+          /* 2.a  El padre posee la FK  */
+          const fkVal = entity[fkField];    
+          //console.log("fkVal:",fkVal)  
+          //console.log("childCol:",childCol)       // valor de la FK en el padre
+          entity[rel.key] = childCol.find(item => item.id === fkVal) || null;
+          //console.log(`entity[${rel.key}]:`,entity[rel.key] )  
+        } else {
+          /* 2.b  El hijo posee la FK  */
+          entity[rel.key] = childCol.find(item => item[fkField] === parentId) || null;
+        }
+      });
+    }
+
+    /* ----------  manyToOne (el padre posee la FK) ---------- */
+    if (meta.relations.manyToOne) {
+      meta.relations.manyToOne.forEach(rel => {
+        const childCol = db[rel.collection];
+        if (!Array.isArray(childCol)) return;
+
+        const fkField = rel.FK || meta.FK;
+        const fkVal = entity[fkField];  // valor que el padre lleva
+
         entity[rel.key] = childCol.find(item => item.id === fkVal) || null;
-        //console.log(`entity[${rel.key}]:`,entity[rel.key] )  
-      } else {
-        /* 2.b  El hijo posee la FK  */
-        entity[rel.key] = childCol.find(item => item[fkField] === parentId) || null;
-      }
-    });
-  }
+      });
+    }
 
-  /* ----------  manyToOne (el padre posee la FK) ---------- */
-  if (meta.relations.manyToOne) {
-    meta.relations.manyToOne.forEach(rel => {
-      const childCol = db[rel.collection];
-      if (!Array.isArray(childCol)) return;
+    //console.log(entity)
 
-      const fkField = rel.FK || meta.FK;
-      const fkVal   = entity[fkField];  // valor que el padre lleva
-
-      entity[rel.key] = childCol.find(item => item.id === fkVal) || null;
-    });
-  }
-
-  //console.log(entity)
-
-  return entity;
-},
+    return entity;
+  },
 
 
-__buildMeta(entity, collection) {
-  const config = this.configDB[collection];
-  if (!config) return entity;
-  if (!config.meta) return entity;
-  const metaFields = ["createdAt", "updatedAt", "deletedAt", "status"];
-  const { meta } = config;
-  // 2. Fusionar campos dinámicos de meta
-  if (Array.isArray(meta)) {
+  __buildMeta(entity, collection) {
+    const config = this.configDB[collection];
+    if (!config) return entity;
+    if (!config.meta) return entity;
+    const metaFields = ["createdAt", "updatedAt", "deletedAt", "status"];
+    const { meta } = config;
+    // 2. Fusionar campos dinámicos de meta
+    if (Array.isArray(meta)) {
       meta.forEach(field => {
-      if (!metaFields.includes(field)) {
-        metaFields.push(field);
+        if (!metaFields.includes(field)) {
+          metaFields.push(field);
+        }
+      });
+    }
+
+    // 3. Crear el objeto de salida
+    const responseEntity = {};
+    // 3.1. Crear el objeto 'meta' separado
+    const separateMeta = {};
+    // 3.2. Rellenar el objeto 'meta' separado
+    metaFields.forEach(field => {
+      if (entity[field] !== undefined) {
+        separateMeta[field] = entity[field];
       }
     });
-  }
+    // 3.3. Agregar el objeto 'meta' completo al resultado
+    responseEntity.meta = separateMeta;
 
-  // 3. Crear el objeto de salida
-  const responseEntity = {};
-  // 3.1. Crear el objeto 'meta' separado
-  const separateMeta = {};
-  // 3.2. Rellenar el objeto 'meta' separado
-  metaFields.forEach(field => {
-    if (entity[field] !== undefined) {
-      separateMeta[field] = entity[field];
-    }
-  });
-  // 3.3. Agregar el objeto 'meta' completo al resultado
-  responseEntity.meta = separateMeta;
+    // 4. Rellenar los campos normales del entity que NO son de meta
+    Object.keys(entity).forEach(field => {
+      if (!metaFields.includes(field)) {
+        responseEntity[field] = entity[field];
+      }
+    });
 
-  // 4. Rellenar los campos normales del entity que NO son de meta
-  Object.keys(entity).forEach(field => {
-    if (!metaFields.includes(field)) {
-      responseEntity[field] = entity[field];
-    }
-  });
-
-  return responseEntity;
-},
+    return responseEntity;
+  },
 
 
   /**metodos publicos**/
 
 
-	save(collection, data){
-    if(data?.id){
-        return this.__update(collection, i => i.id == data?.id, data)
+  save(collection, data) {
+    if (data?.id) {
+      return this.__update(collection, i => i.id == data?.id, data)
     }
     return this.__create(collection, data)
-	},
+  },
 
   find(collection, filterFn, mapperFn = null) {
     let entity = this[collection].find(filterFn);
-    if(entity && entity.status == "HARD_DELETED"){
+    if (entity && entity.status == "HARD_DELETED") {
       return null
     }
-    if(mapperFn){ 
-      return mapperFn( entity ) 
+    if (mapperFn) { 
+      return mapperFn(entity) 
     }
     return this.__buildMeta(entity, collection);
   },
   
 
   // obtiene de forma segura la colleccion
-  collection(collection, limit=null){
+  collection(collection, limit = null) {
     let copy = null
-    if(limit){
+    if (limit) {
       copy = this[collection].slice(0, limit)
-    }else{
+    } else {
       copy = this[collection]
     }
     return copy
   },
 
-  sort(collection, sortFn,  limit=null){
+  sort(collection, sortFn, limit = null) {
     return this.collection(collection, limit).sort(sortFn)
-    .map(i => this.__buildMeta(i, collection))
+      .map(i => this.__buildMeta(i, collection))
   },
 
   __find(collection, filterFn, mapperFn = null) {
     let entity = this[collection].find(filterFn);
-    if(entity && entity.status == "HARD_DELETED"){
+    if (entity && entity.status == "HARD_DELETED") {
       return null
     }
-    if(mapperFn){ 
-      return mapperFn( entity ) 
+    if (mapperFn) { 
+      return mapperFn(entity) 
     }
     return entity;
   },
   
-  findWithRelations(collection, filterFn, mapperFn = null){
+  findWithRelations(collection, filterFn, mapperFn = null) {
     //console.log(this)
     const entity = this[collection].find(filterFn);
-    if(mapperFn){ return mapperFn(this._loadRelations(entity, collection)) }
-    return this.__buildMeta( this._loadRelations(entity, collection) , collection )
+    if (mapperFn) { return mapperFn(this._loadRelations(entity, collection)) }
+    return this.__buildMeta(this._loadRelations(entity, collection), collection)
   },
 
 
-  deleteFrom(collection, filterFn){
+  deleteFrom(collection, filterFn) {
     return this.__delete(collection, filterFn)
   },
 
   findAll(collection, filterFn, mapperFn = null) {
-    if(mapperFn){ 
+    if (mapperFn) { 
       return this[collection]
-       .filter(filterFn || (() => true))
-       .map(mapperFn)  
-     }
+        .filter(filterFn || (() => true))
+        .map(mapperFn)  
+    }
     return this[collection].filter(filterFn || (() => true));
   },
 
 
-  exists(collection, filterFn){
-    if(this.find(collection, filterFn)){ return true; }
+  exists(collection, filterFn) {
+    if (this.find(collection, filterFn)) { return true; }
     return false;
   },
 
 
   findPage(collection, request, mapperFn = null) {
+    console.log("HOLA")
     if (!request || !request.url) {
       return { content: [], totalElements: 0, totalPages: 0 };
     }
@@ -326,21 +329,21 @@ __buildMeta(entity, collection) {
     const start = page * size;
     const end = start + size;
     let pageContent = sortedData.slice(start, end);
-    if(mapperFn){
+    if (mapperFn) {
       pageContent = pageContent.map(mapperFn)
     }
     // 6. Construir respuesta (Pasamos sortParam explícitamente para evitar scope issues)
     return { ...buildPageResponse(pageContent, page, size, totalElements, sortParam) };
   },
 
-  update(collection, filterFn, updateFn, meta=false) {
+  update(collection, filterFn, updateFn, meta = false) {
     const data = this[collection].find(filterFn)
-    if(!data) return null;
+    if (!data) return null;
     const index = this.__getIndex(collection, data.id);
     if (index > -1) {
       this[collection][index] = updateFn(this[collection][index])
     }
-    if(meta){
+    if (meta) {
       return this.__buildMeta(this[collection][index], collection)
     }
     return this[collection][index];

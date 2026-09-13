@@ -10,18 +10,24 @@ export const listing_service = {
     ...(baseService(collection)),
 
     create: (data) => {
-        const product = db["products"].find( p => p.sku == data.sku )
-        if(!product)
-            throw new Error("ERROR: SKU no valido o no existe");
-        
-        data.thumbnail = data.images.length != 0 ? data.images[0] : "";
-        data.finalPrice = listing_service
-           .calculateDiscount(data.price, data.discountPercentage)
-           .finalPrice
 
-        const response = listing_service.setStatusForStock(data)
+        let response = data
 
-        return db.save(collection, mapListingProduct(response, product))
+        if(data?.status != "DRAFT"){
+            const product = db["products"].find( p => p.sku == data.sku )
+            if(!product) throw new Error("ERROR: SKU no valido o no existe");
+            
+            data.thumbnail = data.images.length != 0 ? data.images[0] : "";
+            data.finalPrice = listing_service
+                .calculateDiscount(data.price, data.discountPercentage)
+                .finalPrice;
+
+            const listing = listing_service.setStatusForStock(data);
+            response = mapListingProduct(listing, product);
+        }
+
+
+        return db.save(collection, response)
     },
 
     calculateDiscount: (basePrice, discountPercent) => {
@@ -44,7 +50,7 @@ export const listing_service = {
     setStatusForStock(listing){
         if (listing.stock == 0) {
             listing.availabilityStatus = "Out of Stock";
-            listing.meta.status = "INACTIVE";
+            listing.status = "INACTIVE";
         }
         if (listing.stock < 10) {
             listing.availabilityStatus = "Low Stock";
@@ -54,9 +60,21 @@ export const listing_service = {
             listing.availabilityStatus = "In Stock";
         }
         return listing;
-    }
+    },
+
+    getById: (id) => {
+
+        
+        const data = db.find(collection, item => item.id == id ) ;
+        if(data && data.status != "DRAFT"){
+            return db._loadRelations(data, collection);
+        }
+        return  data;
+    },
 
 }
+
+
 
 
 export const mapListingProduct = (listing, product) => {

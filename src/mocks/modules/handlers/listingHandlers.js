@@ -54,6 +54,9 @@ export const listingHandlers = [
     const data = SERVICE.getById(id);
     if (!data) return new HttpResponse(null, { status: 404 });
 
+    if(data.meta.status == "DRAFT"){
+      return HttpResponse.json({ "listing": data });
+    }
     const {product, ...base} = data
     const response = flatMapIn({...base}, product);
     response.productName = product.name;
