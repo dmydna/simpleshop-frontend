@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 
-export default function OffCanvasSidebar({children, title}) {
+export default function OffCanvasSidebar({children, title, placement="end"}) {
   const [show, setShow] = useState(false);
   const {dialogParam} = useUrlParams()
   const {setSearchParams } = useUrlState()
@@ -25,8 +25,8 @@ export default function OffCanvasSidebar({children, title}) {
 
   return (
     <>
-      <Offcanvas show={show} onHide={handleClose}>
-        <Offcanvas.Header className='p-4' closeButton>
+      <Offcanvas style={{maxWidth: "275px"}} placement={placement} show={show} onHide={handleClose}>
+        <Offcanvas.Header className='p-3f border-bottom' closeButton>
           <Offcanvas.Title>{title}</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>

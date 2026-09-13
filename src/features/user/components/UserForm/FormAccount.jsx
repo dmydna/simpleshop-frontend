@@ -1,15 +1,13 @@
-import InputCrudFloating from "@/features/crud/components/InputCrudFloating";
+import InputCrudFloating from "@/features/form/components/InputCrudFloating";
 
 
 function FormAccount({ children, className, crudHook }) {
 
   return (
-    <>
-      {/* User */}
-
-      {children}
-
-      <>
+    <div className={className}>
+      <p className="fw-medium">
+          {children}
+      </p>
 
         <div className="d-flex gap-2 flex-column flex-lg-row">
           <InputCrudFloating
@@ -37,9 +35,8 @@ function FormAccount({ children, className, crudHook }) {
           {...crudHook}
         />
 
-      </>
 
-    </>
+    </div>
   )
 }
 export default FormAccount;

@@ -1,8 +1,7 @@
+import { IconTint } from "@/components/common/IconTintyColor";
 import { Card } from "react-bootstrap";
-import { IconTintyColor, IconTint } from "@/components/common/IconTintyColor";
 import { useNavigate } from "react-router-dom";
-import { Tintify } from "@/components/common/FloatButtonCollection";
-import OffCanvasButton from "@/components/common/OffCanvasButton";
+import OffCanvasToggle from "./OffCanvasToggle";
 
 
 
@@ -11,10 +10,10 @@ export default function CardEntity({to, variant, ico, title, className ,descript
 	const navigate = useNavigate()
 
     return (
-        <Card  className={`mb-2 island border text-start flex-row ${className}`}>
+        <Card  className={`border-0 p-0 text-start flex-row ${className}`}>
 
             {offCanvas && (
-                <OffCanvasButton className={"d-block d-md-none"}/>
+                <OffCanvasToggle top={"130px"} />
             )}
 
             <div className="d-block mx-auto position-relative">

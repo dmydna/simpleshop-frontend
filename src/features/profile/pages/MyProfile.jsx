@@ -1,11 +1,12 @@
+import FetchState from "@/components/common/FetchState";
 import FetchStateModal from "@/components/common/FetchStateModal.jsx";
 import FormProfile from "@/features/profile/components/FormProfile.jsx";
-import { CompleteUserRegister } from "@/utils/schemas.js";
+import { UpdateProfileDTO } from "@/utils/schemas.js";
 import { ProfileHeader } from "@f/profile/components/ProfileHeader.jsx";
 import { useProfile } from "@f/profile/contexts/ProfileContext.jsx";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Spinner } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 
 
@@ -16,7 +17,7 @@ function MyProfile({ children }) {
 
     const { reset, register, handleSubmit, formState: { errors } } 
         = useForm({ 
-            resolver: zodResolver(CompleteUserRegister), 
+            resolver: zodResolver(UpdateProfileDTO), 
             defaultValues: profile,
             // mode: 'onTouched', 
             // reValidateMode: 'onChange'
@@ -30,8 +31,10 @@ function MyProfile({ children }) {
     const onSubmit = async (data) => {
         await updatePerfil(data)
     };
+
+
     return (
-        <FetchStateModal
+        <FetchState.Toast
             hook={{loading, error, setError, success, setSuccess}}
         >
         <div>
@@ -41,23 +44,29 @@ function MyProfile({ children }) {
             />
             
             <FormProfile
+                className="mb-4"
                 id={"informationPerfilForm"} 
                 submit={handleSubmit(onSubmit)} 
-                formHook={{errors, register}}
+                formHook={{errors, register, loading}}
             />
 
             <div className='w-100 d-flex justify-content-center'> 
                <Button 
-                    className="my-2"
+                    className="rounded-4"
                     form='informationPerfilForm' 
-                    variant="primary" 
+                    variant="dark" 
                     type="submit"
+                    disabled={loading}
                 > 
-                   Actualizar
+                    {loading ? 
+                          <Spinner size="sm" animation="border" /> 
+                          : <i className="bi bi-floppy"></i>} 
+
+                   <span className="mx-3">Actualizar </span>
                </Button>
            </div>
         </div>
-        </FetchStateModal>
+        </FetchState.Toast>
 
 
     )

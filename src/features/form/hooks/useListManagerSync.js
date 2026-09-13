@@ -9,7 +9,7 @@ import { useSearchParams } from "react-router-dom";
 
 /** Este hook  sincroniza los parametros busquedas con los componentes 
  * que integran las listas crud del dashboard (e.i: ProductTable, ProductFilter)*/
-export const useListCrudSync = ({ baseHook }) => {
+export const useListManagerSync = ({ baseHook }) => {
 
     const {setFilters, setCurrentPage, totalElements, setId, ...props} = baseHook;
 

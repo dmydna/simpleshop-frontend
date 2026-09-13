@@ -74,7 +74,7 @@ export default function OrderDetailPage() {
           <Col className={`col-12 col-md-12 col-lg-12 col-xl-5`}>
             
             {!idParam && (
-              <MyOrderDetail />
+              <MyOrderDetail  currentOrder={ currentOrder } />
             )}
             {idParam && (
               <FormReview

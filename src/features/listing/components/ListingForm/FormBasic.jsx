@@ -1,12 +1,13 @@
-import InputCrudFloating from "@/features/crud/components/InputCrudFloating.jsx";
+import InputCrudFloating from "@/features/form/components/InputCrudFloating.jsx";
 
 
 function FormBasic({ children, className, baseHook }) {
 
 
     return (
-        <>
-            {children}
+        <div className={className}>
+
+            <p className="fw-medium">{children}</p>
 
             <InputCrudFloating
                 name={"title"}
@@ -15,6 +16,12 @@ function FormBasic({ children, className, baseHook }) {
             />
 
             <div className="my-1 d-flex gap-2 flex-column flex-lg-row">
+                
+                <InputCrudFloating
+                  name={"stock"}
+                  label={"stock"}
+                  {...baseHook}
+                />
 
                 <InputCrudFloating
                     name={"price"}
@@ -30,6 +37,8 @@ function FormBasic({ children, className, baseHook }) {
                     {...baseHook}
                 />
 
+
+
             </div>
 
             <InputCrudFloating
@@ -40,7 +49,7 @@ function FormBasic({ children, className, baseHook }) {
             />
 
 
-        </>
+        </div>
     )
 }
 export default FormBasic

@@ -2,11 +2,11 @@ import React from "react"
 import { Link } from "react-router-dom"
 
 
-function LinkArrow({children, to}){
+function LinkArrow({children, style, to}){
 
 
     return(
-        <Link to={to} className="text-white text-decoration-none d-flex align-items-center hover-underline"
+        <Link style={style} to={to} className="text-white text-decoration-none d-flex align-items-center hover-underline"
         >
           {children}
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 12 12" fill="none" className="ms-2"

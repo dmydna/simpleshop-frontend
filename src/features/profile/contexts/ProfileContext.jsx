@@ -63,7 +63,6 @@ export function ProfileProvider({ children }) {
         setError(null)
         try {
             await userService.updateMyProfile({...profile, ...data});
-            console.log(data)
             toast.success("Se actualizo profile!");
             setSuccess(true)
         } catch (err) {

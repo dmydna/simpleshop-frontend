@@ -2,12 +2,12 @@ import InputFloating from "@/components/common/InputFloating";
 import { Children } from "react";
 import { Form } from "react-bootstrap";
 
-export default function FormProfile({children, id, formHook, submit}) {
+export default function FormProfile({children, className="", id, formHook, submit}) {
 	
-	const {register, errors} = formHook
+	const {register, errors, loading} = formHook
 
 	return (
-		<Form id={id} onSubmit={submit} >
+		<Form className={className} id={id} onSubmit={submit} >
 
 			<InputFloating
 				placeholder="Ingrese Nombre"
@@ -15,6 +15,7 @@ export default function FormProfile({children, id, formHook, submit}) {
 				name="firstName"
 				register={register}
 				errors={errors}
+				disabled={loading}
 			/>
 
 			<InputFloating
@@ -23,6 +24,7 @@ export default function FormProfile({children, id, formHook, submit}) {
 				name="lastName"
 				register={register}
 				errors={errors}
+				disabled={loading}
 			/>
 
    		    <div className="d-flex gap-0 gap-md-3 flex-wrap flex-md-nowrap">
@@ -33,6 +35,7 @@ export default function FormProfile({children, id, formHook, submit}) {
 					name="address"
 					register={register}
 					errors={errors}
+					disabled={loading}
 				/>
 	
 				<InputFloating
@@ -42,8 +45,10 @@ export default function FormProfile({children, id, formHook, submit}) {
 					name="phone"
 					register={register}
 					errors={errors}
+					disabled={loading}
 				/>
 			</div>
+			
 			<InputFloating
 				className={'mb-0 w-100'}
 				placeholder="Ingrese Ciudad"
@@ -51,6 +56,7 @@ export default function FormProfile({children, id, formHook, submit}) {
 				name="city"
 				register={register}
 				errors={errors}
+				disabled={loading}
 			/>
 
     
@@ -63,6 +69,7 @@ export default function FormProfile({children, id, formHook, submit}) {
 					name="state"
 					register={register}
 					errors={errors}
+				    disabled={loading}
 				/>
 	
 				<InputFloating
@@ -72,6 +79,7 @@ export default function FormProfile({children, id, formHook, submit}) {
 					name="zipCode"
 					register={register}
 					errors={errors}
+					disabled={loading}
 				/>
 
 			</div>

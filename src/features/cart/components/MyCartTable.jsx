@@ -1,5 +1,6 @@
 import CartInput from '@/features/cart/components/CartInput';
 import { Table } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 
 
@@ -14,7 +15,7 @@ export default function MyCartTable({ className, content }) {
                         <tr style={{height:'0px', visibility:'collapse'}}>
                             
                             <th style={{ width: '70px' }} className='text-secondary'>IMAGE</th>
-                            <th style={{ width: '250px' }} className='text-secondary'>TITLE</th>
+                            <th style={{ width: '500px' }} className='text-secondary'>TITLE</th>
                             <th style={{ width: '150px' }} className='text-secondary'>DETAILS</th>
                             <th style={{ width: '150px' }} className='text-secondary'>PRICE</th>
                             
@@ -37,7 +38,9 @@ export default function MyCartTable({ className, content }) {
 
                                 {/* TITLE */}
                                 <td>
-                                    <span className='fw-medium'>{item?.title}</span>
+                                    <span className='fw-medium'>
+                                        <Link className='text-decoration-none text-dark' to={`/p/${item.id}`}>{item?.title}</Link>
+                                    </span>
                                     <CartInput style={{width: '150px'}} producto={item}/>
                                 </td>
 

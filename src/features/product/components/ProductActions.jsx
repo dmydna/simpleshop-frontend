@@ -105,11 +105,12 @@ export default function ProductActions({ close, className }) {
                     <ButtonLink
                         icon="bi-three-dots"
                         handle={ handle.summary }
+                        visible={ modeParam != 'create' }
                     >
                         Summary
                     </ButtonLink>
 
-                    <hr className="my-1"/> 
+                    {modeParam != 'create' && <hr className="my-1"/> }
 
 
                     <ButtonLink
@@ -120,7 +121,7 @@ export default function ProductActions({ close, className }) {
                         Delete
                     </ButtonLink>
 
-                    <hr className="my-1"/> 
+                    {modeParam != 'create' && <hr className="my-1"/> }
 
                     {/** List Actions **/}
 

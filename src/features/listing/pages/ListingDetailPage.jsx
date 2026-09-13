@@ -63,13 +63,13 @@ function ListingDetailPage() {
                         <Col style={{ top: '60px' }} className="sticky-md-bottom" xs={12} md={5}>
                            <ProductBuyCard
                               {...currentItem}
-                              className='p-2 border island h-100' 
+                              className='p-3f border island h-100' 
                            />
                         </Col>
 
                         {/**Product Specs */}
                         <Col className="mt-3 mt-5 mx-0" sm={12} md={7}>
-                           <Col md={12} className='rounded p-4 border island' >
+                           <Col md={12} className='p-3f border island rounded-4' >
                               <ProductSpecs producto={currentItem} >
                                  <div className="fs-5 fw-medium mb-3">
                                     Características del producto
@@ -80,7 +80,7 @@ function ListingDetailPage() {
 
                         {/**Product Description */}
                         <Col className="small mt-3 mx-0" xs={12} md={7}  >
-                           <Col md={12} style={{ minHeight: "220px" }} className='rounded p-4 border island' >
+                           <Col md={12} style={{ minHeight: "220px" }} className='p-3f border island rounded-4' >
                               <div className="fs-5 fw-medium mb-5">Descripcion</div>
                               <p className="text-secondary">
                                  {currentItem.description || '...'}
@@ -93,7 +93,7 @@ function ListingDetailPage() {
                         {currentItem.reviews && (
                            currentItem.reviews.length > 0 && (
                               <Col className="mt-3 mx-0" xs={12} md={7}>
-                                 <Col md={12} className='p-4 border rounded island' >
+                                 <Col md={12} className='p-3f border island rounded-4' >
                                     <CarrouselReviews
                                         title={"Reseñas"}
                                         size={2}
@@ -109,7 +109,7 @@ function ListingDetailPage() {
                      {/** Carousels  */}
                      <Row className="g-0">
                         <CarouselGrid
-                           className="border mx-0 my-3 p-4 island"
+                           className="mx-0 my-3 p-3f border island rounded-4"
                            filter={{ category: currentItem.category }}
                            blacklist={[currentItem.id]}
                            maxCols={4}

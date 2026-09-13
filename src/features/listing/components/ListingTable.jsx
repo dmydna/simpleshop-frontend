@@ -1,6 +1,6 @@
 import CopyButton from '@/components/common/CopyButton';
 import SortByParam from '@/components/common/SortButton';
-import { useListCrudSync } from '@/features/crud/hooks/useListCrudSync';
+import { useListManagerSync } from '@/features/form/hooks/useListManagerSync';
 import Pagination from '@/features/pagination/components/Pagination.jsx';
 import { useUrlState } from '@/hooks/useUrlState';
 import DataView from '@common/DataView';
@@ -19,7 +19,7 @@ const ListingTable = ({ baseHook, className, }) => {
 
     const { setSearchParams } = useUrlState()
 
-    const { idParam } = useListCrudSync({ baseHook: baseHook })
+    const { idParam } = useListManagerSync({ baseHook: baseHook })
 
     const toggleSelect = (item) => {
         // console.log(setSearchParams)

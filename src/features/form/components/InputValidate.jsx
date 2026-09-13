@@ -1,0 +1,42 @@
+import Form from 'react-bootstrap/Form';
+// O también:
+// import { Form } from 'react-bootstrap';
+export default function InputValidation({
+    name,
+    label,
+    type = "text",
+    placeholder,
+    as,
+    rows,
+    watch,
+    errors = {},
+    register,
+    isDisabled = false
+}) {
+
+    return (
+        <Form.Group className="mb-3">
+            <Form.Label>{label || name || ''}</Form.Label>
+            <Form.Control
+                type={type}
+                name={name}
+                placeholder={placeholder || `Ingrese ${name}`}
+                // React Hook Form maneja el valor y el onChange automáticamente
+                {...register(name)}
+                disabled={isDisabled}
+                spellCheck="false"
+                style={as === "textarea" ? { minHeight: '100px', resize: 'vertical' } : {}}
+                as={as || "input"}
+                rows={rows || 8}
+                // Si el campo tiene error, añadimos clase visual (opcional)
+                isInvalid={!!errors[name]}
+            />
+            {/* Mensaje de error de Zod */}
+            {errors[name] && (
+                <div className="invalid-feedback d-block">
+                    {errors[name].message}
+                </div>
+            )}
+        </Form.Group>
+    )
+}

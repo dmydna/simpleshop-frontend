@@ -188,7 +188,8 @@ hr { opacity: .15; }
 
 
 .bg-heaven{
-    background: url('./bg-heaven.svg') repeat-x
+    background: url('./bg-heaven.svg') repeat-x;
+    background-size: auto;
 }
 
 .bg-soft-primary {
@@ -335,7 +336,7 @@ hr { opacity: .15; }
     /* Mantiene los elementos dentro de su columna */
     break-inside: avoid;
     /* Da espacio extra verticalmente */
-    margin-bottom: 0.5rem; 
+    margin: 0.5rem; 
     text-overflow: ellipsis;
     text-wrap: nowrap;
 }
@@ -701,11 +702,23 @@ tr:last-child {
 
 /** FIXES **/
 
+.bg-opacity-85 { --bs-bg-opacity: 0.85!important   }
 
+.p-3f { padding: 1.20rem!important}
 
+.h-fix-100 { height: 100%!important; }
+
+@media (max-width: 1199.98px) {  
+    .h-fix-100 {
+        height: auto!important;
+    }
+}
 
 @media (max-width: 991.98px)  { /* md */ 
     .min-vh-md-70{
         min-height: 70vh!important;
+    }
+    .bg-heaven{
+        background-size: cover;
     }
 }

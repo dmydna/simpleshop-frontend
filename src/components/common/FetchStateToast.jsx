@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 
 
-export default function FetchStateToast({ children, hook }) {
+export default function FetchStateToast({ children, hook, spinned=false, to }) {
     const { loading, error, setError, success, setSuccess } = hook;
     const navigate = useNavigate()
 
@@ -29,10 +29,18 @@ export default function FetchStateToast({ children, hook }) {
         }
     }, [success, setSuccess]);
 
+    if(spinned){
+        return (
+            <>
+                {loading && <PageLoading />}
+                {!success && !error && !loading && children}
+            </>
+        );
+    }
+
     return (
         <>
-            {loading && <PageLoading />}
-            {!success && !error && !loading && children}
+            {children}
         </>
     );
 }

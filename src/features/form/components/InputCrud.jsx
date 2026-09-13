@@ -1,6 +1,6 @@
+import InputCrudTextarea from "@/features/form/components/InputCrudTextarea.jsx";
 import { CRUD } from "@utils/enums.js";
 import { Form, InputGroup } from "react-bootstrap";
-import InputCrudTextarea from "@f/crud/components/InputCrudTextarea.jsx";
 
 
 function InputCrud({ name, label, type, placeholder, as, rows, value ,useHookCrud }) {

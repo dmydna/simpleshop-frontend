@@ -10,7 +10,7 @@ export const useOrder = (config) => {
     const { loading: loadingItem, error: errorItem, setError: setErrorItem ,currentItem, setCurrentItem, id, setId, refreshElem }
         = useFetchElem({ fetchMethod: orderService.getMyOrder })
 
-
+    
 
     return ({
         ...props,

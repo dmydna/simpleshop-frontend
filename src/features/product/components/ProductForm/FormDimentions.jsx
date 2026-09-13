@@ -1,4 +1,4 @@
-import InputCrudFloating from "@/features/crud/components/InputCrudFloating";
+import InputCrudFloating from "@/features/form/components/InputCrudFloating";
 
 function FormDimentions({ children, className, crudHook }) {
 
@@ -10,7 +10,7 @@ function FormDimentions({ children, className, crudHook }) {
 
       <>
 
-       <p className='fw-medium'>Dimentions:</p>
+       <p className='fw-medium'>Dimentions</p>
 
         <div className="d-flex gap-2 flex-column flex-lg-row">
 

@@ -2,9 +2,9 @@ import { useEffect } from "react";
 
 
 import FetchState from "@/components/common/FetchState";
+import InputCrudFloating from "@/features/form/components/InputCrudFloating";
 import { useUserForm } from '@/features/user/hooks/useUserForm';
 import CompactDateInput from "@common/CompactDateInput";
-import InputCrudFloating from "@features/crud/components/InputCrudFloating";
 import { CRUD } from "@utils/enums";
 import { pillColor } from '@utils/enums.js';
 import { arrayToDate } from "@utils/mappers.js";

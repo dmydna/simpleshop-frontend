@@ -1,6 +1,6 @@
-import { Form } from "react-bootstrap";
+import InputCrudFloating from "@/features/form/components/InputCrudFloating";
 import { category } from "@/utils/enums";
-import InputCrudFloating from "@/features/crud/components/InputCrudFloating";
+import { Form } from "react-bootstrap";
 
 
 function FormCategory({ children, className, crudHook }) {
@@ -14,7 +14,7 @@ function FormCategory({ children, className, crudHook }) {
 
             <div className="mb-4">
 
-                <p className="fw-medium"> Category: </p>
+                <p className="fw-medium"> Category </p>
 
 
                {!isDisabled && (

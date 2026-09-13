@@ -14,7 +14,7 @@ function FormTags({ children, className, crudHook }) {
       <>
 
          <div className="d-block">
-            <p className="fw-medium">Tags</p>
+            <p className="fw-medium"> Tags </p>
             <TagsList  
                locked={mode == CRUD.VIEW}
                array={currentProduct.tags || []} 

@@ -1,44 +1,47 @@
-import FormCrud from "@/features/crud/components/FormCrud";
-import ModalCrud from "@/features/crud/components/ModalCrud";
 import FormAccount from "@/features/user/components/UserForm/FormAccount";
 import FormBasic from "@/features/user/components/UserForm/FormBasic";
 import { useUserForm } from "@/features/user/hooks/useUserForm";
-import UserActions from "@/features/user/components/UserActions";
-import FormRole from "@/features/user/components/UserForm/FormRole";
+import { useUrlParams } from "@/hooks/useUrlParams";
+import { useEffect } from "react";
+import FetchState from "@/components/common/FetchState";
+import TitleForm from "@/components/common/TitleForm";
+import CreateButton from "@/features/listing/components/ListingForm/CreateButton";
+import UpdateButton from "@/features/listing/components/ListingForm/UpdateButton";
 
 export default function UserFormPage() {
 
     const crudHook = useUserForm()
-    const { showModal, setShowModal } = crudHook
+    const { loading, error, setError, success, setSuccess, setId, currentItem } = crudHook
 
+    const { idParam } = useUrlParams()
+
+    useEffect(() => {
+        if (idParam) setId(idParam)
+    }, [idParam])
 
     return (
-        <FormCrud
-            {...crudHook}
-            enableEdit
-            enableCreate
+        <FetchState.Modal 
+            hook={{ loading, error, setError, success, setSuccess }} 
         >
+            <>
 
-            <p className="fw-medium">
-                User Information
-            </p>
+                <TitleForm />
 
-            <FormBasic crudHook={crudHook} />
-
-            <p className="fw-medium">
-                Personal Information
-            </p>
+                <FormBasic className={"mb-4"} crudHook={crudHook} >
+                    User Information
+                </FormBasic>
             
-            <FormAccount crudHook={crudHook} />
+                <FormAccount className={"mb-4"} crudHook={crudHook} >
+                    Personal Information
+                </FormAccount>
             
-            <ModalCrud
-                show={showModal}
-                onHide={setShowModal}
-            >
-                <UserActions
-                    close={() => setShowModal(false)}
-                />
-            </ModalCrud>
-        </FormCrud>
+                <div className="d-flex mt-5 justify-content-center gap-3">
+                    <CreateButton {...crudHook} />
+                    <UpdateButton {...crudHook} />
+                </div>    
+
+
+            </>
+        </FetchState.Modal>
     )
 }

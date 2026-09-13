@@ -1,6 +1,6 @@
+import InputCrudFloating from "@/features/form/components/InputCrudFloating";
+import { role } from "@/utils/enums";
 import { Form } from "react-bootstrap";
-import { category, role } from "@/utils/enums";
-import InputCrudFloating from "@/features/crud/components/InputCrudFloating";
 
 
 function FormRole({ children, className, crudHook }) {

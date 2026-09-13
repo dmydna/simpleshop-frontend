@@ -6,7 +6,6 @@ import "react-toastify/dist/ReactToastify.css";
 
 
 import ProtectedRoute from "@common/ProtectedRoute";
-import ProtectedRouteAdmin from "@common/ProtectedRouteAdmin.jsx";
 import { ProviderWrapper } from "@contexts/ProviderWrapper";
 import Footer from "@layout/Footer.jsx";
 import Navbar from "@layout/Navbar.jsx";
@@ -27,7 +26,7 @@ import Register from "@/features/auth/pages/Register.jsx";
 
 import Page404NotFound from "@/features/fallback/pages/Page404NotFound.jsx";
 
-import ProfileLayout from "@/features/profile/components/Layout/ProfileLayout";
+import ProfileLayout from "@/features/profile/layout/ProfileLayout";
 import MyAccount from "@/features/profile/pages/MyAccount";
 import MyActivity from "@/features/profile/pages/MyActivity";
 import MyFavorites from "@/features/profile/pages/MyFavorites";
@@ -44,14 +43,15 @@ import DemoUploader from "@/dev/components/DemoUploader";
 import DashboardLayout from "@/features/admin/components/layout/DashboardLayout";
 import WelcomeDashboard from "@/features/admin/pages/WelcomeDashboard";
 
+import PaymentForm from "@/features/checkout/components/CheckoutForm.jsx";
 import ListingListPage from "@/features/listing/pages/ListingListPage";
-import PaymentForm from "@features/payment/components/PaymentForm.jsx";
 
 import ChangeMail from "@/features/auth/pages/ChangeMail";
 import OrderDetailPage from "@/features/order/pages/OrderDetailPage";
 import CatalogeLayout from "@components/layout/CatalogeLayout";
 import PageWip from "@features/fallback/pages/PageWip";
 
+import CheckoutPage from "@/features/checkout/pages/CheckoutPage";
 import ListingLayout from "@/features/listing/layout/ListingLayout";
 import ListingFormPage from "@/features/listing/pages/ListingFormPage";
 import ProductLayout from "@/features/product/layout/ProductLayout";
@@ -205,6 +205,16 @@ function App() {
               <Route path=":buy" element={<PaymentForm />} />
             </Route>
 
+
+            <Route path="/checkouts/:orderId" element={
+              <ProtectedRoute> 
+                <ProfileProvider>
+                  <CheckoutPage />
+                </ProfileProvider>
+              </ProtectedRoute>
+            } />
+
+            
             {/** -- PAGE 404 -- */}
             <Route path="*" element={<Page404NotFound />} />
 
