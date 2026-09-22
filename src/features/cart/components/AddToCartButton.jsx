@@ -6,14 +6,14 @@ import { useCart } from "@f/cart/contexts/CartContext.jsx";
 
 function AddToCartButton({product, className = '',variant='success', children}){
 
-    const { cartItems, addToCart} = useCart()
+    const { cartItems, addToCart } = useCart()
 
 
     const handleAddToCart = () => {
       if (toast.isActive()) {
         return;
       }
-      toast.success("Producto agregado al cart!");
+      toast.success("Producto agregado al cart!", { theme: 'colored' });
     };
 
     return (
@@ -29,14 +29,16 @@ function AddToCartButton({product, className = '',variant='success', children}){
               style={{cursor: "pointer"}}
           >
               <i className="bi bi-plus-lg me-2"></i>
-              {children ? children : 'Agregar al Cart'}
-              {cartItems.map((item) => item?.id === product?.id && item?.cantidad !== 0 ?
-                          <div key={item.id} className="position-relative d-inline-block ms-3">
-                             <span className={`rounded-circle badge bg-white text-success px-${item?.cantidad < 10 ? 2 : 1}`}
-                               >
-                                  {item?.cantidad}
-                             </span>
-                          </div> : ''
+              {children ? children : 'Add to Cart'}
+              {cartItems.map((item) => item?.id === product?.id && 
+                  <div key={item.id} 
+                       style={{opacity: item?.cantidad == 0 ? '0': '1' }} 
+                       className={`position-relative d-inline-block ms-3`}
+                  >
+                     <span className={`rounded-circle badge bg-white text-success px-${item?.cantidad < 10 ? 2 : 1}`} >
+                          {item?.cantidad}
+                     </span>
+                  </div> 
               )}
           </Button>
       </>

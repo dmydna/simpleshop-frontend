@@ -1,59 +1,40 @@
-import { Button, Modal } from "react-bootstrap";
-import cartImg from "@assets/shopping-cart.png";
-import {CartIcon} from "@features/cart/components/CartIcon.jsx"
+import { Button } from "react-bootstrap";
+import { IconTintyColor } from "@/components/common/IconTintyColor";
+import { useCart } from "../contexts/CartContext";
 
-function CartClearModal({show, onHide, handle}) {
+function CartClearModal({ close }) {
+
+  const { clearCart } = useCart() 
 
   return (
-<Modal
-  show={show}
-  onHide={onHide}
-  size="md"
-  aria-labelledby="clear-cart-modal-title"
-  centered
->
+      <div className="my-3">
 
-  <Modal.Body className="text-center">
+        <div className='d-flex justify-content-end'>
+          <span className='fs-5 fw-semibold visually-hidden'>
+            Vaciar cart
+          </span>
+        </div>
 
-    <div className='d-flex justify-content-end'>
-     <span className='fs-5 fw-semibold visually-hidden'>
-        Vaciar cart
-     </span>
-      <span onClick={()=>onHide(false)} className='btn btn-light rounded-circle'>
-          <i className='bi-x-lg fw-semibold'></i>
-      </span>
-    </div>
+        <div className='d-block text-center'>
 
-   <div className='d-block py-4'>
-    {/*<i className='bi bi-trash3 disabled icn-lg'></i>*/}
+          <IconTintyColor ico={"bi-cart-x"} size={80} fs={1} />
 
+          <p className='fw-bold mb-0'>¿Vaciar el carrito?</p>
+          <p className='text-secondary my-4 small'>
+            Se eliminarán todos los productos. <br></br>
+            Esta acción no se puede deshacer.</p>
+        </div>
 
+        <div className='d-flex gap-3 justify-content-center my-2'>
+          <Button className='btn-sm rounded-3 border' variant="light" onClick={close}>
+            Cancelar
+          </Button>
+          <Button className='btn-sm rounded-3 border' variant="dark" onClick={clearCart}>
+            Vaciar carrito
+          </Button>
+        </div>
+      </div>
 
-        <CartIcon icon="bi-exclamation-circle-fill"/>
-
-
-
-
-    <p className='fw-bold'>¿Vaciar el carrito?</p>
-    <p className='text-secondary small'>
-        Se eliminarán todos los productos. <br></br>
-        Esta acción no se puede deshacer.</p>
-   </div>
-
-    <div className='d-flex gap-3 justify-content-center my-2'>
-    <Button className='btn-sm rounded-3' variant="light" onClick={()=>onHide(false)}>
-      Cancelar
-    </Button>
-    <Button className='btn-sm rounded-3' variant="dark" onClick={handle}>
-      Vaciar carrito
-    </Button>
-    </div>
-
-
-  </Modal.Body>
-
-
-</Modal>
 
   );
 }

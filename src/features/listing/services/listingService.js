@@ -17,6 +17,9 @@ export const listingService = {
     // GET: Obtener un listing por Id
     getById: async (id) => (await api.get(`${BASE_ENDPOINT}/${id}`)),
 
+    // GET: Obtener un listing.status por Id
+    getStatus: async (id) => (await api.get(`${BASE_ENDPOINT}/${id}/status`)),
+
     // GET: Obtener un listing por Id
     getByHash: async (id, fallow=false) => {
         const finalEndpoint = `${BASE_ENDPOINT}/public/${id}?fallow=${fallow}`;

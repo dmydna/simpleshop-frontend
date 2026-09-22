@@ -16,8 +16,8 @@ function FormReview({className, close}) {
     const [rating, setRating] = useState(2);
     const [searchParams] = useSearchParams();
     const pendingId = searchParams.get('id');
-    
-    const { updateReview, loading, setError, error, success, setSuccess, 
+
+    const { updateReview, loading, setError, error, success, setSuccess,
     setId, currentItem } = useReview({autofetch:false})
     const { setFormData, formData, onChange } = useForm()
 
@@ -30,24 +30,24 @@ function FormReview({className, close}) {
         updateReview(pendingId, {
             id: pendingId,
             status: "ACTIVE",
-            comment: formData?.comment, 
+            comment: formData?.comment,
             rating: formData?.rating
         })
 
     }
-  
+
     useEffect(()=>{
         if(pendingId){
-            setId(pendingId)    
+            setId(pendingId)
         }
         if(currentItem){
-           setFormData( prev => ({ ...prev, status: "ACTIVE"}) ) 
+           setFormData( prev => ({ ...prev, status: "ACTIVE"}) )
         }
         if(rating){
-            setFormData( prev => ({ ...prev, rating: rating }) )  
+            setFormData( prev => ({ ...prev, rating: rating }) )
         }
     },[pendingId, currentItem, rating])
-    
+
 
 
     return (
@@ -55,7 +55,7 @@ function FormReview({className, close}) {
             version={true}
             hook={{loading, error, setError, success, setSuccess}}
         >
-                <div className={className + " m-2"} >
+                <div className={className} >
 
                     <div className="position-relative">
                         <ProfileHeader
@@ -63,11 +63,11 @@ function FormReview({className, close}) {
                             title="Califica tu producto"
                         />
                         {close && (
-                            <IconTint 
+                            <IconTint
                                 style={{marginTop: '-10px'}}
-                                className={'position-absolute top-0 right-0 rounded-circle'} 
-                                action={close}  
-                                icon={'x-lg'} 
+                                className={'position-absolute top-0 right-0 rounded-circle'}
+                                action={close}
+                                icon={'x-lg'}
                             />
                         )}
                     </div>
@@ -77,13 +77,13 @@ function FormReview({className, close}) {
                         <Form.Group className="mb-3 w-100">
 
 
-                            <div className='d-flex gap-3 mb-3  border-0 rounded-3 p-2 w-100'>  
+                            <div className='d-flex gap-3 mb-3  border-0 rounded-3 p-2 w-100'>
 {/*                                <img style={{ height: '55px', width: '55px' }} className='rounded' src={currentItem?.image || placeholder({ dimension: "45x45", background: ".menta", fontSize: "20", icon: "f244" })} />*/}
                                 <div className="d-none d-md-block">
                                     <PlaceholderIcon fontSize='fs-4' variant={'success flex-glow'} icon={'bi-cart3'} />
                                 </div>
                                 <div className="flex-fill">
-                                    <p onClick={()=> navigate(`/p/${currentItem?.id}`)} 
+                                    <p onClick={()=> navigate(`/p/${currentItem?.id}`)}
                                        className='small fw-semibold m-0 pointer mb-3 mb-md-0'>
                                        {currentItem?.title}
                                     </p>

@@ -15,9 +15,7 @@ export default function ListingActions({ close, className }) {
 
     const crudHook = useListingForm()
 
-    const { setId, currentItem, setCurrentItem, loading, error, setError, 
-        setSuccess, success, refreshElem, updateStatus } 
-    = crudHook
+    const { setId, currentItem, setCurrentItem, success, refreshElem, updateStatus } = crudHook
 
     // ModalConfirm
     const [showConfirm, setShowConfirm] = useState(false);

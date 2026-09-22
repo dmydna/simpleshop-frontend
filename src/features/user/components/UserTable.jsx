@@ -1,5 +1,7 @@
 import PlaceholderIcon from '@/components/common/PlaceholderIcon';
+import RolePill from '@/components/common/RolePill';
 import SortByParam from '@/components/common/SortButton';
+import StatusPill from '@/components/common/StatusPill';
 import { useListManagerSync } from '@/features/form/hooks/useListManagerSync';
 import Pagination from '@/features/pagination/components/Pagination.jsx';
 import { useUrlState } from '@/hooks/useUrlState';
@@ -7,6 +9,7 @@ import DataView from '@common/DataView';
 import { pillColor } from '@utils/enums';
 import React from 'react';
 import { Button, Form, Table } from 'react-bootstrap';
+
 
 // TODO: resolver filtro crud de usuarios 
 const UserTable = ({  baseHook, className }) => {
@@ -117,10 +120,7 @@ const UserTable = ({  baseHook, className }) => {
 
 
                                     <td style={{ lineHeight: '4.2', textAlign: 'start' }}  >
-                                        <span
-                                            className={`text-lowercase fw-medium ${pillColor[item?.role]}`}>
-                                            {item?.role || '-.-'}
-                                        </span>
+                                        <RolePill role={item?.role} />
                                     </td>
 
                                     <td className='fw-medium' style={{ lineHeight: '4.2', textAlign: 'start' }}  >
@@ -130,10 +130,7 @@ const UserTable = ({  baseHook, className }) => {
 
 
                                     <td style={{ lineHeight: '4.2', textAlign: 'start' }} >
-                                        <span 
-                                           className={`text-lowercase ${pillColor[item?.meta?.status]}`} >
-                                            {item?.meta?.status || '-.-'}
-                                        </span>
+                                        <StatusPill status={item?.meta?.status}/ >
                                     </td>
 
                                         {/**Action */}
