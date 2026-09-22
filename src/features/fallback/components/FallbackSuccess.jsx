@@ -8,7 +8,7 @@ function FallbackSuccess({handle}){
                 title="Operacion exitosa"
                 message={msg}
                 variant="success"
-                icon="bi-check"
+                icon="bi-check-circle"
                 actionLabel={handle ? "aceptar" : null}
                 onAction={handle || null}
             />

@@ -7,6 +7,7 @@ import FetchState from "@/components/common/FetchState";
 import TitleForm from "@/components/common/TitleForm";
 import CreateButton from "@/features/listing/components/ListingForm/CreateButton";
 import UpdateButton from "@/features/listing/components/ListingForm/UpdateButton";
+import FormUserImage from "../components/UserForm/FormUserImage";
 
 export default function UserFormPage() {
 
@@ -27,7 +28,7 @@ export default function UserFormPage() {
 
                 <TitleForm />
 
-                <FormBasic className={"mb-4"} crudHook={crudHook} >
+                <FormBasic className={"mb-2"} crudHook={crudHook} >
                     User Information
                 </FormBasic>
             
@@ -35,6 +36,10 @@ export default function UserFormPage() {
                     Personal Information
                 </FormAccount>
             
+                <FormUserImage  crudHook={crudHook}>
+                    User Image
+                </FormUserImage>
+
                 <div className="d-flex mt-5 justify-content-center gap-3">
                     <CreateButton {...crudHook} />
                     <UpdateButton {...crudHook} />

@@ -40,7 +40,7 @@ export default function DockbarMobile({ onShow, expandable = true }) {
             {isAdmin && (
                 <DockbarLink
                     to={URL_DASHBOARD}
-                    icon="bi-list-nested"
+                    icon="bi-gear"
                     label="panel"
                 />
             )}

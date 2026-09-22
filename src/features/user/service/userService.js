@@ -87,11 +87,8 @@ export const userService = {
         return response;
     },
 
-    delete: async (id) =>{
-        const endpoint = `${BASE_ENDPOINT}/${id}`;
-        const response = await api.delete(endpoint)
-        return response;
-    },
+    // GET: Obtener un status por Id
+    getStatus: async (id) => (await api.get(`${BASE_ENDPOINT}/${id}/status`)),
 
     // (ADMIN) PUT: update user
     update: async (id, data) => {

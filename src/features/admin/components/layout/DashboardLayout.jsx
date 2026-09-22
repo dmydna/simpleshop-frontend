@@ -6,6 +6,7 @@ import OffCanvasSidebar from "@/components/common/OffCanvasSidebar";
 import SidebarDashboard from "@/features/admin/components/SidebarDashboard";
 import ProtectedRouteAdmin from "@common/ProtectedRouteAdmin";
 import { PageLayout } from "@/components/layout/PageLayout";
+import OffCanvasToggle from "@/components/common/OffCanvasToggle";
 
 function DashboardLayout({ children }) {
 
@@ -22,6 +23,7 @@ function DashboardLayout({ children }) {
                         description={"admin"} 
                         variant={"primary"} 
                     />
+                    <OffCanvasToggle/>
                 </PageLayout.Card>
                 <PageLayout.Sidebar>
                     <SidebarDashboard/>
