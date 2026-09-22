@@ -1,3 +1,4 @@
+import Header from "@/components/layout/Header";
 import OrderDetailItem from "@features/order/components/OrderDetailItem";
 import { Card } from "react-bootstrap";
 
@@ -13,7 +14,8 @@ export default function OrderDetail({
 }) {
   return (
     <Card className={"border-0"}>
-      <Card.Text className="h5 fw-bold text-secondary m-0">{title}</Card.Text>
+
+      <Card.Text className="h5 fw-bold text-secondary my-2">{title}</Card.Text>
 
       <hr />
 

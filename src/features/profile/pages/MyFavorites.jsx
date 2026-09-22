@@ -3,7 +3,7 @@ import RemovableListItem from "@/components/common/RemovableListItem";
 import { useFavorite } from '@/features/favorite/hooks/useFavorite.js';
 import Pagination from '@features/pagination/components/Pagination.jsx';
 import { useEffect } from "react";
-import { ProfileHeader } from "@f/profile/components/ProfileHeader";
+import Header from "@/components/layout/Header";
 
 function MyFavorites({ children }) {
 
@@ -35,7 +35,7 @@ function MyFavorites({ children }) {
             emptyMessage={"No tienes favoritos aún"}
         >
             <>
-                <ProfileHeader
+                <Header
                     title='Mis favoritos'
                     subtitle='Administrar lista de favoritos'
                 />

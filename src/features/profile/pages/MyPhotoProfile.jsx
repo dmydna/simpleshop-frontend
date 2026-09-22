@@ -3,7 +3,7 @@ import ImageUploader from "@common/ImageUploader.jsx";
 import { useEffect, useState } from 'react';
 import { Button } from "react-bootstrap";
 import { useProfile } from "@f/profile/contexts/ProfileContext.jsx";
-import { ProfileHeader } from '@f/profile/components/ProfileHeader.jsx';
+import Header from '@/components/layout/Header';
 
 
 const MyPhotoProfile = ({ title, className }) => {
@@ -29,7 +29,7 @@ const MyPhotoProfile = ({ title, className }) => {
       hook={{ loading, error, setError, success, setSuccess }}
     >
       <>
-        <ProfileHeader
+        <Header
           className='mb-0'
           title="Imagen de Cuenta"
           subtitle="Cambiar tu imagen de cuenta"

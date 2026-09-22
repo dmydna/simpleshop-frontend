@@ -1,4 +1,3 @@
-import CartNavButton from "@/features/cart/components/CartNavButton";
 import { useCart } from "@/features/cart/contexts/CartContext";
 import PaymentForm from "@/features/checkout/components/CheckoutForm";
 import { useCheckout } from "@/features/checkout/hooks/useCheckout";
@@ -9,12 +8,13 @@ import FetchStateCart from "@/features/order/layout/FetchStateCart";
 import { useProfile } from "@/features/profile/contexts/ProfileContext";
 import { PurchaseLayout } from "@/features/purchase/layout/PurchaseLayout";
 import { useUrlParams } from "@/hooks/useUrlParams";
-import { checkout } from "@/utils/schemas";
-import { useEffect } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { useEffect, useMemo } from "react";
 import { useParams } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 import CheckoutAction from "../components/CheckoutAction";
+import { checkout } from "@/utils/schemas";
+import ModalParam from "@/components/common/ModalParam";
+import CancelOrderModal from "@/features/order/components/CancelOrderModal";
+
 
 export default function CheckoutPage() {
   const { profile } = useProfile();
@@ -30,43 +30,31 @@ export default function CheckoutPage() {
     errorOrder,
   } = useOrder();
 
-  const {
-    cancelPay,
-    confirmPay,
-    loading,
-    error: errorPurchase,
-    setError,
-    setSuccess,
-    success: successPurchase,
-  } = useCheckout();
+  const { usefetch, cancelPay, confirmPay } = useCheckout();
 
-  const validateForm = useValidationForm({
-    ...profile,
-    fullname: profile?.firstName + " " + profile?.lastName,
-  });
+  const validateForm = useValidationForm({ ...profile, fullname: `${profile?.firstName} ${profile?.lastName}` });
 
+  const checkout = useMemo(()=> usefetch ,[usefetch])
+  
   useEffect(() => {
-    if (orderId) {
-      setOrderHash(orderId);
-    }
-    if (pageVersion) {
-      refreshElem();
-    }
-  }, [orderId, pageVersion, successPurchase]);
+    if (orderId)     { setOrderHash(orderId); }
+    if (pageVersion) { refreshElem(); }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [orderId, pageVersion, checkout.success]);
 
-  // fixme: validacion ok, no ejecuta handleConfirm
+  // FIXME: validacion ok, no ejecuta handleConfirm
   // const handleConfirmValidate = () => validateForm.handleAction(handleConfirm, checkout)
+
 
   return (
     // TODO: integrar <PurchaseLayout>
     <FetchStateCart
       hook={{
-        loading: loading || loadingOrder,
-        error: errorPurchase || errorOrder,
-        success: successPurchase,
-        setError,
-        successPurchase,
-        setSuccess,
+        loading:    checkout.loading || loadingOrder,
+        error:      checkout.error || errorOrder,
+        success:    checkout.success,
+        setError:   checkout.setError,
+        setSuccess: checkout.setSuccess,
       }}
       to={`/order/${currentOrder.id}`}
     >
@@ -85,7 +73,9 @@ export default function CheckoutPage() {
           />
         </PurchaseLayout.Detail>
         <PurchaseLayout.Toolkit>
-          <ToastContainer />
+            <ModalParam param="dialog=cancel-order">
+                {(close) => <CancelOrderModal close={close}  />}
+            </ModalParam>
         </PurchaseLayout.Toolkit>
       </PurchaseLayout>
     </FetchStateCart>

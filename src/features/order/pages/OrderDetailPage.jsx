@@ -8,9 +8,7 @@ import FormReview from "@/features/review/components/FormReview";
 import { useUrlParams } from "@/hooks/useUrlParams";
 import { useUrlState } from "@/hooks/useUrlState";
 import { useEffect, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 import MyOrderStatus from "../components/MyOrderStatus";
 
 export default function OrderDetailPage() {
@@ -54,9 +52,6 @@ export default function OrderDetailPage() {
           { !idParam && <MyOrderStatus status={currentOrder?.status}  /> }
           { idParam  && <FormReview close={closeReview} /> }
         </PurchaseLayout.Detail>
-        <PurchaseLayout.Toolkit>
-          <ToastContainer />
-        </PurchaseLayout.Toolkit>
       </PurchaseLayout>
     </OrderDetailProvider>
   );

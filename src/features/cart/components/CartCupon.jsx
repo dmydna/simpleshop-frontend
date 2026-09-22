@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Card, Form, InputGroup } from "react-bootstrap";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { useCart } from "@f/cart/contexts/CartContext.jsx";
 
 function CartCupon({title, check, onCheck}){
@@ -21,7 +21,7 @@ function CartCupon({title, check, onCheck}){
     function handleSubmit(e){
       e.preventDefault();
       if(query === '#MISHA123' && !check){
-        toast.success("Cupon aplicado!");
+        toast.success("Cupon aplicado!", { theme: 'colored' });
         setPlacehoder("Ingresa cupon...")
         setQuery("")
         onCheck(true)
@@ -62,7 +62,6 @@ function CartCupon({title, check, onCheck}){
           </Button>
          </InputGroup>
         </Form>
-        <ToastContainer />
       </Card>
     )
 }

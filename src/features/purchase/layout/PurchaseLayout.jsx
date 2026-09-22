@@ -59,6 +59,7 @@ export function PurchaseLayout({ children }) {
             </div>
           </div>
         </Col>
+        {toolkitNodes}
       </Row>
     </Container>
   );
