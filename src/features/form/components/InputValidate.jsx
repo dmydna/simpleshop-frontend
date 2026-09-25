@@ -1,6 +1,10 @@
 import Form from 'react-bootstrap/Form';
 // O también:
 // import { Form } from 'react-bootstrap';
+
+// TODO: implementar InputValidation
+// 1. modificar CSS para floating siempre que arriba
+// 2. habilitar placeholder
 export default function InputValidation({
     name,
     label,

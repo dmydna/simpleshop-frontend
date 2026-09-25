@@ -24,8 +24,10 @@ export function AuthProvider({ children }){
 
         <AuthContext.Provider value={{...authHook, renewSession: () => setShow(true)}}>
             {children}
-            <ModalConfirm show={show} close={setShow}>
-                <FallbackExpiredSession  handle={expiredSessionHandle}  />
+        <ModalConfirm show={show} close={setShow}>
+                <div className='p-3f'>
+                   <FallbackExpiredSession  handle={expiredSessionHandle}  />
+                </div>
             </ModalConfirm>
         </AuthContext.Provider>
 

@@ -4,6 +4,7 @@ import { FloatingLabel, Form } from "react-bootstrap";
 
 // NOTA este componente es multi-contexto, 
 // hay que mandar un crud-hook compatible.
+
 function InputCrudFloating({ 
     name, 
     label, 

@@ -66,8 +66,8 @@ export const orderService = {
     cancel: async (id) => {
         const params = new URLSearchParams();
         params.append('id', id)
-        const finalEndpoint =  `${BASE_ENDPOINT}/me/cancel`
-        const response = await api.put(finalEndpoint, params)
+        const finalEndpoint =  `${BASE_ENDPOINT}/me/cancel/${id}`
+        const response = await api.put(finalEndpoint)
         return response;
     },
 

@@ -18,6 +18,9 @@ import { useUrlState } from "@/hooks/useUrlState";
 import 'react-datepicker/dist/react-datepicker.css';
 
 
+// TODO: refactorizar componente baneo de usuario
+// 1. se debe enviar dias de baneo (no fechas)
+// 2. fronend calcula y muestra dias de baneo restantes 
 function BanUser({ close }) {
 
     const {create_banMode, update_banMode, idParam} = useUrlParams()

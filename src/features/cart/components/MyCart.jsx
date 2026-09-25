@@ -12,9 +12,13 @@ export const MyCart = ({ children, className, clearCart, cartItems }) => {
     return (
         <>
 
-            <Card className={`my-2 mt-0 mx-0 mx-lg-1 ${className}`}>
+            <Card className={`${className}`}>
                 <div className="d-flex align-items-center justify-content-between">
-                    {children}
+
+                    <p className="h5 fw-bold">
+                      My cart({cartItems.length})
+                    </p>
+
                     <Tintify style={{padding: "4px"}} className="rounded-circle">
                     <i onClick={() => setShowClearCart(true)}
                         style={{ fontSize: "xx-large" }} className="bi bi-x hover-icon"></i>

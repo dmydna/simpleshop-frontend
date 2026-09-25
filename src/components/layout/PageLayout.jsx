@@ -1,7 +1,6 @@
 import React, { Children } from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
 
-import "@/styles/index.css";
 
 PageLayout.Sidebar = ({ children }) => children;
 PageLayout.Card = ({ children }) => children;
