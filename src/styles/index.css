@@ -702,6 +702,25 @@ tr:last-child {
 
 /** FIXES **/
 
+/* 1. Mantiene el label arriba de forma permanente */
+.form-floating > .form-control ~ label {
+  transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem) !important;
+  opacity: 0.65;
+}
+
+.form-floating>.form-control, .form-floating>.form-control-plaintext {
+    padding: 1rem .75rem;
+    padding-top: 1.625rem;
+    padding-bottom: .625rem;
+}
+
+/* 2. Hace visible el placeholder que Bootstrap oculta por defecto */
+.form-floating > .form-control::placeholder {
+  color: #6c757d !important; /* Color gris estándar de Bootstrap */
+  opacity: 1 !important;
+}
+
+
 .bg-opacity-85 { --bs-bg-opacity: 0.85!important   }
 
 .p-3f { padding: 1.20rem!important}

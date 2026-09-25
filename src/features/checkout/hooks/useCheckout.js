@@ -5,6 +5,8 @@ import { useGateway } from "./useGateway";
 
 export const useCheckout = () => {
   
+
+    // TODO: unificar useFetch en una variable para compatibilizar con <FetchState> 
     const {loading, setLoading, success, setSuccess, setError, error } = useFetch()
     
     const { handleGatewayRequest, handleValidateGateway, 

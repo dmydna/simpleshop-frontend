@@ -81,8 +81,8 @@ export function toCreateProduct(data) {
 
 
 
+// TODO: implementar funcion toUpdateUser
 export function toUpdateUser(data){
-    // TODO
     return data
 }
 
