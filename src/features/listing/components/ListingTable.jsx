@@ -1,8 +1,10 @@
 import CopyButton from '@/components/common/CopyButton';
 import SortByParam from '@/components/common/SortButton';
+import StatusPill from '@/components/common/StatusPill';
 import { useListManagerSync } from '@/features/form/hooks/useListManagerSync';
 import Pagination from '@/features/pagination/components/Pagination.jsx';
 import { useUrlState } from '@/hooks/useUrlState';
+import { Status } from '@/utils/defines';
 import DataView from '@common/DataView';
 import { pillColor } from "@utils/enums";
 import { placeholderURL } from '@utils/image';
@@ -77,6 +79,7 @@ const ListingTable = ({ baseHook, className, }) => {
                                 <tr className={`onhover ${item.id === idParam ? 'selected' : ''}`}
                                     style={{ overflow: "visible", height: "70px" }} key={item.id}>
 
+                                    {/* Input check item */}
                                     <td 
                                         onClick={() => toggleSelect(item)}
                                         className='text-secondary d-none  d-md-table-cell'>
@@ -92,53 +95,49 @@ const ListingTable = ({ baseHook, className, }) => {
                                         />
                                     </td>
 
+                                    {/* Thumbnail & Title */}
                                     <td>
-
                                         <img
                                             style={{ objectFit: 'contain', width: '60px', height: '60px' }} // Altura fija igual al texto
                                             className="bg-white border border-1 rounded flex-shrink-0"
                                             src={item?.thumbnail || placeholderURL.listing(item?.id)}
                                         />
-
                                         <span className='mx-3 fw-medium'>{item?.title}</span>
                                     </td>
-
+                                    
+                                    {/* Id */}
                                     <td className='text-secondary'>
                                         <div style={{ lineHeight: '4.2' }} className='btn btn-sm p-0'>
                                             <CopyButton value={item?.id} />
                                         </div>
                                     </td>
 
-
+                                    {/* Created At */}
                                     <td className='text-secondary' style={{ lineHeight: '4.2', textAlign: 'start' }}  >
                                         <i className='bi bi-calendar me-2'></i>
                                         {item?.meta?.createdAt ? formatDate(item?.meta?.createdAt) : '-.-'}
                                     </td>
 
+                                    {/* Status */}
                                     <td style={{ lineHeight: '4.2', textAlign: 'start' }}  >
-                                        <span
-                                            className={`text-lowercase ${pillColor[item?.meta?.status]}`}>
-                                            {item?.meta?.status}
-                                        </span>
+                                        <StatusPill status={item?.meta?.status} />
                                     </td>
-
+                                    
+                                    {/* Price */}
                                     <td className='fw-medium' style={{ lineHeight: '4.2', textAlign: 'start' }}  >
                                         <i className='bi bi-currency-dollar'></i>
                                         {item?.price || 0}
                                     </td>
 
-
+                                    {/* Availability */}
                                     <td style={{ lineHeight: '4.2', textAlign: 'start' }} >
-                                        <span
-                                            className={`${pillColor[item?.availabilityStatus]}`}>
-                                            {item?.availabilityStatus}
-                                        </span>
+                                        
+                                        <StatusPill status={item?.availabilityStatus} />
+
                                     </td>
 
 
                                     {/**Action */}
-
-
                                     <td className='small d-table-cell d-md-none'
                                         style={{ lineHeight: '4.2', textAlign: 'end' }}  >
                                         <Button

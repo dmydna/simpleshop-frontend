@@ -1,5 +1,6 @@
 import CopyButton from '@/components/common/CopyButton';
 import SortByParam from '@/components/common/SortButton';
+import StatusPill from '@/components/common/StatusPill';
 import { useListManagerSync } from '@/features/form/hooks/useListManagerSync';
 import { useUrlState } from '@/hooks/useUrlState';
 import DataView from '@common/DataView';
@@ -119,12 +120,9 @@ function ProductTable({ children, baseHook, className }) {
                                         {item?.brand || '-.-'}
                                     </td>
 
-
+                                    {/* Status */}
                                     <td style={{ lineHeight: '4.2', textAlign: 'start' }}  >
-                                        <span
-                                            className={`text-lowercase ${pillColor[item?.meta?.status]}`}>
-                                            {item?.meta?.status}
-                                        </span>
+                                        <StatusPill status={item?.meta?.status} />
                                     </td>
 
                                     {/**Action */}

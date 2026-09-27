@@ -543,17 +543,13 @@ tr:last-child {
 
 /* Pills */
 
-.pill-dark, 
-.pill-light,
-.pill-info,
-.pill-warning,
-.pill-danger, 
-.pill-success, 
-.pill-secondary, 
-.pill-primary {
-    padding: 3px 7px;
-    border-radius: 10px;
-    font-weight: 500;
+.pill-base {
+    padding: .0rem .5rem !important;
+    padding-bottom: .1rem !important;
+    border-radius: 0.5rem;
+    font-weight: 500 !important;
+    font-size: .70rem !important;
+    height: 1rem;
 }
 
 .pill-primary {
@@ -595,6 +591,33 @@ tr:last-child {
 .pill-dark {
     background-color: #21252929;
     color: #212529;
+}
+
+
+.pill-success-solid {
+    background-color: #198754;
+    color: #fff;
+}
+
+.pill-dark-solid {
+    background-color: #212529;
+    color: #fff;
+}
+
+.pill-danger-solid {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.pill-warning-solid {
+    background-color: #856404;
+    color: #fff;
+}
+
+
+.pill-primary-solid {
+    background-color: #0d6efd;
+    color: #fff;
 }
 
 
