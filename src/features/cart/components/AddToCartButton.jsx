@@ -29,7 +29,7 @@ function AddToCartButton({product, className = '',variant='success', children}){
               style={{cursor: "pointer"}}
           >
               <i className="bi bi-plus-lg me-2"></i>
-              {children ? children : 'Agregar al Cart'}
+              {children ? children : 'Add to Cart'}
               {cartItems.map((item) => item?.id === product?.id && item?.cantidad !== 0 ?
                           <div key={item.id} className="position-relative d-inline-block ms-3">
                              <span className={`rounded-circle badge bg-white text-success px-${item?.cantidad < 10 ? 2 : 1}`}

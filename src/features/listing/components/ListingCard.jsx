@@ -1,3 +1,4 @@
+import StatusPill from "@/components/common/StatusPill";
 import ProductButtonBar from "@/features/listing/components/ProductButtonBar";
 import { Card, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -27,7 +28,7 @@ function ListingCard({ children, className, cols, imgSize, ...item}){
               />
               <Card.Body>
                 <Card.Title 
-                    className={`text-truncate-2 hover-link mb-2 fs-6 fw-semibold `}
+                    className={`text-truncate-2 hover-link mb-2 fs-6 fw-medium `}
                     style={{
                       height: "3.2rem", 
                       overflow: "hidden", 
@@ -41,14 +42,15 @@ function ListingCard({ children, className, cols, imgSize, ...item}){
                     <strike>$ {item?.price}</strike>
                   </Card.Text> 
                 }
-                <Card.Text className="fs-4 fw-semibold  mb-1">
+                <Card.Text className="fs-3 fw-medium  mb-1">
                   $ {item?.finalPrice || "..."}  
                   <span className="mx-2 text-success fw-medium fs-6">
                     {item?.discountPercentage ? item.discountPercentage + '% OFF' : ''}
                   </span>
                 </Card.Text>
                 <Card.Text className="small fw-medium text-secondary">
-                  {item.availabilityStatus || "N/A"}
+                  <StatusPill status={item.availabilityStatus} />
+                  {/*{item.availabilityStatus || "N/A"}*/}
                 </Card.Text>
               </Card.Body>
               </Link>
