@@ -13,30 +13,11 @@ import ProtectedRouteAdmin from "@common/ProtectedRouteAdmin";
 import { useMemo } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { Toaster } from 'react-hot-toast';
+import ListingCardEntity from "@/features/listing/components/ListingCardEntity"
+
 
 
 export default function ListingLayout({ children }) {
-
-
-    const { idParam, modeParam } = useUrlParams()
-
-    const { data } = useFetchTrigger({
-        fetchMethod: statsService.getStatsByField,
-        initialTriggers: { field: "status", entity: "listings" }
-    })
-
-    const description = useMemo(() => {
-        if (idParam) {
-            return `# ${idParam}`
-        }
-        if (Array.isArray(data)) {
-            const { name, count } = data[0];
-            return `${count} (${name.toLowerCase()})`
-        }
-        return "";
-
-    }, [idParam, data])
-
 
 
     // -- PARAM VALIDATIONS --
@@ -55,14 +36,7 @@ export default function ListingLayout({ children }) {
 
             <PageLayout>
                 <PageLayout.Card>
-                    <CardEntity
-                        activeBack={modeParam}
-                        to={URL_LISTING_LIST}
-                        title={"Posts"}
-                        ico={"bi-sticky"}
-                        description={description}
-                        variant={"primary"}
-                    />
+                    <ListingCardEntity />
                 </PageLayout.Card>
 
                 <PageLayout.Sidebar>

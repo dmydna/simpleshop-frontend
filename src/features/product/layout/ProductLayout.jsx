@@ -12,6 +12,7 @@ import ProtectedRouteAdmin from "@common/ProtectedRouteAdmin";
 import { useMemo } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { Toaster } from 'react-hot-toast';
+import ProductCardEntity from "../components/ProductCardEntity";
 
 
 export default function ProductLayout({ children }) {
@@ -43,14 +44,7 @@ export default function ProductLayout({ children }) {
 
                 <PageLayout.Card>
 
-                    <CardEntity
-                        activeBack={modeParam}
-                        to={URL_PRODUCT_LIST}
-                        title={"Products"}
-                        ico={"bi-box-seam"} 
-                        description={description} 
-                        variant={"success"} 
-                    />
+                    <ProductCardEntity />
 
                 </PageLayout.Card>
 

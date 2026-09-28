@@ -33,7 +33,7 @@ export const statsService = {
         // entity : products || listings || users
         const params = new URLSearchParams();
         params.append("limit", limit)
-        const finalEndpoint = `${BASE_ENDPOINT}/${entity}/${field}/`
+        const finalEndpoint = `${BASE_ENDPOINT}/${entity}/${field}`
         const response = await api.get(finalEndpoint, params);
         return response; // [{name, count}, ...]
     }

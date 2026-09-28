@@ -14,7 +14,7 @@ import ProtectedRouteAdmin from "@common/ProtectedRouteAdmin";
 import { useMemo } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { Toaster } from 'react-hot-toast';
-
+import UserCardEntity from "@features/user/components/UserCardEntity"
 
 export default function UserLayout({ children }) {
 
@@ -56,14 +56,7 @@ export default function UserLayout({ children }) {
             <PageLayout>
 
                 <PageLayout.Card>
-                    <CardEntity 
-                        activeBack={modeParam}
-                        to={URL_USER_LIST}
-                        title={"Users"}
-                        ico={"bi-person"} 
-                        description={description} 
-                        variant={"danger"} 
-                    />
+                    <UserCardEntity />
                 </PageLayout.Card>    
 
                 <PageLayout.Sidebar>

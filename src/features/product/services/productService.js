@@ -41,13 +41,6 @@ export const productService = {
         return {...response, ...response.dimensions}
     },
 
-    // PUT: Actualiza producto.
-    updateStatus: async (id, status) => {
-        const finalEndpoint = `${BASE_ENDPOINT}/${id}/status`;
-        const response = await api.patch(finalEndpoint, {status: status});
-        return response;  
-    },
-
 
     // DELETE: Eliminar un producto.
     delete: async (id) => {
@@ -63,4 +56,8 @@ export const productService = {
         const response = await api.patch(finalEndpoint, { status: status })
         return response;
     },
+
+    // GET: Obtener un status por Id
+    getStatus: async (id) => (await api.get(`${BASE_ENDPOINT}/${id}/status`)),
+
 }
