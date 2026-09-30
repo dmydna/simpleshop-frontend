@@ -158,7 +158,7 @@ export function arrayToDate(arr){
     const [yy, mm, dd, hh, xx] = arr;
     return new Date(
         yy,       // Año
-        mm - 1,   // Mes (ajustado a 0-11)
+        mm ,   // Mes (ajustado a 0-11)
         dd,       // Día
         hh,       // Hora
         xx,       // Minuto
