@@ -1,8 +1,7 @@
 import FetchState from "@/components/common/FetchState";
-import FetchStateModal from "@/components/common/FetchStateModal.jsx";
+import Header from "@/components/layout/Header";
 import FormProfile from "@/features/profile/components/FormProfile.jsx";
 import { UpdateProfileDTO } from "@/utils/schemas.js";
-import { ProfileHeader } from "@f/profile/components/ProfileHeader.jsx";
 import { useProfile } from "@f/profile/contexts/ProfileContext.jsx";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
@@ -38,7 +37,7 @@ function MyProfile({ children }) {
             hook={{loading, error, setError, success, setSuccess}}
         >
         <div>
-            <ProfileHeader
+            <Header
                 title="Informacion Personal"
                 subtitle="Aquí puedes gestionar todo lo relacionado con informacion personal."
             />

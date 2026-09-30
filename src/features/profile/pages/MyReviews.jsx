@@ -3,7 +3,7 @@ import { useReview } from "@/features/review/hooks/useReview";
 import DataView from "@common/DataView";
 import Pagination from '@features/pagination/components/Pagination.jsx';
 import { useEffect } from "react";
-import { ProfileHeader } from "@f/profile/components/ProfileHeader";
+import Header from "@/components/layout/Header";
 
 
 
@@ -34,7 +34,7 @@ function MyReviews({ children }) {
             onRetry={refreshData}
         >
         <>
-            <ProfileHeader
+            <Header
                 title="Mis reseñas"
                 subtitle="Administrar lista de reseñas pedientes"
             />

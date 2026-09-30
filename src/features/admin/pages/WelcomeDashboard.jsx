@@ -4,6 +4,7 @@ import StatsOverview from "@/features/stats/components/StatsOverview";
 import { Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import GetStarted from "../components/GetStarted";
+import Header from "@/components/layout/Header";
 
 function WelcomeDashboard() {
 
@@ -11,10 +12,11 @@ function WelcomeDashboard() {
 
     return (
         <div>
-            <div className="">
-                <p className="fw-medium fs-5 mb-0">Welcome to Dashboard</p>
-                <p className="text-secondary small">We ve' assambled some links to get started</p>
-            </div>
+            
+            <Header  
+                title={"Welcome to Dashboard"} 
+                subtitle={"We ve' assambled some links to get started"} 
+            />
 
             <Row className={`my-5 mb-2 d-md-flex`}> 
 

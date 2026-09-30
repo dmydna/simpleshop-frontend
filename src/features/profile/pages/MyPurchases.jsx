@@ -2,11 +2,12 @@ import { formatDate } from "@utils/mappers";
 import DataView from "@common/DataView";
 import Pagination from '@features/pagination/components/Pagination.jsx';
 import { useEffect, useMemo } from "react";
-import { ProfileHeader } from "@f/profile/components/ProfileHeader";
 import RemovableListItem from "@/components/common/RemovableListItem";
 import { usePurchases } from "@f/profile/hooks/usePurchases";
 import { useUrlParams } from "@/hooks/useUrlParams";
-import { success } from "zod";
+import Header from "@/components/layout/Header";
+
+
 
 function MyPurchases() {
 
@@ -67,7 +68,7 @@ function MyPurchases() {
             onRetry={refreshData}
         >
             <>
-                <ProfileHeader
+                <Header
                     title="Mis compras"
                     subtitle="Puedes ver las ultimas compras realizadas"
                 />

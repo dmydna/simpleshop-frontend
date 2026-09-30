@@ -733,8 +733,8 @@ tr:last-child {
 
 .form-floating>.form-control, .form-floating>.form-control-plaintext {
     padding: 1rem .75rem;
-    padding-top: 1.625rem;
-    padding-bottom: .625rem;
+    padding-top: 1.625rem!important;
+    padding-bottom: .625rem!important;
 }
 
 /* 2. Hace visible el placeholder que Bootstrap oculta por defecto */
