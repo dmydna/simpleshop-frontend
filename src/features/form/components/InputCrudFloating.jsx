@@ -34,7 +34,7 @@ function InputCrudFloating({
                 <Form.Control
                     type={type}
                     name={name}
-                    placeholder={placeholder || `Ingrese ${name}`}
+                    placeholder={placeholder}
                     // React Hook Form maneja el valor y el onChange automáticamente
                     {...register(name)} 
                     disabled={isDisabled}

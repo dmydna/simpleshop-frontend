@@ -77,10 +77,15 @@ const ListingTable = ({ baseHook, className, }) => {
                             {content?.map((item) => (
 
                                 <tr className={`onhover ${item.id === idParam ? 'selected' : ''}`}
-                                    style={{ overflow: "visible", height: "70px" }} key={item.id}>
+                                    key={item.id}
+                                    style={{ 
+                                        overflow: "visible", 
+                                        height: "70px", 
+                                        filter: item?.meta?.status == "INACTIVE" ? "grayscale(1) opacity(0.7) contrast(0.9)": "none" }} 
+                                    >
 
                                     {/* Input check item */}
-                                    <td 
+                                    <td
                                         onClick={() => toggleSelect(item)}
                                         className='text-secondary d-none  d-md-table-cell'>
                                         <Form.Check // prettier-ignore

@@ -44,7 +44,7 @@ export default function UserCardEntity(){
         <CardEntity
             activeBack={modeParam}
             to={URL_USER_LIST}
-            title={"Users"}
+            title={idParam ? "current user": "Users"}
             ico={"bi-person"}
             description={description}
             variant={"danger"}

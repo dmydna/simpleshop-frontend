@@ -44,7 +44,7 @@ export default function ProductCardEntity(){
         <CardEntity
             activeBack={modeParam}
             to={URL_PRODUCT_LIST}
-            title={"Posts"}
+            title={idParam ? "current product": "Products"}
             ico={"bi-box-seam"}
             description={description}
             variant={"success"}

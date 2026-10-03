@@ -43,7 +43,7 @@ export default function ListingCardEntity(){
         <CardEntity
             activeBack={modeParam}
             to={URL_LISTING_LIST}
-            title={"Posts"}
+            title={idParam ? "current post": "Posts"}
             ico={"bi-sticky"}
             description={description}
             variant={"primary"}
