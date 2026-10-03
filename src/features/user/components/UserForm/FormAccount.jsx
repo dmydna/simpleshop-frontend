@@ -6,35 +6,57 @@ function FormAccount({ children, className, crudHook }) {
   return (
     <div className={className}>
       <p className="fw-medium">
-          {children}
+        {children}
       </p>
 
-        <div className="d-flex gap-2 flex-column flex-lg-row">
-          <InputCrudFloating
-            name={"firstName"}
-            label={"FirstName"}
-            {...crudHook}
-          />
-          <InputCrudFloating
-            name={"lastName"}
-            label={"LastName"}
-            {...crudHook}
-          />
+      <div className="d-flex gap-2 flex-column flex-lg-row">
+        <InputCrudFloating
+          name={"firstName"}
+          label={"Firstname"}
+          {...crudHook}
+        />
+        <InputCrudFloating
+          name={"lastName"}
+          label={"Lastname"}
+          {...crudHook}
+        />
 
-        </div>
+      </div>
 
+      <div className="d-flex gap-2 flex-column flex-lg-row">
         <InputCrudFloating
           name={"address"}
-          label={"address"}
+          label={"Address"}
+          {...crudHook}
+        />
+  
+        <InputCrudFloating
+          name={"phone"}
+          label={"Phone"}
+          {...crudHook}
+        />
+      </div>
+
+      <div className="d-flex gap-2 flex-column flex-lg-row">
+        <InputCrudFloating
+          name={"city"}
+          label={"City"}
           {...crudHook}
         />
 
         <InputCrudFloating
-          name={"phone"}
-          label={"phone"}
+          name={"state"}
+          label={"State"}
           {...crudHook}
         />
 
+      </div>  
+
+      <InputCrudFloating
+        name={"zipCode"}
+        label={"Zip code"}
+        {...crudHook}
+      />
 
     </div>
   )
