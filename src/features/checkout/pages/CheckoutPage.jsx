@@ -1,4 +1,3 @@
-import CartNavButton from "@/features/cart/components/CartNavButton";
 import { useCart } from "@/features/cart/contexts/CartContext";
 import PaymentForm from "@/features/checkout/components/CheckoutForm";
 import { useCheckout } from "@/features/checkout/hooks/useCheckout";
@@ -9,11 +8,8 @@ import FetchStateCart from "@/features/order/layout/FetchStateCart";
 import { useProfile } from "@/features/profile/contexts/ProfileContext";
 import { PurchaseLayout } from "@/features/purchase/layout/PurchaseLayout";
 import { useUrlParams } from "@/hooks/useUrlParams";
-import { checkout } from "@/utils/schemas";
 import { useEffect } from "react";
-import { Col, Container, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 import CheckoutAction from "../components/CheckoutAction";
 
 export default function CheckoutPage() {
@@ -84,9 +80,6 @@ export default function CheckoutPage() {
             clearCart={clearCart}
           />
         </PurchaseLayout.Detail>
-        <PurchaseLayout.Toolkit>
-          <ToastContainer />
-        </PurchaseLayout.Toolkit>
       </PurchaseLayout>
     </FetchStateCart>
   );

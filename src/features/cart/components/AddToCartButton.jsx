@@ -13,7 +13,7 @@ function AddToCartButton({product, className = '',variant='success', children}){
       if (toast.isActive()) {
         return;
       }
-      toast.success("Producto agregado al cart!");
+      toast.success("Producto agregado al cart!", { theme: 'colored' });
     };
 
     return (

@@ -1,18 +1,11 @@
-import CardEntity from "@/components/common/CardEntity";
 import { PageLayout } from "@/components/layout/PageLayout";
 import ListingActions from "@/features/listing/components/ListingActions";
 import ListingFilter from "@/features/listing/components/ListingFilter";
-import { statsService } from "@/features/stats/services/statsService";
-import { useFetchTrigger } from "@/hooks/useFetchTrigger";
-import { useUrlParams } from "@/hooks/useUrlParams";
 import { useValidParams } from "@/hooks/useValidParams";
 import { URL_LISTING_LIST } from "@/utils/links";
 import ModalParam from "@common/ModalParam";
 import ParamGuard from "@common/ParamGuard";
 import ProtectedRouteAdmin from "@common/ProtectedRouteAdmin";
-import { useMemo } from "react";
-import { Col, Container, Row } from "react-bootstrap";
-import { Toaster } from 'react-hot-toast';
 import ListingCardEntity from "@/features/listing/components/ListingCardEntity"
 
 
@@ -66,7 +59,6 @@ export default function ListingLayout({ children }) {
                         {(close) => <ListingFilter className={"border p-3 island rounded-4 shadow-none"}
                             close={() => close()} />}
                     </ModalParam>
-                    <Toaster duration="7000" position="bottom-length" />
 
                 </PageLayout.Toolkit>    
 

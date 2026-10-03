@@ -1,5 +1,4 @@
 import { useCart } from "@features/cart/contexts/CartContext.jsx";
-import { ToastContainer } from "react-toastify";
 import FetchStateCart from "@/features/order/layout/FetchStateCart";
 import { useAsync } from "@/hooks/useAsync";
 import { orderService } from "@/features/order/services/orderService";
@@ -31,9 +30,6 @@ function Cart() {
           <MyOrderCart />
           <CartAction createOrder={createOrder} {...cartHook} />
         </PurchaseLayout.Detail>
-        <PurchaseLayout.Toolkit>
-          <ToastContainer />
-        </PurchaseLayout.Toolkit>
       </PurchaseLayout>
     </FetchStateCart>
   );

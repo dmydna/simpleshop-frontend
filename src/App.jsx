@@ -219,7 +219,9 @@ function App() {
             <Route path="*" element={<Page404NotFound />} />
 
           </Routes>
+          
           <ToastContainer 
+            theme="colored"
             hideProgressBar={true} 
             autoClose={1000} 
             position="bottom-left"

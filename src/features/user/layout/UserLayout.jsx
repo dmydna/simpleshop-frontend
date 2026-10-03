@@ -1,43 +1,15 @@
-import CardEntity from "@/components/common/CardEntity";
 import { PageLayout } from "@/components/layout/PageLayout";
-import { statsService } from "@/features/stats/services/statsService";
 import BanUser from "@/features/user/components/BanUser";
 import UserActions from "@/features/user/components/UserActions";
 import UserFilter from "@/features/user/components/UserFilter";
-import { useFetchTrigger } from "@/hooks/useFetchTrigger";
-import { useUrlParams } from "@/hooks/useUrlParams";
 import { useValidParams } from "@/hooks/useValidParams";
 import { URL_USER_LIST } from "@/utils/links";
 import ModalParam from "@common/ModalParam";
 import ParamGuard from "@common/ParamGuard";
 import ProtectedRouteAdmin from "@common/ProtectedRouteAdmin";
-import { useMemo } from "react";
-import { Col, Container, Row } from "react-bootstrap";
-import { Toaster } from 'react-hot-toast';
 import UserCardEntity from "@features/user/components/UserCardEntity"
 
 export default function UserLayout({ children }) {
-
-
-    const { idParam, modeParam } = useUrlParams()
-
-    const { data } = useFetchTrigger({ 
-        fetchMethod: statsService.getStatsByField, 
-        initialTriggers: { field: "status", entity: "users" } 
-    })
-
-    const description = useMemo(() => {
-        if (idParam) {
-            return `# ${idParam}` 
-        }
-        if (Array.isArray(data)) {
-            const { name, count } = data[0];
-            return `${count} (${name.toLowerCase()})` 
-        }
-        return "";
-          
-    }, [idParam, data])
-
 
     // -- PARAM VALIDATIONS --
 
@@ -96,7 +68,6 @@ export default function UserLayout({ children }) {
                             close={() => close()} />}
                     </ModalParam>
 
-                    <Toaster duration="7000" position="bottom-length" />
                 </PageLayout.Toolkit>                        
 
                 
