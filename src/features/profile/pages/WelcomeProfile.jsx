@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
-import { Alert, Button, FloatingLabel, Form } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Alert } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { useProfile } from "@f/profile/contexts/ProfileContext.jsx";
-import { ProfileHeader } from "@f/profile/components/ProfileHeader";
 import { useWarning } from "@/hooks/useWarning.js";
 import { URL_CHANGE_PASSWORD, URL_FAQs, URL_USER_PICTURE, URL_USER_PROFILE, URL_USER_PURCHASES, URL_VERIFY_ACCOUNT } from "@/utils/links";
 import ArrowLink from "@/components/common/ArrowLink";
+import Header from "@/components/layout/Header";
 
 function WelcomePerfil({ children }) {
 
@@ -16,7 +15,7 @@ function WelcomePerfil({ children }) {
 
    return (
       <div>
-         <ProfileHeader
+         <Header
             title={`¡Welcome ${profile?.username || ''}!`}
             subtitle="We ve' assambled some links to get started"
          />

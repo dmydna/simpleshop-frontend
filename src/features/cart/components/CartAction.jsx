@@ -1,10 +1,18 @@
+import { useUrlState } from "@/hooks/useUrlState";
 import CartNavButton from "./CartNavButton";
 
-export default function CartAction({ createOrder, cartItems }) {
+export default function CartAction({ createOrder, cartItems, clearCart }) {
+  
+  const { setSearchParams } = useUrlState()
+
   const handleConfirmOrder = async () => {
     window.scrollTo({ top: 0, behavior: "instant" });
     createOrder.execute(cartItems);
   };
+
+  const handleClearCart = () => {
+    setSearchParams(prev => ({...prev, dialog:"clear-cart"}))
+  }
 
   return (
     <div
@@ -13,7 +21,7 @@ export default function CartAction({ createOrder, cartItems }) {
     >
       <CartNavButton
         visible={!createOrder.success}
-        handle={() => handleConfirmOrder()}
+        handle={() => handleClearCart()}
         variant="light"
         title="Cancelar"
       />

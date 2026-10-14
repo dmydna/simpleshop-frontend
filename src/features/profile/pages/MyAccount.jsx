@@ -1,9 +1,8 @@
-import { Button, FloatingLabel, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useProfile } from "@f/profile/contexts/ProfileContext";
-import { ProfileHeader } from "@f/profile/components/ProfileHeader";
 import { URL_CHANGE_MAIL, URL_CHANGE_PASSWORD, URL_USER_PICTURE, URL_VERIFY_ACCOUNT } from "@/utils/links";
 import ArrowLink from "@/components/common/ArrowLink";
+import Header from "@/components/layout/Header";
 
 
 function MyAccount({ children }) {
@@ -23,7 +22,7 @@ function MyAccount({ children }) {
     return (
         <div className="">
 
-            <ProfileHeader
+            <Header
                 title="Cuenta"
                 subtitle="Aquí puedes gestionar todo lo relacionado con tu cuenta."
             />

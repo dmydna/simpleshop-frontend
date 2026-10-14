@@ -1,7 +1,9 @@
 import { IconTint } from "@/components/common/FloatButtonCollection";
+import StatusPill from "@/components/common/StatusPill";
 import DeleteFloatButton from "@/features/listing/components/Button/DeleteFloatButton";
 import EditFloatButton from "@/features/listing/components/Button/EditFloatButton";
 import StatusFloatButton from "@/features/listing/components/Button/StatusFloatButton";
+import { Status } from "@/utils/defines";
 import { useAuthContext } from "@features/auth/contexts/AuthContext";
 import { useState } from "react";
 
@@ -17,6 +19,13 @@ export default function  ProductButtonBar({item}){
       setHide(prev => !prev)
     } 	
 
+    const statusByColor = {
+        "ACTIVE": "success",
+        "INACTIVE": "dark",
+        "DRAFT": "dark",
+        "DELETED": "danger"
+    } 
+
 	return(
              <div className="d-flex gap-2 position-absolute w-100 left-0 justify-content-between px-2">
   
@@ -28,21 +37,10 @@ export default function  ProductButtonBar({item}){
                                action={handleAddFavorite}
                                icon="heart"
                             />*/}
-                            {item?.meta?.status == "DELETED" && (
-                            <span style={{borderRadius:'6px', lineHeight:'10px', padding: '6px', fontSize: '.8rem'}}
-                                className='pill-warning my-2 z-index-10'>
-                                deleted
-                            </span>)}
-                            {item?.meta?.status == "DRAFT" && (
-                            <span style={{borderRadius:'6px', lineHeight:'10px', padding: '6px', fontSize: '.8rem'}}
-                                className='pill-dark my-2 z-index-10'>
-                                draft
-                            </span>)}
-                            {item?.meta?.status == "INACTIVE" && (
-                            <span style={{borderRadius:'6px', lineHeight:'10px', padding: '6px', fontSize: '.8rem'}}
-                                className='pill-danger my-2 z-index-10'>
-                                inactive
-                            </span>)}
+                            {item?.meta?.status !== "ACTIVE" && (
+                                <StatusPill status={item?.meta?.status} />
+                            )}
+
                         </>
                     )}
 

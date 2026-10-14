@@ -1,3 +1,5 @@
+import Pill from "@/components/common/Pill";
+
 export default function StatItem({
 	icon = "bi-image", 
 	title = "title", 
@@ -31,10 +33,12 @@ export default function StatItem({
 							</p>
 						</div>
 					</span>
-					<span className={`pill-${variantStatus}`} 
+					<Pill variant={"pill-" + variantStatus}>
+						{status}
+					</Pill>	
+{/*					<span className={`pill-${variantStatus}`} 
 						style={{ fontSize: "0.675em" }}>
-							{status}
-					</span>
+					</span>*/}
 				</span>
 			</div>
 		</div>

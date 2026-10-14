@@ -5,49 +5,42 @@ import { useGateway } from "./useGateway";
 
 export const useCheckout = () => {
   
-
     // TODO: unificar useFetch en una variable para compatibilizar con <FetchState> 
-    const {loading, setLoading, success, setSuccess, setError, error } = useFetch()
     
-    const { handleGatewayRequest, handleValidateGateway, 
-    loading: loadingGateWay, error: errorGateWay  }  = useGateway()
+    const usefetch = useFetch()
+
+    const { handleGatewayRequest, handleValidateGateway }  = useGateway()
 
     const confirmPay = async(onSuccess=null) => {
-        setLoading(true);
-        setError(null)
+        usefetch.setLoading(true);
+        usefetch.setError(null)
         try {
           const tokenRequest = await handleGatewayRequest()
           await handleValidateGateway(buyService.create, tokenRequest)
-          setSuccess(true)
+          usefetch.setSuccess(true)
           if(onSuccess) onSuccess();
         }
         catch(err){
-            setError(err)
+            usefetch.setError(err)
         }finally{
-         setLoading(false)
+            usefetch.setLoading(false)
         }
-
     }
 
    const cancelPay = async(orderId, onSuccess=null) =>{
-       setError(null)
-       setLoading(true)
+       usefetch.setError(null)
+       usefetch.setLoading(true)
        try{
           await orderService.cancel(orderId);
+          usefetch.setSuccess(true)
           if(onSuccess) onSuccess()
       }catch(err){
-          setError(err)
+          usefetch.setError(err)
       } finally {
-          setLoading(false)
+          usefetch.setLoading(false)
       }
     }
 
 
-    return ({
-      confirmPay, cancelPay, 
-      setLoading, success, setSuccess, setError,
-      loading: loading || loadingGateWay, 
-      error: error || errorGateWay
-
-   })
+    return ({ usefetch, confirmPay, cancelPay })
 }

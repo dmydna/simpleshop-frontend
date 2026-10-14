@@ -1,5 +1,4 @@
 import { useCart } from "@features/cart/contexts/CartContext.jsx";
-import { ToastContainer } from "react-toastify";
 import FetchStateCart from "@/features/order/layout/FetchStateCart";
 import { useAsync } from "@/hooks/useAsync";
 import { orderService } from "@/features/order/services/orderService";
@@ -8,6 +7,8 @@ import { MyCart } from "../components/MyCart";
 import { PurchaseLayout } from "@/features/purchase/layout/PurchaseLayout";
 import CartAction from "../components/CartAction";
 import { MyOrderCart } from "../components/MyOrderCart";
+import CartClearModal from "../components/CartClearModal";
+import ModalParam from "@/components/common/ModalParam";
 
 function Cart() {
   const cartHook = useCart();
@@ -32,7 +33,9 @@ function Cart() {
           <CartAction createOrder={createOrder} {...cartHook} />
         </PurchaseLayout.Detail>
         <PurchaseLayout.Toolkit>
-          <ToastContainer />
+            <ModalParam param="dialog=clear-cart">
+                {(close) => <CartClearModal close={close}  />}
+            </ModalParam>
         </PurchaseLayout.Toolkit>
       </PurchaseLayout>
     </FetchStateCart>

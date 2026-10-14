@@ -1,9 +1,15 @@
 import CartNavButton from "@/features/cart/components/CartNavButton";
+import { useUrlState } from "@/hooks/useUrlState";
+import { useNavigate } from "react-router-dom";
 
 export default function CheckoutAction({cancelPay, confirmPay, orderId, clearCart}) {
 
 
-  const handleCancel = () => cancelPay(orderId, clearCart);
+  const {setSearchParams} = useUrlState()
+
+  const handleCancel = () => {
+    setSearchParams(prev => ({...prev, dialog:'cancel-order'}))
+  }
   const handleConfirm = async () => {
     await confirmPay(clearCart);
     window.scrollTo({ top: 0, behavior: "instant" });
