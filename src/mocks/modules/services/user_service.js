@@ -1,5 +1,6 @@
 import { baseService } from '@/mocks/modules/services/baseService.js';
 import { currentLoggedUser, db } from '@/mocks/modules/db.js';
+import { createMockDate } from '../utils';
 
 
 const collection = 'users';
@@ -26,9 +27,11 @@ export const user_service = {
     },
 
     banUser: (id, request) =>{
+
         const user = user_service.getById(id);
         if(!user) throw new Error("Usuario no encontrado");
-        user.banExpiresAt = request.banExpiresAt;
+        user.banExpiresAt = request.banExpiresAt || request.unbanDate;
+        user.bannedAt = new Date();
         user.meta.status = "BANNED"
         user.banReason = request.banReason;
         return db.save(collection, user)  
@@ -69,6 +72,18 @@ export const user_service = {
         return null;
      },
 
+
+    // HACK: soluciona db._buildMeta() borra campos de meta
+    getById: (id) => {
+        const user = db.__find(collection, u => u.id == id);
+        const response = db.findWithRelations(collection, item => item.id == id, i => db.__buildMeta(i, collection) ) ; 
+        
+        response.meta.banExpiresAt = createMockDate(user.banExpiresAt);
+        response.meta.bannedAt = createMockDate(user.bannedAt || null);
+        response.meta.banReason = user.banReason;
+        
+        return response;
+    },
 
 
 }

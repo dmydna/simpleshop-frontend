@@ -188,6 +188,8 @@ export const db = {
   },
 
 
+
+  // FIXME: omite campos meta al retornar.
   __buildMeta(entity, collection) {
     const config = this.configDB[collection];
     if (!config) return entity;

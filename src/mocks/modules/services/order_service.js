@@ -11,8 +11,12 @@ export const order_service = {
 
     ...(baseService(collection)),
 
+    // HACK: soluciona db._buildMeta borra status.
     getById: (id) => {
-        return  db.findWithRelations(collection,  o => o.id == String(id)  );
+        const order = db.__find("orders", o => o.id == id);
+        const response_order =  db.findWithRelations(collection,  o => o.id == String(id)  );
+        response_order.status = order.status;
+        return response_order;
     },
 
 

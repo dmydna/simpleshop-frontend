@@ -199,6 +199,9 @@ export const buildPageResponse = (content, page, size, totalElements, sortParam)
 // --- DATE UTILS ---
 
 export const createMockDate = (date, month1Index = false) => {
+
+  if(!date) return null;
+
   const d = new Date(date);
 
   if (isNaN(d.getTime())) {
