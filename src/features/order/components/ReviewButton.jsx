@@ -13,7 +13,7 @@ export default function ReviewButton({reviewId}){
 		<span 
         	onClick={handle}
             style={{ fontSize: '11px', width: '50px' }} 
-            className="fw-bolder small pill-secondary pointer">
+            className="small pill-base pill-secondary pointer">
                   valorar producto
         </span>)
 }

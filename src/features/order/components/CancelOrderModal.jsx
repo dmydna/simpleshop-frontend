@@ -31,10 +31,9 @@ export default function CancelOrderModal({ close }) {
     if(checkout?.success){
         const handleSuccess = () => navigate('/cart')
         return (
-            <div className="my-3">
-                <FallbackSuccess handle={handleSuccess}/>
-            </div>
-        )
+        <div className="my-3">
+            <FallbackSuccess handle={handleSuccess}/>
+        </div>)
     }
     if(checkout?.error){
         return (
@@ -42,8 +41,7 @@ export default function CancelOrderModal({ close }) {
             handle={close}
             error={checkout?.error}
             className={"my-3"} 
-        />
-        )
+        />)
     }
 
     return (
