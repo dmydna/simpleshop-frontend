@@ -44,14 +44,15 @@ export default function UserCardEntity(){
         <CardEntity
             activeBack={modeParam}
             to={URL_USER_LIST}
-            title={idParam ? "current user": "Users"}
+            title={idParam ? "User": "User List"}
             ico={"bi-person"}
             description={description}
             variant={"danger"}
         >
+            {idParam &&
             <div style={{scale: '.9'}} className="d-inline-block mx-2">
         	   <StatusPill status={getstatus?.data?.status} />
-            </div>
+            </div>}
         </CardEntity>
 	)
 }

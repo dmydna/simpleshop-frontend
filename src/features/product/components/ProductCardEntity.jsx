@@ -44,14 +44,15 @@ export default function ProductCardEntity(){
         <CardEntity
             activeBack={modeParam}
             to={URL_PRODUCT_LIST}
-            title={idParam ? "current product": "Products"}
+            title={idParam ? "Product": "Product List"}
             ico={"bi-box-seam"}
             description={description}
             variant={"success"}
         >
+            {idParam &&
             <div style={{scale: '.9'}} className="d-inline-block mx-2">
         	   <StatusPill status={getstatus?.data?.status} />
-            </div>
+            </div>}
         </CardEntity>
 	)
 }

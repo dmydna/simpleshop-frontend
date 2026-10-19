@@ -11,22 +11,26 @@ import { DetailsPlaceholder } from "@features/placeholder/DetailsPlaceholder.jsx
 import { useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
-
+import { useUrlParams } from "@/hooks/useUrlParams";
 
 
 
 function ListingDetailPage() {
 
 
+   const { pageVersion } = useUrlParams()
    const { hash } = useParams()
-   const { loading, error, currentItem, fetchDataByHash, setId } 
+   
+   const { loading, error, currentItem, fetchDataByHash, setId, refreshElem } 
    = useFetchElem({ fetchMethod: (id) => listingService.getByHash(id, true) })
 
     window.scrollTo({ top: 0, behavior: 'instant'});
 
    useEffect(() => {
-      setId(hash)
-   }, [hash, setId])
+      if(hash) setId(hash);
+      if(pageVersion) refreshElem();
+   }, [hash, setId, pageVersion])
+
 
 
    return (

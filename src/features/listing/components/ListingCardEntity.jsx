@@ -43,14 +43,15 @@ export default function ListingCardEntity(){
         <CardEntity
             activeBack={modeParam}
             to={URL_LISTING_LIST}
-            title={idParam ? "current post": "Posts"}
+            title={idParam ? "Listing": "Listing List"}
             ico={"bi-sticky"}
             description={description}
             variant={"primary"}
-        >
+        >  
+            {idParam &&
             <div style={{scale: '.9'}} className="d-inline-block mx-2">
         	   <StatusPill status={getstatus?.data?.status} />
-            </div>
+            </div>}
         </CardEntity>
 	)
 }

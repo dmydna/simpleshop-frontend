@@ -118,10 +118,10 @@ export default function ListingActions({ close, className }) {
 
                     <ButtonLink
                         handle={ handle.preview }
-                        icon="bi-star"
+                        icon="bi-link-45deg"
                         visible={modeParam != 'create'}
                     >
-                        Preview
+                       Go to post
                     </ButtonLink>
 
 

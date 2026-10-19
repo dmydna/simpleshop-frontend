@@ -1,44 +1,72 @@
 import { HoverIcon } from "@/components/common/FloatButtonCollection";
 import { listingService } from "@/features/listing/services/listingService";
 import { useAsync } from "@/hooks/useAsync";
-import { useCallback } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
-
+import { useUrlState } from "@/hooks/useUrlState";
+import { Spinner } from "react-bootstrap";
 
 export default function StatusFloatButton({ item, style, className }) {
-	
+   
+	const [ activeButton, setActiveButton ] = useState(true);
+   const [ fetchStatus, setFetchStatus ] = useState(null)
+
+   const { setSearchParams } = useUrlState()
+
    const msg_show = "producto visible"
    const msg_hide = "producto oculto"
 
+   const onSuccess = (data) => {
 
-   const onSuccess = (currentStatus) => {
-      if (toast.isActive()) return;  
-      if (currentStatus.status === "ACTIVE") {
+      item.meta.status = data?.meta?.status
+
+      if (data?.meta?.status === "ACTIVE") {
          toast.success(msg_show);
       } else {
          toast.success(msg_hide);
       }
-      item.meta.status = currentStatus.status;
+      // refrescar pagina
+      setSearchParams(prev => ({...prev, pageVersion: Date.now() }))
    } 
    const onError = (err) => {
       toast.warning(err?.menssage || "error en la operacion!");
    }
 
-   const updateStatus = useAsync(listingService.updateStatus, { onSuccess, onError });
+   const updateStatus = useAsync(
+      listingService.updateStatus, { onSuccess, onError }
+   );
 
-   const handle = useCallback(()=>{
-      updateStatus.execute(item.id, item.meta.status == "ACTIVE" ? "INACTIVE" : "ACTIVE")
+   const handleToggle = useCallback(()=>{
+      if(item?.meta?.status == "ACTIVE"){
+         updateStatus.execute(item.id, "INACTIVE")
+      }else{
+         updateStatus.execute(item.id, "ACTIVE")
+      }
    },[item.id, item.meta.status, updateStatus])
 
 
+
+   const icon = useMemo(()=>{
+
+      if(updateStatus?.data?.meta.status == "ACTIVE") return "eye"
+      return "eye-slash"
+   },[fetchStatus, updateStatus])
+
    return (
 
+      <>
+      {updateStatus?.loading && 
+         <span className="p-2 rounded-circle">
+            <Spinner size="sm"/>
+         </span>}
+      {!updateStatus?.loading &&
       <HoverIcon
          style={style}
          disabled={updateStatus.loading}
          className={`border rounded-circle bg-wh01 ${className}`} 
-         action={handle}
-         icon={`eye${updateStatus.data?.status != "ACTIVE" ? "-slash" : ""}`}
-      />
+         action={handleToggle}
+         icon={icon}
+      />}
+      </>
    )
 }

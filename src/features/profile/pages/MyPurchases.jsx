@@ -27,8 +27,8 @@ function MyPurchases() {
 
     const buildDescription = (item) => {
         return `
-            ${buildTime(item?.createdAt)} -- 
-            Order #${item?.orderId} -- 
+            ${buildTime(item?.createdAt)} **
+            order #${item?.orderId} ** 
             ${item?.quantity} x $${(item?.priceAtPurchase / item?.quantity).toFixed(2)}
             (${item?.discountPercentageAtPurchase && 
             `${item?.discountPercentageAtPurchase}%OFF`})
@@ -88,7 +88,7 @@ function MyPurchases() {
                                 className={"mb-1 rounded"}
                             >
                                 {!item?.rating && 
-                                <p style={{fontSize:'.7rem'}} className="small pill-success d-inline-block mt-1 mb-0">sin calificar</p>}
+                                <p style={{fontSize:'.7rem'}} className="small pill-base pill-success d-inline-block mt-1 mb-0">sin calificar</p>}
                             </RemovableListItem>
                         )}
                     </div>)}

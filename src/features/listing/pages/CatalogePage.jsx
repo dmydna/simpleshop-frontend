@@ -11,12 +11,13 @@ import { ListingPlaceholder } from "@features/placeholder/ListingPlaceholder.jsx
 import { useEffect, useState } from "react";
 import { Container, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
+import ListingDetailStatus from "../components/ListingDetail/ListingDetailStatus";
 
 
 
 function Cataloge() {
     
-  const baseHook = useListing({autofetch: true, includeTags:true })
+  const baseHook = useListing({ autofetch: true, includeTags: true })
   const { listings, totalPages, filters, totalElements, setFilters } = baseHook;
   const [showFilter, setShowFilter] = useState(false)
 
@@ -80,8 +81,16 @@ function Cataloge() {
                 <ListingCard className={'border m-2 p-2 island'}
                   {...p}
                   key={p.id}
-                >
-                  <AddToCartButton className="m-2" variant="outline-success" product={p} />
+                > 
+                  <ListingDetailStatus 
+                    status={p.meta.status}
+                    className={"p-2 text-center text-uppercase my-2"} 
+                  >
+                    <AddToCartButton 
+                      className={`m-2 ${p.meta.status !== "ACTIVE" ? 'disabled' : ''}`} 
+                      variant="outline-success" 
+                      product={p} />
+                  </ListingDetailStatus>  
                 </ListingCard>
               ))}
             </Row>

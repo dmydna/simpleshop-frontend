@@ -1,4 +1,5 @@
 import { useAuthContext } from "@/features/auth/contexts/AuthContext.jsx";
+import { URL_DEV } from "@/utils/links";
 import { FeedbackMessage } from "@common/FeedbackMessage.jsx";
 import { useNavigate } from "react-router-dom";
 
@@ -7,7 +8,7 @@ function FallbackNotContent() {
     const { isAdmin } = useAuthContext()
     const navigate = useNavigate();
     const addContent = () => {
-        navigate('/dashboard/dev')
+        navigate(URL_DEV)
     }
     const msg_user = 'No hay elementos en esta sección. Estamos trabajando en eso.';
     const msg_admin = 'No hay elementos en esta sección. Agrega alguno para comenzar.'

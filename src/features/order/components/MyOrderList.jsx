@@ -6,6 +6,8 @@ import OrderTable from "@f/order/components/OrderTable";
 import { useUrlParams } from "@/hooks/useUrlParams";
 import { useNavigate } from "react-router-dom";
 import { IconTint } from "@/components/common/FloatButtonCollection";
+import OverlayMenu from "@common/OverlayMenu"
+
 
 export const MyOrderList = ({ className }) => {
   const { currentOrder, setShowReview } = useOrderDetailContext();
@@ -38,11 +40,7 @@ export const MyOrderList = ({ className }) => {
       <Card className={"border-0 p-0"}>
         <div className="d-flex align-items-center justify-content-between">
             <p className="h5 fw-bold pt-2">My order</p>
-            <IconTint
-              className={"rounded-circle"}
-              action={() => navigate("/user/purchases")}
-              icon={"three-dots"}
-            />
+            <OverlayMenu />
         </div>
         <div className="my-2" />
         <OrderTable content={visibleItems} />
