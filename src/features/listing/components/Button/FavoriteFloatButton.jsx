@@ -4,23 +4,24 @@ import { useAsync } from "@/hooks/useAsync";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-
-
 export default function FavoriteFloatButton({item, style, className}){
 	
-//    const { createFavorite, deleteFavorite, isFavoriteProduct } = useFavorite()
    const [isFavorite, setIsFavorite] = useState(false)
 
-   const msg_add = "agregado a favoritos"
-   const msg_del = "removido de favoritos"
+   const msg_add = "Add to favorites"
+   const msg_del = "Remove to favorites"
 
    const options = (msg) => ({
       onSuccess : () => {
-         setIsFavorite(true);
+         if(isFavorite){
+           setIsFavorite(false);
+         }else{
+           setIsFavorite(true);
+         }
          toast.success(msg);
       },
       onError: (err) =>{
-         toast.warning(err?.menssage || "error en operacion");
+         toast.warning(err?.menssage || "Operacion Error");
       }
 
     })
@@ -49,7 +50,7 @@ export default function FavoriteFloatButton({item, style, className}){
 
 	return (
          <ToggleIcon
-            disabled= { createFavorite.loading }
+            disabled= { createFavorite.loading  || item?.meta?.status !== "ACTIVE" }
             status={ isFavorite }
          	style={ style }
             className={`border rounded-circle bg-wh01 ${className}`} 

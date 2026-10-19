@@ -26,7 +26,10 @@ export const useUrlParams = () => {
     const validate = searchParams.get('validate');
 
     const availabilityParam = searchParams.get('availability');
+    
     const tableVersion = searchParams.get('tableVersion');
+    const pageVersion = searchParams.get('pageVersion');
+    
     const tagsParam = searchParams.get('tags');
     const hashParam = searchParams.get('hash'); 
     const pageParam = searchParams.get('page');
@@ -37,7 +40,6 @@ export const useUrlParams = () => {
     const roleParam = searchParams.get('role');
     const skuParam = searchParams.get('sku');
     const sortParam = searchParams.get('sort');
-    const pageVersion = searchParams.get('pageVersion');
     const modeParam = searchParams.get('mode');
     const minPrice =  searchParams.get('minPrice');
     const maxPrice =  searchParams.get('maxPrice');

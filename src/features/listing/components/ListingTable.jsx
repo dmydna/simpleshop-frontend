@@ -70,6 +70,9 @@ const ListingTable = ({ baseHook, className, }) => {
                                 <th style={{ width: '150px' }} className='text-secondary'>
                                     <SortByParam name='availabilityStatus'>Availability</SortByParam>
                                 </th>
+{/*                                <th style={{ width: '150px' }} className='text-secondary'>
+                                    Stock
+                                </th>*/}
                                 <th style={{ width: '150px' }} className='d-block d-table-cell d-md-none text-secondary'></th>
                             </tr>
                         </thead>
@@ -110,7 +113,11 @@ const ListingTable = ({ baseHook, className, }) => {
                                             className={`bg-white border border-1 rounded flex-shrink-0 ${item?.meta?.status == "INACTIVE" ? 'img-secondary': ''}`}
                                             src={item?.thumbnail || placeholderURL.listing(item?.id)}
                                         />
-                                        <span className={`mx-3 fw-medium ${item?.meta?.status == "INACTIVE"? 'text-secondary' : ''}`}>
+                                        {item?.stock &&
+                                        <span className={`mx-1 fw-medium bg-dark bg-opacity-10 text-dark rounded-3 small px-1`}>
+                                            {item?.stock < 10 ? `0${item?.stock}` : item.stock }</span>
+                                        }
+                                        <span className={`mx-2 fw-medium ${item?.meta?.status == "INACTIVE"? 'text-secondary' : ''}`}>
                                             {item?.title}</span>
                                     </td>
                                     
@@ -145,6 +152,13 @@ const ListingTable = ({ baseHook, className, }) => {
 
                                     </td>
 
+                                    {/* Stock */}
+{/*                                    <td className='fw-medium' style={{ lineHeight: '4.2', textAlign: 'start' }}  >
+                                        <span class="">
+                                            <i className='bi bi-box-seam me-2 text-secondary'></i>
+                                            {item?.stock || 0}
+                                        </span>
+                                    </td>*/}
 
                                     {/**Action */}
                                     <td className='small d-table-cell d-md-none'

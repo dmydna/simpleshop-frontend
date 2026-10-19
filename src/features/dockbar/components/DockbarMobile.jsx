@@ -14,7 +14,6 @@ export default function DockbarMobile({ onShow, expandable = true }) {
     const navigate = useNavigate()
 
   
-
     return (
         <ul style={{width: "500px"}} className="mx-3 mx-sm-auto list-group list-group-flush flex-row justify-content-between">
 
@@ -46,8 +45,8 @@ export default function DockbarMobile({ onShow, expandable = true }) {
             )}
 
             <div>
-             <CartButton/> 
-              <p style={{fontSize: ".700rem"}} className="m-0 mt-2 text-center">cart</p>
+             <CartButton style={{padding: "10px"}}/> 
+              <p style={{fontSize: ".700rem"}} className="m-0 text-center">cart</p>
             </div>
 
 
