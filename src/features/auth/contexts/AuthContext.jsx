@@ -5,30 +5,39 @@ import FallbackExpiredSession from '@/features/fallback/components/FallbackExpir
 import { useAuth } from "@features/auth/hooks/useAuth.js";
 import { createContext, useContext, useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import ModalParam from '@/components/common/ModalParam';
 
 export const AuthContext = createContext(null)
 
-export function AuthProvider({ children }){
+export function AuthProvider({ children }) {
 
     const navigate = useNavigate();
     const authHook = useAuth()
 
-    const {logout} = authHook;
-    const [show, setShow] = useState();
+    const { logout, expiredDate } = authHook;
 
-    const expiredSessionHandle = () => {
-        setShow(false); logout(); navigate('/')
+    const renewSession = () => {
+       setSearchParams(prev => ({...prev, dialog: 'expiredsession'}))
     }
 
     return (
 
-        <AuthContext.Provider value={{...authHook, renewSession: () => setShow(true)}}>
+        <AuthContext.Provider value={{ 
+            ...authHook, 
+            renewSession: renewSession 
+        }}>
             {children}
-        <ModalConfirm show={show} close={setShow}>
-                <div className='p-3f'>
-                   <FallbackExpiredSession  handle={expiredSessionHandle}  />
-                </div>
-            </ModalConfirm>
+            {expiredDate && Date.now() > expiredDate && 
+                <ModalParam size="sm" param="dialog=expiredsession">
+                    {(close) =>
+                        <div className='p-3f'>
+                            <FallbackExpiredSession 
+                                handle={ () => { close(); logout(); navigate('/') }} 
+                            />
+                        </div>
+                    }
+                </ModalParam>
+            }
         </AuthContext.Provider>
 
     )

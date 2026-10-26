@@ -8,22 +8,19 @@ export default function ProtectedRoute({ children }) {
     
     const { isAuth, loading, renewSession, expiredDate } = useAuthContext();
 
+    window.scrollTo({ top: 0, behavior: 'instant'});
 
     if (loading) {
         return <PageLoading message='Cargando sesion...' />;
     }
     
     if(expiredDate && Date.now() > expiredDate){
-            renewSession();
+        renewSession();
     }
    
+    if(isAuth){
+        return  <RouteLayout>{children}</RouteLayout>
+    }
 
-    window.scrollTo({ top: 0, behavior: 'instant'});
-
-
-    return isAuth ? 
-        <RouteLayout>
-            {children}
-        </RouteLayout> : 
-        <Navigate to="/login" />;
+    return <Navigate to="/login" />;
 }
