@@ -40,8 +40,13 @@ export const stats_service = {
         return await listCountByField("products", field, limit)
     },
 
+    // HACK: el endpoint deberia ser availabilityStatus
     getListingStats: async (field, limit) => {
-        return await listCountByField("listings", field, limit)
+        let FIELD = field;
+        if(field == "availabilitystatus"){
+            FIELD = "availabilityStatus";
+        }
+        return await listCountByField("listings", FIELD, limit)
     },
 
 

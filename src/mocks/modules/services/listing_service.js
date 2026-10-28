@@ -51,13 +51,16 @@ export const listing_service = {
         if (listing.stock == 0) {
             listing.availabilityStatus = "Out of Stock";
             listing.status = "INACTIVE";
+            return listing;
         }
         if (listing.stock < 10) {
             listing.availabilityStatus = "Low Stock";
+            return listing;
         }
 
         if (listing.stock >= 10) {
             listing.availabilityStatus = "In Stock";
+            return listing;
         }
         return listing;
     },
@@ -70,6 +73,15 @@ export const listing_service = {
             return db._loadRelations(data, collection);
         }
         return  data;
+    },
+
+    updateById: (id, update) => {
+        const updateData = listing_service.setStatusForStock(update);
+        return db.update(
+            collection, 
+            item => item.id == id , 
+            item => ({ ...item, ...updateData }) 
+        ); 
     },
 
 }

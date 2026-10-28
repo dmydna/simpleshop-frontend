@@ -40,7 +40,7 @@ export const user_service = {
     unbanUser: (id) =>{
         const user = user_service.getById(id);
         if(!user) throw new Error("Usuario no encontrado");
-        user.status.meta = "ACTIVE";
+        user.meta.status = "ACTIVE";
         user.banExpiresAt = null;
         return db.save(collection, user)  
     },

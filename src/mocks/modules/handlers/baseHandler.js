@@ -114,7 +114,7 @@ export const baseHandlers = (BASE_ENDPOINT, SERVICE) => [
 
     const updatedData = SERVICE.updateStatus(id, updates)
 
-    return HttpResponse.json( {status: updatedData.meta.status }, { status: 200 });
+    return HttpResponse.json( { ...updatedData }, { status: 200 });
   }),
 
 
