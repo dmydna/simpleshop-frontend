@@ -1,42 +1,52 @@
-# Simpleshop-frontend
+# Simple Shop - Frontend 🚀
 
-Este es un fork del frontend (`simpleshop-demo`), modificado para integrarse 
-con el backend propio (`simpleshop-backend`) en lugar de usar una API pública.
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+[![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)](https://getbootstrap.com/)
 
-### Características:
-
-- Dashboard y CRUD completo (ahora conectado a backend real)
-- Catalogo de productos (listing)
-- Sistema de login con JWT (integrado con la API)
-- Subida y eliminación de imágenes
-- Paginación en listados
-- Diseño responsive con React + Bootstrap
-
-### Tecnologías 
-
-- React 
-- Bootstrap
-- Vite
-
+Interfaz de usuario responsiva y dinámica desarrollada para el e-commerce **Simple Shop**. Construida con React y Bootstrap, ofrece una experiencia de compra completa y un panel de administración avanzado.
 
 ---
 
-### Instalación y uso
+## 📸 Vista Previa
 
-Cloná el repositorio e instalá las dependencias:
+[Ver Demo en línea](https://simpleshop-mock.netlify.app/)
 
-```bash
-git clone https://github.com/dmydna/tp-simple-shop.git
-cd tp-simple-shop
-npm install
-```
-__Build de producción__:
+---
 
-```bash
-npm run build
-npm run preview
-```
+## 🛠️ Tecnologías Principales
 
-> Nota:  
-> Este repositorio **no incluye el backend**.
+- **Framework:** React
+- **Enrutamiento:** React Router
+- **Estilos y UI:** Bootstrap, CSS Modules
+- **Estado Global:** Context API
 
+---
+
+## ✨ Funcionalidades Principales
+
+- **Sistema de Autenticación:** Vistas de Login y Registro seguras.
+- **Catálogo y Búsqueda:** Búsqueda avanzada con filtros múltiples de productos.
+- **Experiencia de Compra:** Carrito de compras, proceso de Checkout e Historial de pedidos.
+- **Perfil de Usuario:** Gestión de cuenta y lista de deseos (Wishlist).
+- **Panel Administrativo:** 
+  - Dashboard con métricas.
+  - Formularios CRUD dinámicos para la gestión de productos.
+  - Panel de control de usuarios (bloqueo/baneo y gestión de permisos).
+- **Diseño Responsivo:** Interfaz 100% adaptada para dispositivos móviles y de escritorio.
+
+---
+
+## 📁 Estructura del Proyecto
+
+```text
+frontend/
+├── public/               # Archivos estáticos e imágenes públicas
+├── src/
+│   ├── components/       # Componentes reutilizables (Botones, Tarjetas, Modales)
+│   ├── context/          # Manejo de estados globales (Auth, Carrito)
+│   ├── pages/            # Vistas principales (Home, Admin, Checkout, Perfil)
+│   ├── services/         # Configuración de peticiones a la API (Axios/Fetch)
+│   ├── App.js            # Componente raíz y rutas
+│   └── index.js          # Punto de entrada de la aplicación
+├── Dockerfile            # Configuración de Docker para el frontend
+└── package.json          # Dependencias y scripts de Node.js
