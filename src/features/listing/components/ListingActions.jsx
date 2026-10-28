@@ -118,10 +118,10 @@ export default function ListingActions({ close, className }) {
 
                     <ButtonLink
                         handle={ handle.preview }
-                        icon="bi-star"
+                        icon="bi-link-45deg"
                         visible={modeParam != 'create'}
                     >
-                        Preview
+                       Go to post
                     </ButtonLink>
 
 
@@ -206,6 +206,8 @@ export default function ListingActions({ close, className }) {
                         Export File
                     </ButtonLink>
 
+
+                    {/* TODO: pasar de Modal Confirm a Modal Params */}
                     <ModalConfirm show={showConfirm} >
                         <ConfirmMessage 
                             title={"Confirmar Accion"}

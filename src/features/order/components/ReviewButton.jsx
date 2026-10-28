@@ -10,10 +10,12 @@ export default function ReviewButton({reviewId}){
 	}
 
 	return (
-		<span 
+	  <span 
         	onClick={handle}
             style={{ fontSize: '11px', width: '50px' }} 
-            className="small pill-base pill-secondary pointer">
+            className="small pill-base pill-primary pointer">
+            <i className="bi bi-star mx-2"></i>
                   valorar producto
-        </span>)
+        </span>
+      )
 }

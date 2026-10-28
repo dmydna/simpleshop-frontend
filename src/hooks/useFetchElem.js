@@ -23,7 +23,7 @@ export const useFetchElem = ({ fetchMethod }) => {
     };
 
     const refreshElem = useCallback(() => {
-          fetchElem(id)
+        if(id){ fetchElem(id) } 
     },[id])
 
     useEffect(() => {

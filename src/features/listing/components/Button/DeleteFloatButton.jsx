@@ -16,7 +16,7 @@ export default function DeleteFloatButton({item, style, className}){
          // Actualiza estado de forma local
          item.meta.status = currentStatus.status;
          navigate(window.location.pathname)
-      }
+      }  
     } 
 
     const onError = (err) => {
@@ -26,15 +26,19 @@ export default function DeleteFloatButton({item, style, className}){
 
     const updateStatus = useAsync(listingService.updateStatus, {onSuccess, onError});
  
- 
-
+   const deleteHandle = async() => {
+      await updateStatus.execute(item.id, "DELETED")
+      if (updateStatus.error?.code === 'TOKEN_EXPIRED') {
+         navigate('/home?dialog=expiredsession') 
+      }
+   }
 
 	return (
         <HoverIcon
            disabled={updateStatus.loading}
            style={style}
            className={`border rounded-circle bg-wh01 ${className}`} 
-           action={updateStatus.execute}
+           action={ deleteHandle }
            icon="trash3"
         />
 	)

@@ -63,10 +63,30 @@
 
 hr { opacity: .15; }
 .disabled { opacity: .6}
-.selected td  { background-color: #6c757d24;}
+
+td #default-radio {
+    margin: 15px;
+}
+
+
+td .check-radio:has(input:checked),
+td .check-radio:hover {
+    content: "";
+    position: relative;
+    background: #0000001a;
+    border-radius: 100%;
+    top: 3px;
+    right: 1px;
+}
+
+
+
+.selected td, .selected td span:not(.pill-base) { 
+/*    background-color: #6c757d24;*/
+    color: black!important; 
+    font-weight: bold!important
+}
 .secondary td { background-color: #a7a7a724 !important}
-
-
 
 .z-index-10 {z-index: 10}
 .z-index-20 {z-index: 20}

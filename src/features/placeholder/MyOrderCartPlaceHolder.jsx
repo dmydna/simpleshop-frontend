@@ -8,7 +8,7 @@ export const MyOrderCartPlaceHoder = () => {
     const width = useWindowsWidth()
     return (
         <Card style={{ top: (width > 900 ? "55px" : 0) }}
-            className={` sticky-md-top m-2 p-4 island`} >
+            className={` sticky-md-top mx-0 my-2 m-lg-0 mx-lg-2 p-4 island`} >
             <p style={{opacity: '.4'}} className="card-text placeholder-glow d-flex gap-3 justify-content-between">
                 <span className="placeholder col-12"></span>
             </p>

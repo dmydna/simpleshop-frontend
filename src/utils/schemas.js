@@ -51,7 +51,7 @@ export const ListingDTO = z.object({
   productName: z.string().default(""),
   sku: z.string().min(1, "sku requerido").default(""),
   weight: z.coerce.number().int().default(0),
-  stock: z.coerce.number().int().min(0, "El precio no puede ser negativo").default(0),
+  stock: z.coerce.number().int().min(1, "El precio no puede ser negativo o 0").default(1),
   category: z.string().default(""),
   tags: z.array(z.string()).default([])
   // returnPolicy: z.string().default(""),

@@ -48,7 +48,7 @@ const ListingTable = ({ baseHook, className, }) => {
             <>
                 <div className={`${className} small w-100`}>
 
-                    <Table style={{ overflowX: 'auto' }} className="mb-0 w-100" striped={false} bordered={false} hover={true}>
+                    <Table style={{ overflowX: 'auto' }} className="mb-0 w-100" striped={false} bordered={false} hover={false}>
                         <thead className=''>
                             <tr className='border-bottom'>
                                 <th style={{ width: '150px' }} className='d-none  d-md-table-cell text-secondary'>
@@ -70,6 +70,9 @@ const ListingTable = ({ baseHook, className, }) => {
                                 <th style={{ width: '150px' }} className='text-secondary'>
                                     <SortByParam name='availabilityStatus'>Availability</SortByParam>
                                 </th>
+{/*                                <th style={{ width: '150px' }} className='text-secondary'>
+                                    Stock
+                                </th>*/}
                                 <th style={{ width: '150px' }} className='d-block d-table-cell d-md-none text-secondary'></th>
                             </tr>
                         </thead>
@@ -90,11 +93,11 @@ const ListingTable = ({ baseHook, className, }) => {
                                     {/* Input check item */}
                                     <td
                                         onClick={() => toggleSelect(item)}
-                                        className='text-secondary d-none  d-md-table-cell'>
+                                        className='text-secondary d-none p-0 d-md-table-cell'>
                                         <Form.Check // prettier-ignore
                                             type='checkbox'
                                             id={`default-radio`}
-                                            className='mt-3'
+                                            className='mt-3 check-radio position-relative'
                                             checked={idParam == item.id}
                                             onChange={(e) => {
                                                 e.stopPropagation();
@@ -107,10 +110,14 @@ const ListingTable = ({ baseHook, className, }) => {
                                     <td>
                                         <img
                                             style={{ objectFit: 'contain', width: '60px', height: '60px' }} // Altura fija igual al texto
-                                            className={`bg-white border border-1 rounded flex-shrink-0 ${item?.meta?.status == "INACTIVE" ? 'img-secondary': ''}`}
+                                            className={`bg-white border border-1 rounded flex-shrink-0 ${item?.meta?.status == "INACTIVE" ? 'img-secondary-': ''}`}
                                             src={item?.thumbnail || placeholderURL.listing(item?.id)}
                                         />
-                                        <span className={`mx-3 fw-medium ${item?.meta?.status == "INACTIVE"? 'text-secondary' : ''}`}>
+                                        {item?.stock &&
+                                        <span className={`mx-1 fw-medium bg-dark bg-opacity-10 text-dark rounded-3 small px-1`}>
+                                            {item?.stock < 10 ? `0${item?.stock}` : item.stock }</span>
+                                        }
+                                        <span id={"title-item-table"} className={`mx-2 fw-medium ${item?.meta?.status == "INACTIVE"? '' : ''}`}>
                                             {item?.title}</span>
                                     </td>
                                     
@@ -145,6 +152,13 @@ const ListingTable = ({ baseHook, className, }) => {
 
                                     </td>
 
+                                    {/* Stock */}
+{/*                                    <td className='fw-medium' style={{ lineHeight: '4.2', textAlign: 'start' }}  >
+                                        <span class="">
+                                            <i className='bi bi-box-seam me-2 text-secondary'></i>
+                                            {item?.stock || 0}
+                                        </span>
+                                    </td>*/}
 
                                     {/**Action */}
                                     <td className='small d-table-cell d-md-none'

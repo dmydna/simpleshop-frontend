@@ -40,10 +40,13 @@ export default function ProductBuyCard({ className, ...item }) {
         {(isAdmin && 
           <p className="mb-1">
           <Pill icon={"bi-box-seam"} 
-                variant={"pill-success"} 
-                children={`stock ${item.stock}`}
+              variant={`${item?.stock ? 'pill-success': 'pill-danger'}`} 
+              children={`${item.stock ? 'stock ' + item.stock : "Out of Stock" }`}
           />
-          <Pill className={"mx-2"} icon={"bi-truck"} variant={"pill-primary"} children={"Free Shipping"} />
+          <Pill icon={"bi-truck"} 
+            className={"mx-2"} 
+            variant={"pill-primary"} 
+            children={"Free Shipping"} />
           </p>
         )}
         {(!isAdmin && 
@@ -59,11 +62,12 @@ export default function ProductBuyCard({ className, ...item }) {
           <ListingDetailStatus status={item?.meta?.status}>
               {/** STATUS == ACTIVE (default) **/}
               <BuyNowButton
-                className='m-0'
+                className={`m-0  ${item?.stock ? '': 'disabled'}`}
                 variante='primary'
                 handle={handleClick} 
               />
-              <AddToCartButton className="m-0" product={item} /> 
+              <AddToCartButton 
+                className={`m-0 ${item?.stock ? '': 'disabled'}`} product={item} /> 
           </ListingDetailStatus>            
       </InputGroup>
     </Card>

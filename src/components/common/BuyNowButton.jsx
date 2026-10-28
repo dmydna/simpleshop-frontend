@@ -12,7 +12,7 @@ function BuyNowButton({handle, variant, children, className}){
             onClick={()=> handle()}
         >
             <i className="bi bi-cart3 me-3"></i>
-            {children ? children : 'Comprar ahora'}
+            {children ? children : 'Buy Now'}
         </Button>
     )
 }

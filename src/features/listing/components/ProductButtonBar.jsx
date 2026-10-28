@@ -47,7 +47,7 @@ export default function  ProductButtonBar({item}){
                     {!hide && (
                         <>
                             <EditFloatButton item={item} />
-                            <DeleteFloatButton item={item} />
+                            {/* <DeleteFloatButton item={item} />*/}
                             <StatusFloatButton item={item} /> 
                         </>
                     )}
