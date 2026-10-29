@@ -5,11 +5,13 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { useUrlState } from "@/hooks/useUrlState";
 import { Spinner } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 export default function StatusFloatButton({ item, style, className }) {
    
 	const [ activeButton, setActiveButton ] = useState(true);
-   const [ fetchStatus, setFetchStatus ] = useState(null)
+   const [ fetchStatus, setFetchStatus ] = useState(null);
+   const navigate = useNavigate()
 
    const { setSearchParams } = useUrlState()
 
@@ -29,6 +31,10 @@ export default function StatusFloatButton({ item, style, className }) {
       setSearchParams(prev => ({...prev, pageVersion: Date.now() }))
    } 
    const onError = (err) => {
+      if (err?.code === 'TOKEN_EXPIRED') {
+         setSearchParams(prev => ({...prev, dialog: 'expiredsession'})) 
+         return;
+      }
       toast.warning(err?.menssage || "error en la operacion!");
    }
 
@@ -36,11 +42,11 @@ export default function StatusFloatButton({ item, style, className }) {
       listingService.updateStatus, { onSuccess, onError }
    );
 
-   const handleToggle = useCallback(()=>{
+   const handleToggle = useCallback(async()=>{
       if(item?.meta?.status == "ACTIVE"){
-         updateStatus.execute(item.id, "INACTIVE")
+         await updateStatus.execute(item.id, "INACTIVE")
       }else{
-         updateStatus.execute(item.id, "ACTIVE")
+         await updateStatus.execute(item.id, "ACTIVE")
       }
    },[item.id, item.meta.status, updateStatus])
 
