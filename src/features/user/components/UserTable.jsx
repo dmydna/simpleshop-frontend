@@ -73,11 +73,11 @@ const UserTable = ({  baseHook, className }) => {
 
                                     <td
                                         onClick={() => toggleSelect(item)}
-                                        className='text-secondary d-none  d-md-table-cell'>
+                                        className='text-secondary d-none p-0 d-md-table-cell'>
                                         <Form.Check // prettier-ignore
                                             type='checkbox'
                                             id={`default-radio`}
-                                            className='mt-3'
+                                            className='mt-3 tint'
                                             checked={idParam == item.id}
                                             onChange={(e) => {
                                                 e.stopPropagation();

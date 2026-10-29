@@ -46,7 +46,7 @@ function ProductTable({ children, baseHook, className }) {
                         <thead className=''>
                             <tr className='border-bottom'>
                                 {/**Selection */}
-                                <th style={{ width: '150px' }} className='d-none  d-md-table-cell text-secondary'>
+                                <th style={{ width: '50px' }} className='d-none  d-md-table-cell text-secondary'>
                                     <i class="bi bi-grip-vertical"></i>
                                 </th>
                                 {/**Item */}
@@ -72,12 +72,12 @@ function ProductTable({ children, baseHook, className }) {
                                     {/* Selection */}
                                     <td
                                         onClick={() => toggleSelect(item)}
-                                        className='text-secondary d-none  d-md-table-cell'>
+                                        className='text-secondary d-none p-0 d-md-table-cell'>
                                         
                                         <Form.Check // prettier-ignore
                                             type='checkbox'
                                             id={`default-radio`}
-                                            className='mt-3'
+                                            className='mt-3 tint'
                                             checked={idParam == item.id}
                                             onChange={(e) => {
                                                 e.stopPropagation();

@@ -48,7 +48,7 @@ const ListingTable = ({ baseHook, className, }) => {
             <>
                 <div className={`${className} small w-100`}>
 
-                    <Table style={{ overflowX: 'auto' }} className="mb-0 w-100" striped={false} bordered={false} hover={false}>
+                    <Table style={{ overflowX: 'auto' }} className="mb-0 w-100" striped={true} bordered={false} hover={false}>
                         <thead className=''>
                             <tr className='border-bottom'>
                                 <th style={{ width: '150px' }} className='d-none  d-md-table-cell text-secondary'>
@@ -97,7 +97,7 @@ const ListingTable = ({ baseHook, className, }) => {
                                         <Form.Check // prettier-ignore
                                             type='checkbox'
                                             id={`default-radio`}
-                                            className='mt-3 check-radio position-relative'
+                                            className='mt-3 tint position-relative'
                                             checked={idParam == item.id}
                                             onChange={(e) => {
                                                 e.stopPropagation();

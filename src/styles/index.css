@@ -69,14 +69,24 @@ td #default-radio {
 }
 
 
-td .check-radio:has(input:checked),
-td .check-radio:hover {
-    content: "";
+
+.tint, .btn-tint {
     position: relative;
-    background: #0000001a;
+    display: flex;
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    transition: .8s;
+}
+.tint:has(input:checked),
+.tint:hover, .btn-tint {
+    content: "";
+    background: #00000012;
     border-radius: 100%;
-    top: 3px;
-    right: 1px;
+    top: 0;
+    right: 0;
+    transition: 1s;
 }
 
 
