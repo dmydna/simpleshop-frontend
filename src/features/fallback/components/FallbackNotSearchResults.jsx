@@ -2,11 +2,11 @@ import { FeedbackMessage } from "@common/FeedbackMessage.jsx";
 
 export default function FallbackNotSearchResults(){
 
-    const msg = 'No se encontraron elementos. Intenta con otra busqueda o filtros.';
+    const msg = 'No se encontraron resultados. Intenta con otra busqueda o filtros.';
     return (
 
         <FeedbackMessage
-            title="Busqueda sin resultados"
+            title="Sin coincidencias"
             message={msg}
             icon="bi-emoji-frown"
         />

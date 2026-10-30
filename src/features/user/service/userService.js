@@ -13,11 +13,12 @@ export const userService = {
 
     // GET: Obtener paginas de usuarios
     getPage : async ({ page = 0, size = 10, ...filters } = {}) => {
-        const finalEndpoint = `${BASE_ENDPOINT}`
+        const finalEndpoint = `${BASE_ENDPOINT}`;
         const params = new URLSearchParams();
         params.append('page', page);
         params.append('size', size);
-        mapToURLSearchParams(params, filters)
+        const finalFilter = {...filters, username: filters?.query }
+        mapToURLSearchParams(params, finalFilter);
         const response = await api.get(finalEndpoint, params.toString());
         return response;
     },

@@ -1,15 +1,17 @@
+import { useUrlState } from "@/hooks/useUrlState";
 import React, { useEffect, useState } from "react";
 import { Button, InputGroup } from "react-bootstrap";
 
 function SearchLive({
   className, 
-  items, 
-  handleSearch, 
+  items,
   handleActive, 
   handleFilter, 
   tail=true}) {
   const [query, setQuery] = useState(""); 
 //   const {setSearch, clients} = useController();
+
+  const { setSearchParams } = useUrlState();
 
   const [showtail, setshowtail] = useState(false)
   const handleClickFilter = () => {
@@ -17,12 +19,19 @@ function SearchLive({
     handleFilter()
   }
 
+  const handleSearch = (search) => {
+    setSearchParams(prev => ({query: search}))
+  }
+
+
   useEffect(() => {
       if (!query.trim()) {
-        handleSearch("");
-          return;
+           handleSearch(null);
+           return;
       }
-      handleSearch(query);
+      if(query != ""){
+          handleSearch(query);
+      }
   }, [items, query]);
 
   function handleChange(e) {

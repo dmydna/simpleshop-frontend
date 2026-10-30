@@ -1,56 +1,26 @@
-import FilterListing from "@/features/filters/components/FilterListing.jsx";
+import CatalogeFilter from "@/features/listing/components/CatalogeFilter.jsx";
 import ListingCard from "@/features/listing/components/ListingCard.jsx";
 import { useListingSync } from "@/features/listing/hooks/useCatalogeSync.js";
 import { useListing } from "@/features/listing/hooks/useListing.js";
 import ListingContextLayout from "@/features/listing/layout/ListingContextLayout.jsx";
-import CategoryCarrousel from "@common/CategoryCarrousel.jsx";
-import CategoryNav from "@common/CategoryNav.jsx";
 import AddToCartButton from "@features/cart/components/AddToCartButton.jsx";
 import Pagination from "@features/pagination/components/Pagination.jsx";
 import { ListingPlaceholder } from "@features/placeholder/ListingPlaceholder.jsx";
-import { useEffect, useState } from "react";
-import { Container, Row } from "react-bootstrap";
-import { useParams } from "react-router-dom";
-import ListingDetailStatus from "../components/ListingDetail/ListingDetailStatus";
 
+import { Container, Row, Spinner } from "react-bootstrap";
+import ListingDetailStatus from "../components/ListingDetail/ListingDetailStatus";
+import FallbackNotSearchResults from "@features/fallback/components/FallbackNotSearchResults.jsx"
+
+import CatalogeHeader from "@features/listing/components/CatalogeHeader"
 
 
 function Cataloge() {
     
   const baseHook = useListing({ autofetch: true, includeTags: true })
-  const { listings, totalPages, filters, totalElements, setFilters } = baseHook;
-  const [showFilter, setShowFilter] = useState(false)
+  const { listings, totalPages, totalElements } = baseHook;
 
-
-  const { filter } = useParams()
-
-  const [meta, setMeta] = useState({ title: "Productos" });
-
-  // eslint-disable-next-line no-unused-vars
-  const serviceParams = useListingSync({ ...baseHook });
-
-
-  useEffect(() => {
-
-    setShowFilter(filter ? true : false)
-    
-
-    if (filters && Object.keys(filters).length == 0) {
-      setMeta({ title: "Productos" });  
-    }
-    if (filters?.category) {
-      setMeta((prev) => ({ ...prev, title: filters?.category }));
-    }
-    if (filters?.title) {
-      setMeta((prev) => ({
-        ...prev,
-        title: "Resultados",
-        message: `${totalElements} encontrados`
-      }));
-    }
-  }, [filters, filter])
-
-
+  // Maneja los parametros de busqueda
+  useListingSync({ ...baseHook });
 
   return (
     <>
@@ -60,24 +30,21 @@ function Cataloge() {
       >
         <>
           <Container fluid="xl" className="bg-white rounded mt-2 mb-5 pb-5">
-            <div className="w-100 d-flex flex-column mt-2 mb-4">
-              <span className="text-capitalize fw-semibold me-3 fs-5 fw-medium" >
-                {meta.title}
-              </span>
-              <span style={{ lineHeight: '2.3rem' }} className="text-secondary">
-                {meta.message}
-              </span>
-            </div>
-            {showFilter ?
-              <>
-                <CategoryNav className='d-none d-md-block' show={showFilter} />
-                <CategoryCarrousel className='d-block d-md-none' />
-                <FilterListing />
 
-              </> : ''
-            }
+            <CatalogeFilter />
+
+            <div className="pt-3">
+              <CatalogeHeader {...baseHook} />
+            </div>
+            
             <Row>
-              {listings?.map((p) => (
+
+              {baseHook?.loading && 
+                <div className="p-5 my-5 vh-50 w-100 d-flex justify-content-center">
+                  <Spinner variant={"primary"} /> 
+                </div>
+              }
+              {!baseHook?.loading && listings?.map((p) => (
                 <ListingCard className={'border m-2 p-2 island'}
                   {...p}
                   key={p.id}
@@ -93,12 +60,18 @@ function Cataloge() {
                   </ListingDetailStatus>  
                 </ListingCard>
               ))}
+              {!baseHook?.loading && totalElements == 0 &&
+                <div className="vh-50">
+                  <FallbackNotSearchResults />
+                </div>
+              }
             </Row>
           </Container>
-          <Pagination
-            className={`container-xl`}
-            totalPages={totalPages}
-          />
+          {!baseHook?.loading && 
+            <Pagination
+              className={`container-xl`}
+              totalPages={totalPages}
+            />}
         </>
       </ListingContextLayout>
     </>

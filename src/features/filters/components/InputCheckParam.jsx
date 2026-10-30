@@ -70,19 +70,19 @@ function InputCheckParam({
     <Dropdown className={className + ' w-100'} style={style}>
       <Dropdown.Toggle
         variant={variant}
-        style={{opacity: '.6'}}
         className="border bg-tint container-fluid d-flex toggle-end align-items-center"
         id="dropdown-basic"
       >
-        <b>{label || name} :</b>
-        <span className="small text-muted fw-semibold mx-3">
+        <span>{label || name} </span>
+        <span style={{opacity: '.6' , lineHeight: '10px'}} 
+          className="w-100 text-end small text-muted fw-semibold mx-3">
           {selectedTags.length !== 0 ? (
             <span className="">
-              { multiselection  && `seleccionados (${selectedTags.length})`}
+              { multiselection  && `selected (${selectedTags.length})`}
               { !multiselection && array.find( t =>  formatCase(t) == selectedTags[selectedTags.length-1]) }
             </span>
           ) : (
-            'seleccionar'
+            'select'
           )}
         </span>
       </Dropdown.Toggle>

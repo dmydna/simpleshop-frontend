@@ -9,12 +9,15 @@ import DataView from '@common/DataView';
 import { pillColor } from '@utils/enums';
 import React from 'react';
 import { Button, Form, Table } from 'react-bootstrap';
+import { useUser } from '../hooks/useUser';
 
 
 // TODO: resolver filtro crud de usuarios 
-const UserTable = ({  baseHook, className }) => {
+const UserTable = ({  className }) => {
 
-    const { content, loading,  totalPages, ...props } = baseHook
+
+    const baseHook = useUser();
+    const { content, loading,  totalPages } = baseHook
 
     const { setSearchParams } = useUrlState()
     const { idParam } = useListManagerSync({ baseHook: baseHook })

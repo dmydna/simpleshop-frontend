@@ -17,7 +17,7 @@ export const useListManagerSync = ({ baseHook }) => {
 
     const {availabilityParam, tableVersion, tagsParam, hashParam, pageParam,
        idParam, searchParam, categoryParam, statusParam, roleParam, skuParam, 
-       sortParam, minPrice, maxPrice } = useUrlParams()
+       sortParam, minPrice, maxPrice, queryParam } = useUrlParams()
     
 
     useEffect(() => {
@@ -26,6 +26,7 @@ export const useListManagerSync = ({ baseHook }) => {
         if (pageParam)      { setCurrentPage(Number(pageParam))}
         if (!pageParam)     { setCurrentPage(1) }
         if (isNaN(Number(pageParam))) { setCurrentPage(1) }
+        if (queryParam)     { setFilters({ query: queryParam }) }
         if (tagsParam)      { setFilters({ tags: tagsParam }) }
         if (roleParam)      { setFilters({ role: roleParam }) }
         if (categoryParam)  { setFilters({ category: categoryParam }) }
@@ -38,7 +39,7 @@ export const useListManagerSync = ({ baseHook }) => {
 
     }, [tagsParam, pageParam, categoryParam, tableVersion, statusParam,
         searchParam, setFilters, setCurrentPage, totalElements,availabilityParam,setId,
-        sortParam, minPrice, maxPrice
+        sortParam, minPrice, maxPrice, queryParam
     ])
 
 

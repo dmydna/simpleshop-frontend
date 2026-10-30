@@ -1,28 +1,10 @@
-import { useListing } from "@/features/listing/hooks/useListing";
-import SearchLive from "@/features/search/SearchLive";
-import { URL_LISTING_CRUD, URL_LISTING_LIST } from "@/utils/links";
-import { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { URL_LISTING_CRUD } from "@/utils/links";
 import ListingTable from "@/features/listing/components/ListingTable";
-
-
+import SearchLight from "@/features/search/SearchLight";
+import AddNewButton from "@/features/form/components/AddNewButton";
 
 
 const ListingListPage = () => {
-
-    const navigate = useNavigate();
-    const baseHook = useListing({ autofetch: true });
-    const { listings, setFilters } = baseHook;
-    const [search, setSearch] = useState();
-
-    // URLs
-    const FORM_URL = URL_LISTING_CRUD;
-    const CURRENT_URL = URL_LISTING_LIST;
-
-    useEffect(() => {
-        if (search) setFilters({ page: 0, title: search })
-    }, [search])
 
     return (
         <>
@@ -33,22 +15,11 @@ const ListingListPage = () => {
             </div>
             
             <div className="d-flex justify-content-between mb-4 flex-wrap" >
-                <Button
-                    variant="light"
-                    onClick={() => navigate(`${FORM_URL}?mode=create`)}
-                    className="my-2 flex-fill flex-md-grow-0">
-                    <i className="bi bi-plus-lg"></i>
-                    <span className="fw-medium ms-2">Create new</span>
-                </Button>
-                <SearchLive
-                    className='flex-fill flex-md-grow-0'
-                    items={listings}
-                    handleSearch={setSearch}
-                    handleFilter={() => navigate(`${CURRENT_URL}?dialog=filter`)}
-                />
+                <AddNewButton to={`${URL_LISTING_CRUD}?mode=create`} />
+                <SearchLight className='flex-fill flex-md-grow-0'/>
             </div>
 
-            <ListingTable baseHook={baseHook} />
+            <ListingTable />
         </>
     );
 }

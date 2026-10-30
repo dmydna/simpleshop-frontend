@@ -7,7 +7,7 @@ import ModalParam from "@common/ModalParam";
 import ParamGuard from "@common/ParamGuard";
 import ProtectedRouteAdmin from "@common/ProtectedRouteAdmin";
 import ListingCardEntity from "@/features/listing/components/ListingCardEntity"
-
+import { Outlet } from 'react-router-dom';
 
 
 export default function ListingLayout({ children }) {
@@ -44,7 +44,7 @@ export default function ListingLayout({ children }) {
                 </PageLayout.Sidebar>
 
                 <PageLayout.Main>
-                    {children}
+                    {children ? children : <Outlet />}
                 </PageLayout.Main>  
 
                 <PageLayout.Toolkit>

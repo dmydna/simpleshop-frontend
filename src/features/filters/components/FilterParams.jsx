@@ -8,8 +8,9 @@ function FilterParams({children, close, badgeParams = false, className}){
 	
 	const [searchParams, setSearchParams] = useSearchParams();
 	const allParams = searchParams.toString();
-
 	const clearParams = () => setSearchParams(new URLSearchParams() ) ;
+
+	
 	return (
 		<div className={className}>
 
@@ -38,7 +39,7 @@ function FilterParams({children, close, badgeParams = false, className}){
 
 
 			<div className={`my-3 ${!allParams ? '': 'border-top'}`}>
-				<BadgeParams blacklist = {['page', 'dialog', 'tableVersion']} />
+				<BadgeParams blacklist = {['page', 'dialog', 'query','tableVersion']} />
 			</div>
 			
 			{close && (

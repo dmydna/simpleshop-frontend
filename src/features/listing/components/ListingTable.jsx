@@ -4,34 +4,37 @@ import StatusPill from '@/components/common/StatusPill';
 import { useListManagerSync } from '@/features/form/hooks/useListManagerSync';
 import Pagination from '@/features/pagination/components/Pagination.jsx';
 import { useUrlState } from '@/hooks/useUrlState';
-import { Status } from '@/utils/defines';
 import DataView from '@common/DataView';
-import { pillColor } from "@utils/enums";
+import { useListing } from '@features/listing/hooks/useListing';
 import { placeholderURL } from '@utils/image';
 import { formatDate } from "@utils/mappers";
 import React from 'react';
 import { Button, Form, Table } from 'react-bootstrap';
 
 
-const ListingTable = ({ baseHook, className, }) => {
+const ListingTable = ({ className }) => {
 
-
-    // eslint-disable-next-line no-unused-vars
-    const { content, loading, totalPages, error, refreshData, ...props } = baseHook;
+    const baseHook = useListing({ autofetch: true });
+    const { content, loading, totalPages, error, refreshData } = baseHook;
 
     const { setSearchParams } = useUrlState()
 
+    // sincroniza todos los parametros de busqueda
     const { idParam } = useListManagerSync({ baseHook: baseHook })
 
     const toggleSelect = (item) => {
-        // console.log(setSearchParams)
         setSearchParams(prev => ({
-            ...prev, id: idParam != item?.id ? item?.id : null
+            ...prev, 
+            id: idParam != item?.id ? item?.id : null
         }))
     }
 
     const openDialogActions = (item) => {
-        setSearchParams(prev => ({ ...prev, dialog: 'action', id: item?.id }))
+        setSearchParams(prev => ({ 
+            ...prev, 
+            dialog: 'action', 
+            id: item?.id 
+        }))
     }
 
 
@@ -48,7 +51,7 @@ const ListingTable = ({ baseHook, className, }) => {
             <>
                 <div className={`${className} small w-100`}>
 
-                    <Table style={{ overflowX: 'auto' }} className="mb-0 w-100" striped={true} bordered={false} hover={false}>
+                    <Table style={{ overflowX: 'auto' }} className="mb-0 w-100" striped={false} bordered={false} hover={true}>
                         <thead className=''>
                             <tr className='border-bottom'>
                                 <th style={{ width: '150px' }} className='d-none  d-md-table-cell text-secondary'>
@@ -57,7 +60,9 @@ const ListingTable = ({ baseHook, className, }) => {
                                 <th style={{ width: '150px' }} className='text-secondary'>
                                    <SortByParam>Title</SortByParam>
                                 </th>
-                                <th style={{ width: '150px' }} className='text-secondary'>Hash</th>
+                                <th style={{ width: '150px' }} className='text-secondary'>
+                                    Hash
+                                </th>
                                 <th style={{ width: '150px' }} className='text-secondary'>
                                     <SortByParam name='createdAt' >Created at</SortByParam>
                                 </th>

@@ -11,28 +11,24 @@ export const useListingSync = ({
     totalElements 
     }) => {
 
-    const {tagsParam, minPrice, maxPrice ,pageParam, searchParam, filterParam, categoryParam, allParams} 
+    const {tagsParam, minPrice, maxPrice ,pageParam, queryParam, filterParam, 
+    categoryParam, allParams, searchParam} 
     = useUrlParams();
 
     useEffect(() => {
+        if(!searchParam)          { setFilters({})}
+        if (tagsParam)            { setFilters( prev => ({ ...prev, tags: tagsParam }) ) }            
+        if (!pageParam)           { setCurrentPage(1) }
+        if (!isNaN(pageParam))    { setCurrentPage(Number(pageParam)) }
+        if (queryParam)           { setFilters({ query: queryParam }) }
+        if (categoryParam)        { setFilters({category: categoryParam}) }
+        if (!allParams)           { setFilters({})}
+        if (minPrice && maxPrice) { setFilters({ minPrice, maxPrice })}
 
-        if (filterParam){
-            if (tagsParam)         { setFilters( prev => ({ ...prev, tags: tagsParam }) ) }            
-            if (minPrice && minPrice){
-                { setFilters( prev => ({ ...prev, minPrice, maxPrice }) ) }
-            }
-        }
-
-        if (!pageParam)        { setCurrentPage(1) }
-        if (!isNaN(pageParam)) { setCurrentPage(Number(pageParam)) }
-        if (searchParam)       { setFilters({ title: searchParam }) }
-        if (categoryParam)     { setFilters({category: categoryParam}) }
-
-        if (!allParams){setFilters({})}
-
-    }, [tagsParam, pageParam, categoryParam, filterParam, allParams,
-        searchParam, setFilters, setCurrentPage, totalElements])
+    }, [searchParam,minPrice, maxPrice, tagsParam, minPrice, 
+        maxPrice,pageParam, categoryParam, filterParam, allParams, setFilters, 
+        setCurrentPage, totalElements, queryParam])
 
 
-    return {tagsParam, pageParam, categoryParam, searchParam}
+    return {tagsParam, pageParam, categoryParam, queryParam}
 }
