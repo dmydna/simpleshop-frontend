@@ -6,6 +6,8 @@ import { useAuth } from "@features/auth/hooks/useAuth.js";
 import { createContext, useContext, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import ModalParam from '@/components/common/ModalParam';
+import { useUrlState } from "@/hooks/useUrlState";
+
 
 export const AuthContext = createContext(null)
 
@@ -13,18 +15,21 @@ export function AuthProvider({ children }) {
 
     const navigate = useNavigate();
     const authHook = useAuth()
+    const { setSearchParams } = useUrlState()
 
     const { logout, expiredDate } = authHook;
 
-    const renewSession = () => {
-       setSearchParams(prev => ({...prev, dialog: 'expiredsession'}))
+    const sessionManager = () => {
+       if(expiredDate && Date.now() > expiredDate){
+            setSearchParams(prev => ({...prev, dialog: 'expiredsession'}))
+       } 
     }
 
     return (
 
         <AuthContext.Provider value={{ 
             ...authHook, 
-            renewSession: renewSession 
+            sessionManager
         }}>
             {children}
             {expiredDate && Date.now() > expiredDate && 

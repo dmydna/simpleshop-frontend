@@ -1,6 +1,5 @@
 import FilterParams from '@features/filters/components/FilterParams'
 import SelectParams from "@features/filters/components/SelectParams"
-import { availabilityStock, status } from '@utils/enums.js'
 
 // TODO: implementar filtro listing.availabilityStock
 function ListingFilter({close, className}){

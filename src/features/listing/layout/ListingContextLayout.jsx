@@ -1,7 +1,9 @@
 import PageLoading from "@/features/fallback/pages/PageLoading.jsx";
 import { useUrlParams } from "@/hooks/useUrlParams.js";
 import { AppStatus } from "@common/AppStatus.jsx";
-import { useEffect } from "react";
+import { useEffect,useMemo } from "react";
+import { useParams } from "react-router-dom";
+
 
 export default function ListingContextLayout({children, placeholder, ...props}){
 	
@@ -9,11 +11,13 @@ export default function ListingContextLayout({children, placeholder, ...props}){
         window.scrollTo({ top: 0, behavior: 'smooth' })
     }, []);
 
-    const {allParams} = useUrlParams()
+    const { allParams } = useUrlParams()
+    const { filter } = useParams()
+
 
 	return(
 	    <AppStatus
-          loading={props.loading}
+          loading={props.loading && !filter}
           onRetry={props.fetchData}
           error={props.error}
           placeholder={placeholder || <PageLoading />}

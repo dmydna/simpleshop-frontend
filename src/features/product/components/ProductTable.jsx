@@ -6,18 +6,18 @@ import { useUrlState } from '@/hooks/useUrlState';
 import DataView from '@common/DataView';
 import PlaceholderIcon from "@common/PlaceholderIcon";
 import Pagination from '@features/pagination/components/Pagination.jsx';
-import { pillColor } from "@utils/enums";
 import { formatDate } from "@utils/mappers";
 import React from 'react';
 import { Button, Form, Table } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { useProduct } from '../hooks/useProduct';
 
-function ProductTable({ children, baseHook, className }) {
+function ProductTable({ className }) {
 
-    const { content, loading, currentPage, setCurrentPage, totalPages, setFilters } = baseHook;
+
+    const baseHook = useProduct({autofetch: true})
+    const { content, loading, totalPages } = baseHook;
 
     const { setSearchParams } = useUrlState()
-    const navigate = useNavigate()
     const { idParam } = useListManagerSync({ baseHook: baseHook })
 
     const toggleSelect = (item) => {

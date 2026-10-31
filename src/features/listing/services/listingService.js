@@ -31,10 +31,11 @@ export const listingService = {
     getPage: async ({ page = 0, size = 10, ...filters } = {}) => {
 
         const params = new URLSearchParams();
-        params.append('page', isNaN(page) ? 0 : page);
+        const finalPage = isNaN(page) ? 0 : (page<0 ? 0 : page);
+        params.append('page', finalPage);
         params.append('size', size);
-        mapToURLSearchParams(params, filters);
-
+        const finalFilter = {...filters, title: filters?.query }
+        mapToURLSearchParams(params, finalFilter);
         const finalEndpoint = `${BASE_ENDPOINT}`;
         const response = await api.get(finalEndpoint, params);
         return response;  

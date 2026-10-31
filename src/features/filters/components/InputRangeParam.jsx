@@ -92,13 +92,13 @@ function InputRangeParam({
         <Dropdown style={style} className={`${className} mb-2 w-100`}>
             <Dropdown.Toggle
                 variant={variant}
-                style={{opacity: '.8'}}
-                className="border d-flex align-items-center container-fluid text-start toggle-end" 
+                className="border bg-tint d-flex align-items-center container-fluid text-start toggle-end" 
                 id="dropdown-basic"
             >
-                <b style={{ opacity: '.7' }}>{label || name}: </b>
-                <span  className="small text-muted fw-semibold mx-3">
-                    {range.maxValue !== max || range.minValue !== min ? toggleText : 'Seleccionar'}
+                <span>{label || name} </span>
+                <span  style={{opacity: '.6' , lineHeight: '10px'}}  
+                    className="w-100 text-end small text-muted fw-semibold mx-3">
+                    {range.maxValue !== max || range.minValue !== min ? toggleText : 'select'}
                 </span>
             </Dropdown.Toggle>
             <Dropdown.Menu className="w-100">

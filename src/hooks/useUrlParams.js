@@ -1,6 +1,4 @@
-import { CRUD } from "@/utils/enums";
-import { ListingDraftDTO } from "@/utils/schemas";
-import { useEffect, useMemo } from "react";
+import {  useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 
 
@@ -35,6 +33,7 @@ export const useUrlParams = () => {
     const pageParam = searchParams.get('page');
     const idParam = searchParams.get('id');
     const searchParam = searchParams.get('search');
+    const queryParam = searchParams.get('query');
     const categoryParam = searchParams.get('category');
     const statusParam = searchParams.get('status');
     const roleParam = searchParams.get('role');
@@ -49,7 +48,7 @@ export const useUrlParams = () => {
     const update_banMode = searchParams.get('dialog') == "ban.update";
 
 
-    const filterParam = searchParams.get('filter') == 'true';
+    const filterParam = searchParams.get('filter');
 
 
     return {
@@ -59,6 +58,6 @@ export const useUrlParams = () => {
        idParam, searchParam, categoryParam, statusParam, roleParam, skuParam,
        sortParam, filterParam, allParams, create_banMode, update_banMode,
        pageVersion, modeParam, minPrice, maxPrice, dialogParam,
-       validate,
+       validate, queryParam
     }
 }

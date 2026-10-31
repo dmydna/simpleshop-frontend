@@ -149,19 +149,15 @@ function App() {
               <Route path="dev" element={<DemoUploader />} />
 
               {/* LISTING  */}
-              <Route path="listing-form" element={
-                <ListingLayout>
-                  <ListingFormPage />
-                </ListingLayout>
-              } />
+              <Route path="listing-form" element={ <ListingLayout/> } >
+                 <Route index element={<ListingFormPage />} />
+                 <Route path="search/" element={<ListingFormPage />} />
+              </Route>
 
-              <Route path="listing-list" element={
-                <ListingLayout>
-                  <ListingListPage />
-                </ListingLayout>
-
-              } />
-
+              <Route path="listing-list" element={ <ListingLayout/> } >
+                 <Route index element={<ListingListPage />} />
+                 <Route path="search/" element={<ListingListPage />} />
+              </Route>
 
               {/* PRODUCT  */}
               <Route path="product-form" element={

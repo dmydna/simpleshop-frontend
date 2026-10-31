@@ -2,46 +2,37 @@ import InputSelectParam from "@features/filters/components/InputSelectParam"
 import BadgeParams from "@features/filters/components/BadgeParams"
 import { useSearchParams } from "react-router-dom";
 import { Button } from 'react-bootstrap';
-import { useUrlState } from "@/hooks/useUrlState";
 
 
-export default function FilterBarParams({children, close, badgeParams = false}){
+export default function FilterBarParams({ children, close, badgeParams = false }) {
 	
-	const {searchParams, setSearchParams, allParams} = useUrlState()
-
-	const clearParams = () => setSearchParams({}) ;
-	const applyFilters = () => setSearchParams(prev => ({...prev, filter: true}))
+	const [searchParams, setSearchParams] = useSearchParams();
+	const allParams = searchParams.toString();
+	const clearParams = () => setSearchParams(new URLSearchParams());
 
 	return (
 		<div className="">
 
 			<div className='d-flex flex-wrap gap-3 mt-3 mt-md-0'>
 
-			{children}
+				{children}
 
-			{close && (
-				<div style={{minWidth:'100px'}} className='d-flex gap-3 flex-fill'>
-					<span 
-						onClick={clearParams}
-						style={{lineHeight: '25px',height: '37px'}} 
-						className="btn btn-sm  border rounded-3 flex-fill" >
-						<i className='bi bi-trash3 me-2'> </i>clear filters
-					</span>
-					<span 
-						onClick={applyFilters}
-						style={{lineHeight: '25px',height: '37px'}} 
-						className="btn btn-sm btn-dark  border rounded-3 fw-lighter flex-fill">
-						<i className='bi bi-check me-2'> </i>apply filters
-					</span>
+			<div className='col-12 col-md-4 text-end'>
+				<div
+					onClick={clearParams}
+					style={{ lineHeight: '25px', height: '37px' }} 
+					className="btn btn-dark btn-sm  border rounded-3 w-100 text-uppercase" >
+					<i className='m-2 bi bi-x-circle '> </i>
+					<span>clear filters</span>
 				</div>
-			)}
+			</div>
 
 			</div>
-			<div className={`my-3 ${!allParams ? '': 'border-top'}`}>
-				<BadgeParams blacklist = {['filter','page', 'dialog', 'tableVersion']} />
+			<div className={`my-3 ${!allParams ? '' : 'border-top'}`}>
+				<BadgeParams blacklist={['filter', 'page', 'dialog', 'query', 'tableVersion']} />
 			</div>
 
 
 		</div>                
-		)
+	)
 }

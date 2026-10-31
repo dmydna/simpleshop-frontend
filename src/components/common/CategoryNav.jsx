@@ -13,7 +13,7 @@ import { useParams } from "react-router-dom";
 function CategoryNav({className}){
 
     const {filter} = useParams();
-    const BASE_URL = '/products/filter'
+    const BASE_URL = '/products/search'
 
     return(
        <Row className={`mb-3 ${className} ${filter ? 'd-md-flex' : ''}`}> 
