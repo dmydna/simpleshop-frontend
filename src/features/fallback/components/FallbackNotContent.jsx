@@ -10,24 +10,24 @@ function FallbackNotContent() {
     const addContent = () => {
         navigate(URL_DEV)
     }
-    const msg_user = 'No hay elementos en esta sección. Estamos trabajando en eso.';
-    const msg_admin = 'No hay elementos en esta sección. Agrega alguno para comenzar.'
+    const msg_user = 'This content isn’t available, try again later';
+    const msg_admin = 'Add new content to start.'
     
 
     return (
         <>
             {isAdmin ? (
                 <FeedbackMessage
-                    title="Sin contenido"
+                    title="Page is Empty"
                     message={msg_admin}
-                    icon="bi-journal-plus"
-                    actionLabel="+ Agregar Contenido"
+                    icon="bi-plus-square"
+                    actionLabel="+ Add Content"
                     onAction={addContent}
                 />) : (
                 <FeedbackMessage
-                    title="Sin contenido"
+                    title="Page unavailable"
                     message={msg_user}
-                    icon="bi-journal-plus"
+                    icon="bi-exclamation-circle"
                 />)}
         </>
 

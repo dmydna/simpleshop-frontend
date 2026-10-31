@@ -13,7 +13,8 @@ export const FeedbackMessage = ({
                              message,
                              variant="secondary",
                              listFix=false, // force center list fallbacks
-                             showDetails = true
+                             showDetails = true,
+                             config,
                          }) => {
 
 
@@ -38,7 +39,11 @@ export const FeedbackMessage = ({
                     //    <i className={`bi ${icon}`} style={{ fontSize: "3.5rem" }}></i> 
                     // </div> 
                     
-                     <IconTint variant={variant} icon={icon} size={80} fs={1} />}   
+                     <IconTint 
+                        variant={variant} 
+                        icon={icon} 
+                        size={ config?.icon?.size || 80} 
+                        fs={   config?.icon?.fs || 1 } />}   
                     </div>
 
                     {/* Texto refinado */}

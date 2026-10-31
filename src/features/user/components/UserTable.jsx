@@ -10,6 +10,7 @@ import { pillColor } from '@utils/enums';
 import React from 'react';
 import { Button, Form, Table } from 'react-bootstrap';
 import { useUser } from '../hooks/useUser';
+import TableView from '@/components/common/TableView';
 
 
 // TODO: resolver filtro crud de usuarios 
@@ -17,7 +18,7 @@ const UserTable = ({  className }) => {
 
 
     const baseHook = useUser();
-    const { content, loading,  totalPages } = baseHook
+    const { content, loading,  totalPages,refreshData,error } = baseHook
 
     const { setSearchParams } = useUrlState()
     const { idParam } = useListManagerSync({ baseHook: baseHook })
@@ -33,12 +34,11 @@ const UserTable = ({  className }) => {
     }
 
     return (
-        <DataView 
+        <TableView
             loading={loading}
+            error={error}
             data={content}
-            emptyIcon={"bi bi-person"}
-            emptyMessage={"No hay items"}
-            listFix={true}
+            onRetry={refreshData}
         >
         <>
             <div className={`${className} small w-100`}>
@@ -163,7 +163,7 @@ const UserTable = ({  className }) => {
             />
 
         </>
-     </DataView>   
+     </TableView>   
     );
 }
 
