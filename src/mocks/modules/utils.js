@@ -8,7 +8,7 @@ import { collectionByFK } from "./config";
  * Extrae parámetros de paginación, ordenamiento y filtros de negocio de la URL.
  */
 export const extractPaginationParams = (url) => {
-  const paginationKeys = new Set(['page', 'size', 'sort', 'includeTags']);
+  const paginationKeys = new Set(['page', 'size', 'sort', 'includeTags', 'query']);
   const allParams = Object.fromEntries(url.searchParams.entries());
   
   const page = Math.max(0, parseInt(allParams.page) || 0);
