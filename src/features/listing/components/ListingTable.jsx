@@ -1,6 +1,7 @@
 import CopyButton from '@/components/common/CopyButton';
 import SortByParam from '@/components/common/SortButton';
 import StatusPill from '@/components/common/StatusPill';
+import TableView from '@/components/common/TableView';
 import { useListManagerSync } from '@/features/form/hooks/useListManagerSync';
 import Pagination from '@/features/pagination/components/Pagination.jsx';
 import { useUrlState } from '@/hooks/useUrlState';
@@ -39,14 +40,11 @@ const ListingTable = ({ className }) => {
 
 
     return (
-        <DataView
+        <TableView
             loading={loading}
             error={error}
             data={content}
             onRetry={ refreshData }
-            emptyIcon={"bi bi-sticky"}
-            emptyMessage={"No hay items"}
-            listFix={true}
         >
             <>
                 <div className={`${className} small w-100`}>
@@ -192,7 +190,7 @@ const ListingTable = ({ className }) => {
                 />
 
             </>
-        </DataView>
+        </TableView>
     );
 }
 

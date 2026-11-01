@@ -40,7 +40,7 @@ function MyFavorites({ children }) {
                     subtitle='Administrar lista de favoritos'
                 />
 
-                {content.map((item, index) =>
+                {content?.map((item, index) =>
                     <RemovableListItem
                         key={index} 
                         {...item}

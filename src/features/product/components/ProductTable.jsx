@@ -10,12 +10,13 @@ import { formatDate } from "@utils/mappers";
 import React from 'react';
 import { Button, Form, Table } from 'react-bootstrap';
 import { useProduct } from '../hooks/useProduct';
+import TableView from '@/components/common/TableView';
 
 function ProductTable({ className }) {
 
 
     const baseHook = useProduct({autofetch: true})
-    const { content, loading, totalPages } = baseHook;
+    const { content, loading, totalPages, refreshData, error } = baseHook;
 
     const { setSearchParams } = useUrlState()
     const { idParam } = useListManagerSync({ baseHook: baseHook })
@@ -32,12 +33,11 @@ function ProductTable({ className }) {
     }
 
     return (
-        <DataView
+        <TableView
             loading={loading}
+            error={error}
             data={content}
-            emptyIcon={"bi bi-box-seam"}
-            emptyMessage={"No hay items"}
-            listFix={true}
+            onRetry={ refreshData }
         >
             <>
                 <div className={`${className} small w-100`}>
@@ -152,7 +152,7 @@ function ProductTable({ className }) {
                 />
 
             </>
-        </DataView>
+        </TableView>
     );
 }
 

@@ -16,11 +16,11 @@ export default function SearchLight({className}) {
 
   useEffect(() => {
       if (!query.trim()) {
-           handleSearch(null);
-           return;
+        handleSearch(null);
+        return;
       }
       if(query != ""){
-          handleSearch(query);
+        handleSearch(query);
       }
   }, [query]);
 

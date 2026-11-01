@@ -6,13 +6,17 @@ function FallbackEmpty({ico, message, variant, className, fixes}){
     const navigate = useNavigate();
 
     const defaultMsg = 'No hay elementos en esta sección. Agrega alguno para comenzar.';
+
+    const config = { icon: {size: 50, fs: 2 }}
+
     return (
         <FeedbackMessage
             title="Sin contenido"
             message={message || defaultMsg}
             icon={ico || "bi-journal-plus"}
             variant={variant}
-            listFix={fixes}
+            config={config}
+            listFix
         />
     )
 }
