@@ -12,7 +12,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 
 
-
 export default function UserActions({ close, className }) {
 
     const crudHook = useUserForm()
@@ -86,7 +85,6 @@ export default function UserActions({ close, className }) {
         <div className={className}>
 
             <CrudActions  close={close} {...crudHook} >
-                
 
                     {/** Item Config **/}
 

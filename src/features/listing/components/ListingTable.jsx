@@ -2,7 +2,7 @@ import CopyButton from '@/components/common/CopyButton';
 import SortByParam from '@/components/common/SortButton';
 import StatusPill from '@/components/common/StatusPill';
 import TableView from '@/components/common/TableView';
-import { useListManagerSync } from '@/features/form/hooks/useListManagerSync';
+import { useListManagerSync } from '@/hooks/useListManagerSync';
 import Pagination from '@/features/pagination/components/Pagination.jsx';
 import { useUrlState } from '@/hooks/useUrlState';
 import DataView from '@common/DataView';
@@ -25,16 +25,16 @@ const ListingTable = ({ className }) => {
 
     const toggleSelect = (item) => {
         setSearchParams(prev => ({
-            ...prev, 
+            ...prev,
             id: idParam != item?.id ? item?.id : null
         }))
     }
 
     const openDialogActions = (item) => {
-        setSearchParams(prev => ({ 
-            ...prev, 
-            dialog: 'action', 
-            id: item?.id 
+        setSearchParams(prev => ({
+            ...prev,
+            dialog: 'action',
+            id: item?.id
         }))
     }
 
@@ -53,7 +53,7 @@ const ListingTable = ({ className }) => {
                         <thead className=''>
                             <tr className='border-bottom'>
                                 <th style={{ width: '150px' }} className='d-none  d-md-table-cell text-secondary'>
-                                    <i class="bi bi-grip-vertical"></i>
+                                    <i className="bi bi-grip-vertical"></i>
                                 </th>
                                 <th style={{ width: '150px' }} className='text-secondary'>
                                    <SortByParam>Title</SortByParam>
@@ -82,15 +82,15 @@ const ListingTable = ({ className }) => {
                         <tbody>
                             {content?.map((item) => (
 
-                                <tr className={`onhover 
+                                <tr className={`onhover
                                      ${item.id === idParam ? 'selected' : ''}
                                      ${item?.meta?.status == "INACTIVE" ? 'secondary' : ''}
                                     `}
                                     key={item.id}
-                                    style={{ 
-                                        overflow: "visible", 
-                                        height: "70px", 
-                                         }} 
+                                    style={{
+                                        overflow: "visible",
+                                        height: "70px",
+                                         }}
                                     >
 
                                     {/* Input check item */}
@@ -123,7 +123,7 @@ const ListingTable = ({ className }) => {
                                         <span id={"title-item-table"} className={`mx-2 fw-medium ${item?.meta?.status == "INACTIVE"? '' : ''}`}>
                                             {item?.title}</span>
                                     </td>
-                                    
+
                                     {/* Id */}
                                     <td className='text-secondary'>
                                         <div style={{ lineHeight: '4.2' }} className='btn btn-sm p-0'>
@@ -141,7 +141,7 @@ const ListingTable = ({ className }) => {
                                     <td style={{ lineHeight: '4.2', textAlign: 'start' }}  >
                                         <StatusPill status={item?.meta?.status} />
                                     </td>
-                                    
+
                                     {/* Price */}
                                     <td className='fw-medium' style={{ lineHeight: '4.2', textAlign: 'start' }}  >
                                         <i className='bi bi-currency-dollar'></i>
@@ -150,7 +150,7 @@ const ListingTable = ({ className }) => {
 
                                     {/* Availability */}
                                     <td style={{ lineHeight: '4.2', textAlign: 'start' }} >
-                                        
+
                                         <StatusPill status={item?.availabilityStatus} />
 
                                     </td>

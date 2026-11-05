@@ -2,7 +2,7 @@ export const bi_icons = {
     "bi-person":       "F4E1",
     "bi-person-fill":  "F4DA",
     "bi-braces":       "F1C9",    // { }
-    "bi-code":         "F2C8",    // < > 
+    "bi-code":         "F2C8",    // < >
     "bi-code-slash":   "F2C6",    // </>
     "bi-hash":         "F40A",    // #
     "bi-at":           "F152",    // @
@@ -24,7 +24,7 @@ export const color = {
     ".malva"    : "F2C4CE",
     ".celeste"  : "C9E8FF",
     ".durazno"  : "FFDAC1",
-} 
+}
 
 export const hexColor = {
     ".melon"    : "#FFE5B4",
@@ -41,7 +41,7 @@ export const hexColor = {
     ".pera"     : "#D4F1A0",
     ".malva"    : "#F2C4CE",
     ".celeste"  : "#C9E8FF",
-    ".durazno"  : "#FFDAC1", 
+    ".durazno"  : "#FFDAC1",
 }
 
 
@@ -72,10 +72,27 @@ export const tags = Object.freeze({
 });
 
 
+
+export const userTypeQuery  = Object.freeze({
+    mail:      "mail",
+    username:  "username",
+    firstname: "firstName",
+    lastname:  "lastName",
+    clientname:"clientname"
+})
+
+export const productTypeQuery  = Object.freeze({
+  sku: "sku",
+  brand: "brand",
+  id: "id"
+})
+
+
+
 export const availabilityStock = Object.freeze({
-    InStock: "In Stock", 
-    OutStock: "Out Stock", 
-    LowStock: "Low Stock", 
+    InStock: "In Stock",
+    OutStock: "Out Stock",
+    LowStock: "Low Stock",
     Pending: "Pending"
 })
 
@@ -126,7 +143,7 @@ export const pillColor = Object.freeze({
    "ACTIVE":   "pill-primary",
    "INACTIVE": "pill-secondary",
    "DELETED":  "pill-danger",
-/* --------------------------------- */   
+/* --------------------------------- */
    "BANNED":   "pill-danger",
    "DRAFT":    "pill-dark",
 /* --------------------------------- */

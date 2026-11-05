@@ -8,6 +8,8 @@ import ParamGuard from "@common/ParamGuard";
 import ProtectedRouteAdmin from "@common/ProtectedRouteAdmin";
 import ListingCardEntity from "@/features/listing/components/ListingCardEntity"
 import { Outlet } from 'react-router-dom';
+import SearchConfig from "@/features/user/components/SearchConfig";
+import SelectParams from "@/features/filters/components/SelectParams";
 
 
 export default function ListingLayout({ children }) {
@@ -45,7 +47,7 @@ export default function ListingLayout({ children }) {
 
                 <PageLayout.Main>
                     {children ? children : <Outlet />}
-                </PageLayout.Main>  
+                </PageLayout.Main>
 
                 <PageLayout.Toolkit>
 
@@ -60,11 +62,21 @@ export default function ListingLayout({ children }) {
                             close={() => close()} />}
                     </ModalParam>
 
-                </PageLayout.Toolkit>    
+                    <ModalParam param="dialog=type">
+                      {(close) => (
+                        <SearchConfig className={"border p-3 island rounded-4 shadow-none"}
+                          close={() => close()}
+                        >
+                          <SelectParams.ProductSearchBy/>
+                        </SearchConfig>
+                      )}
+                    </ModalParam>
 
-            </PageLayout>  
+
+                </PageLayout.Toolkit>
+
+            </PageLayout>
 
         </ProtectedRouteAdmin>
     )
 }
-

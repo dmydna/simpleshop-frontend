@@ -48,10 +48,10 @@ function ListingCard({ children, className, cols, imgSize, ...item}){
                     {item?.discountPercentage ? item.discountPercentage + '% OFF' : ''}
                   </span>
                 </Card.Text>
-                <Card.Text className="small fw-medium text-secondary">
+                <div className="small fw-medium text-secondary">
                   <StatusPill status={item?.availabilityStatus} />
                   {/*{item.availabilityStatus || "N/A"}*/}
-                </Card.Text>
+                </div>
               </Card.Body>
               </Link>
               <div className="d-flex p-2">

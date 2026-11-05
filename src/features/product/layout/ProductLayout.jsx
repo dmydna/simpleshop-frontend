@@ -1,14 +1,12 @@
 import { PageLayout } from "@/components/layout/PageLayout";
 import ProductActions from "@/features/product/components/ProductActions";
 import ProductFilter from "@/features/product/components/ProductFilter";
-import { statsService } from "@/features/stats/services/statsService";
-import { useFetchTrigger } from "@/hooks/useFetchTrigger";
-import { useUrlParams } from "@/hooks/useUrlParams";
 import ModalParam from "@common/ModalParam";
 import ParamGuard from "@common/ParamGuard";
 import ProtectedRouteAdmin from "@common/ProtectedRouteAdmin";
-import { useMemo } from "react";
 import ProductCardEntity from "../components/ProductCardEntity";
+import SearchConfig from "@/features/user/components/SearchConfig";
+import SelectParams from "@/features/filters/components/SelectParams";
 
 
 export default function ProductLayout({ children }) {
@@ -33,16 +31,16 @@ export default function ProductLayout({ children }) {
                     <ParamGuard param="id||hash||mode" inverse>
                         <ProductFilter/>
                     </ParamGuard>
-                                
-                </PageLayout.Sidebar>    
-     
+
+                </PageLayout.Sidebar>
+
                 <PageLayout.Toolkit>
 
                     {/* -- Modal CRUD-ACTIONS -- */}
                     <ModalParam param="dialog=action">
-                        {(close) => 
+                        {(close) =>
                             <ProductActions className={"border p-3 island rounded-4 shadow-none"}
-                                close={() => close()} 
+                                close={() => close()}
                             />}
                     </ModalParam>
 
@@ -52,13 +50,25 @@ export default function ProductLayout({ children }) {
                             close={() => close()} />}
                     </ModalParam>
 
+                    <ModalParam param="dialog=type">
+                      {(close) => (
+                        <SearchConfig
+                          className={"border p-3 island rounded-4 shadow-none"}
+                          close={() => close()}
+                        >
+                          <SelectParams.ProductSearchBy/>
+                        </SearchConfig>
+                      )}
+                    </ModalParam>
+
+
                 </PageLayout.Toolkit>
 
                 <PageLayout.Main>
                     {children}
-                </PageLayout.Main>    
+                </PageLayout.Main>
 
-            
+
             </PageLayout>
         </ProtectedRouteAdmin >
     )
