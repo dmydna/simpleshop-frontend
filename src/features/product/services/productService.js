@@ -26,8 +26,7 @@ export const productService = {
         const params = new URLSearchParams();
         params.append('page', page);
         params.append('size', size);
-        const finalFilter = {...filters, name: filters?.query }
-        mapToURLSearchParams(params, finalFilter)
+        mapToURLSearchParams(params, filters)
         const finalEndpoint = `${BASE_ENDPOINT}`;
         const response = await api.get(finalEndpoint, params)
         return response;

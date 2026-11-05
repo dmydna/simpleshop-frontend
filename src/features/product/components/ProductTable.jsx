@@ -1,7 +1,7 @@
 import CopyButton from '@/components/common/CopyButton';
 import SortByParam from '@/components/common/SortButton';
 import StatusPill from '@/components/common/StatusPill';
-import { useListManagerSync } from '@/features/form/hooks/useListManagerSync';
+import { useListManagerSync } from '@/hooks/useListManagerSync';
 import { useUrlState } from '@/hooks/useUrlState';
 import DataView from '@common/DataView';
 import PlaceholderIcon from "@common/PlaceholderIcon";
@@ -73,7 +73,7 @@ function ProductTable({ className }) {
                                     <td
                                         onClick={() => toggleSelect(item)}
                                         className='text-secondary d-none p-0 d-md-table-cell'>
-                                        
+
                                         <Form.Check // prettier-ignore
                                             type='checkbox'
                                             id={`default-radio`}
@@ -89,7 +89,7 @@ function ProductTable({ className }) {
 
 
                                     {/** Item */}
-                                    
+
                                     <td>
 {/*                                        <img
                                             style={{ objectFit: 'contain', width: '60px', height: '60px' }} // Altura fija igual al texto

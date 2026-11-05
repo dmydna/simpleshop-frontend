@@ -34,8 +34,7 @@ export const listingService = {
         const finalPage = isNaN(page) ? 0 : (page<0 ? 0 : page);
         params.append('page', finalPage);
         params.append('size', size);
-        const finalFilter = {...filters, title: filters?.query }
-        mapToURLSearchParams(params, finalFilter);
+        mapToURLSearchParams(params, filters);
         const finalEndpoint = `${BASE_ENDPOINT}`;
         const response = await api.get(finalEndpoint, params);
         return response;  

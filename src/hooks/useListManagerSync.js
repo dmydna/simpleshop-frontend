@@ -7,7 +7,7 @@ import { useSearchParams } from "react-router-dom";
 
 
 
-/** Este hook  sincroniza los parametros busquedas con los componentes 
+/** Este hook  sincroniza los parametros busquedas con los componentes
  * que integran las listas crud del dashboard (e.i: ProductTable, ProductFilter)*/
 export const useListManagerSync = ({ baseHook }) => {
 
@@ -16,9 +16,9 @@ export const useListManagerSync = ({ baseHook }) => {
     const [searchParams, setSearchParams] = useSearchParams();
 
     const {availabilityParam, tableVersion, tagsParam, hashParam, pageParam,
-       idParam, searchParam, categoryParam, statusParam, roleParam, skuParam, 
-       sortParam, minPrice, maxPrice, queryParam } = useUrlParams()
-    
+       idParam, searchParam, categoryParam, statusParam, roleParam,
+       sortParam, minPrice, maxPrice, queryParam, typeParam } = useUrlParams()
+
 
     useEffect(() => {
         if (!searchParam)   { setFilters({}) }
@@ -26,7 +26,20 @@ export const useListManagerSync = ({ baseHook }) => {
         if (pageParam)      { setCurrentPage(Number(pageParam))}
         if (!pageParam)     { setCurrentPage(1) }
         if (isNaN(Number(pageParam))) { setCurrentPage(1) }
-        if (queryParam)     { setFilters({ query: queryParam }) }
+        if (queryParam)     {
+            if(typeParam){
+                setFilters({ query: queryParam, qtype: typeParam })
+            }else{
+                setFilters({ query: typeParam })
+            }
+        }
+        if (typeParam)      {
+            if(queryParam){
+                setFilters({ query: queryParam, type: typeParam })
+            }else{
+                setFilters({ qtype: typeParam })
+            }
+        }
         if (tagsParam)      { setFilters({ tags: tagsParam }) }
         if (roleParam)      { setFilters({ role: roleParam }) }
         if (categoryParam)  { setFilters({ category: categoryParam }) }
@@ -44,7 +57,7 @@ export const useListManagerSync = ({ baseHook }) => {
 
 
     return {
-        searchParams, 
+        searchParams,
         setSearchParams,
         hashParam,
         idParam

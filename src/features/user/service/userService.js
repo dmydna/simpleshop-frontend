@@ -17,8 +17,7 @@ export const userService = {
         const params = new URLSearchParams();
         params.append('page', page);
         params.append('size', size);
-        const finalFilter = {...filters, username: filters?.query }
-        mapToURLSearchParams(params, finalFilter);
+        mapToURLSearchParams(params, filters);
         const response = await api.get(finalEndpoint, params.toString());
         return response;
     },
@@ -95,7 +94,7 @@ export const userService = {
     update: async (id, data) => {
         const endpoint = `${BASE_ENDPOINT}/${id}`;
         const userData = toUpdateUser(data);
-        const response = await api.put(endpoint, userData)
+        const response = await api.put(endpoint, userData);
         return response;
     }, 
 
