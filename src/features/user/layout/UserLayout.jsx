@@ -7,71 +7,84 @@ import { URL_USER_LIST } from "@/utils/links";
 import ModalParam from "@common/ModalParam";
 import ParamGuard from "@common/ParamGuard";
 import ProtectedRouteAdmin from "@common/ProtectedRouteAdmin";
-import UserCardEntity from "@features/user/components/UserCardEntity"
+import UserCardEntity from "@features/user/components/UserCardEntity";
+import SearchConfig from "../components/SearchConfig";
+import SelectParams from "@/features/filters/components/SelectParams";
 
 export default function UserLayout({ children }) {
+  // -- PARAM VALIDATIONS --
 
-    // -- PARAM VALIDATIONS --
+  const VALID_PARAM_MODES = ["view", "edit", "create"];
+  const VALID_PARAM_STATUS = ["ACTIVE", "INACTIVE", "BANNED", "DELETED"];
 
-    const VALID_PARAM_MODES = ['view', 'edit', 'create'];
-    const VALID_PARAM_STATUS = ['ACTIVE', 'INACTIVE', 'BANNED', 'DELETED']
+  useValidParams(
+    {
+      id: (val) => val != null,
+      mode: (val) => VALID_PARAM_MODES.includes(val), // Solo valores permitidos
+      status: (val) => VALID_PARAM_STATUS.includes(val),
+    },
+    { redirect: URL_USER_LIST },
+  );
 
-    useValidParams({
-        id: (val) => val != null, 
-        mode: (val) => VALID_PARAM_MODES.includes(val), // Solo valores permitidos
-        status: (val) => VALID_PARAM_STATUS.includes(val), 
-    }, { redirect: URL_USER_LIST });
+  return (
+    <ProtectedRouteAdmin>
+      <PageLayout>
+        <PageLayout.Card>
+          <UserCardEntity />
+        </PageLayout.Card>
 
+        <PageLayout.Sidebar>
+          <ParamGuard param="id||hash||mode">
+            <UserActions />
+          </ParamGuard>
 
-    return (
-        <ProtectedRouteAdmin>
-            <PageLayout>
+          <ParamGuard param="id||hash||mode" inverse>
+            <UserFilter />
+          </ParamGuard>
+        </PageLayout.Sidebar>
 
-                <PageLayout.Card>
-                    <UserCardEntity />
-                </PageLayout.Card>    
+        <PageLayout.Main>{children}</PageLayout.Main>
 
-                <PageLayout.Sidebar>
-                    <ParamGuard param="id||hash||mode">
-                        <UserActions />
-                    </ParamGuard>
-    
-                    <ParamGuard param="id||hash||mode" inverse>
-                        <UserFilter />
-                    </ParamGuard>
-                </PageLayout.Sidebar>
+        <PageLayout.Toolkit>
+          {/** -- MODALS & TOAST --- */}
 
-                <PageLayout.Main>
-                    {children}
-                </PageLayout.Main>
+          {/* -- ACTIONS -- */}
+          <ModalParam param="dialog=action">
+            {(close) => (
+              <UserActions
+                className={"border p-3 island rounded-4 shadow-none"}
+                close={() => close()}
+              />
+            )}
+          </ModalParam>
 
-                <PageLayout.Toolkit>
+          <ModalParam param="dialog=type">
+            {(close) => (
+              <SearchConfig
+                className={"border p-3 island rounded-4 shadow-none"}
+                close={() => close()}
+              >
+                <SelectParams.UserSearchBy/>
+              </SearchConfig>
+            )}
+          </ModalParam>
 
-                    {/** -- MODALS & TOAST --- */}
+          {/* -- USER-BAN -- */}
+          <ModalParam param="dialog=ban.update, ban.create">
+            {(close) => <BanUser close={() => close()} />}
+          </ModalParam>
 
-                    {/* -- ACTIONS -- */}
-                    <ModalParam param="dialog=action">
-                        {(close) => 
-                            <UserActions className={"border p-3 island rounded-4 shadow-none"}
-                                close={() => close()} 
-                            />}
-                    </ModalParam>
-
-                    {/* -- USER-BAN -- */}
-                    <ModalParam param="dialog=ban.update, ban.create" >
-                        {(close) => <BanUser close={() => close()} />}
-                    </ModalParam>
-
-                    {/* -- FILTER -- */}
-                    <ModalParam param="dialog=filter">
-                        {(close) => <UserFilter className={"border p-3 island rounded-4 shadow-none"}
-                            close={() => close()} />}
-                    </ModalParam>
-
-                </PageLayout.Toolkit>                        
-
-                
-            </PageLayout>
-        </ProtectedRouteAdmin>
-    )
+          {/* -- FILTER -- */}
+          <ModalParam param="dialog=filter">
+            {(close) => (
+              <UserFilter
+                className={"border p-3 island rounded-4 shadow-none"}
+                close={() => close()}
+              />
+            )}
+          </ModalParam>
+        </PageLayout.Toolkit>
+      </PageLayout>
+    </ProtectedRouteAdmin>
+  );
 }

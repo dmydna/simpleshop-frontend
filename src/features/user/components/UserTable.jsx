@@ -2,7 +2,7 @@ import PlaceholderIcon from '@/components/common/PlaceholderIcon';
 import RolePill from '@/components/common/RolePill';
 import SortByParam from '@/components/common/SortButton';
 import StatusPill from '@/components/common/StatusPill';
-import { useListManagerSync } from '@/features/form/hooks/useListManagerSync';
+import { useListManagerSync } from '@/hooks/useListManagerSync';
 import Pagination from '@/features/pagination/components/Pagination.jsx';
 import { useUrlState } from '@/hooks/useUrlState';
 import DataView from '@common/DataView';
@@ -13,7 +13,7 @@ import { useUser } from '../hooks/useUser';
 import TableView from '@/components/common/TableView';
 
 
-// TODO: resolver filtro crud de usuarios 
+// TODO: resolver filtro crud de usuarios
 const UserTable = ({  className }) => {
 
 
@@ -24,13 +24,13 @@ const UserTable = ({  className }) => {
     const { idParam } = useListManagerSync({ baseHook: baseHook })
 
     const toggleSelect = (item) => {
-        setSearchParams(prev => ({...prev, 
-            id: idParam != item?.id ? item?.id : null  
+        setSearchParams(prev => ({...prev,
+            id: idParam != item?.id ? item?.id : null
         }))
     }
 
     const openDialogActions = (item)=>{
-        setSearchParams(prev => ({ ...prev, dialog: 'action', id: item?.id  })) 
+        setSearchParams(prev => ({ ...prev, dialog: 'action', id: item?.id  }))
     }
 
     return (
@@ -42,7 +42,7 @@ const UserTable = ({  className }) => {
         >
         <>
             <div className={`${className} small w-100`}>
-                
+
 
                 <Table style={{ overflowX: 'auto' }} className="mb-0 w-100" striped={false} bordered={false} hover={true}>
                     <thead className=''>
@@ -99,13 +99,13 @@ const UserTable = ({  className }) => {
                                                 className="border border-1 rounded flex-shrink-0"
                                                 src={item?.image || placeholderURL.user(item?.id) }
                                             />*/}
-                                            {item?.image ? 
+                                            {item?.image ?
                                             <>
                                                 <img
                                                     style={{ objectFit: 'contain', width: '40px', height: '40px' }} // Altura fija igual al texto
                                                     className="border border-1 rounded flex-shrink-0 my-2"
                                                     src={item?.image}
-                                                /> 
+                                                />
                                                 <span className='flex-grow-1 mx-3 fw-medium'>{item?.username}</span>
                                             </>
                                             :
@@ -113,10 +113,10 @@ const UserTable = ({  className }) => {
                                                 <PlaceholderIcon fontSize='fs-5' variant={'danger'} icon={'bi-person'} />
                                                 <span className='flex-grow-1 mx-3 fw-medium'>{item?.username}</span>
                                             </div>
-                                            
+
                                             }
 
-                            
+
                                         </td>
                                     )}
 
@@ -163,10 +163,9 @@ const UserTable = ({  className }) => {
             />
 
         </>
-     </TableView>   
+     </TableView>
     );
 }
 
 
 export default React.memo(UserTable);
-
