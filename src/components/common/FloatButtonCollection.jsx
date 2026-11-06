@@ -76,6 +76,7 @@ export function IconTint({ action, children, icon, className, style }) {
         display: 'inline-flex',
         alignItems: 'center',
         justifyContent: 'center',
+        transition: '.5',
         ...style
       }}
       className={`btn ${className || ''}`}
@@ -87,6 +88,7 @@ export function IconTint({ action, children, icon, className, style }) {
             position: 'absolute',
             top: 0,
             left: 0,
+            transition: '.5',
             width: '100%',
             height: '100%',
             backgroundColor: 'rgba(0, 0, 0, 0.1)', // Color oscuro levemente
@@ -125,6 +127,7 @@ export function Tintify({ action, children, className, style }) {
         display: 'inline-flex',
         alignItems: 'center',
         justifyContent: 'center',
+        transition: '.5s',
         ...style
       }}
       className={`btn ${className || ''}`}
@@ -134,6 +137,7 @@ export function Tintify({ action, children, className, style }) {
         <span
           style={{
             position: 'absolute',
+            transition: '.5s',
             top: 0,
             left: 0,
             width: '100%',
