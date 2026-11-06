@@ -13,17 +13,26 @@ export const user_service = {
         return db.save(collection, data)
     },
 
+    filterPage: (request) => {
+      const config = {
+        filter: {keyword: 'username'},
+        mapper: (i) => db.__buildMeta(i, collection),
+      };
+      return db.findPage(collection, request, config);
+    },
+
+
     getMyProfile: () => {
         return  db.find(collection, item => item.username === currentLoggedUser);
     },
 
     updateMyProfile: (update) => {
         const user = this.getMyProfile();
-        return db.update(collection, user.id, update) 
+        return db.update(collection, user.id, update)
     },
 
     updateProfile: (id, update) => {
-        return db.update(collection, id, update) 
+        return db.update(collection, id, update)
     },
 
     banUser: (id, request) =>{
@@ -34,19 +43,19 @@ export const user_service = {
         user.bannedAt = new Date();
         user.meta.status = "BANNED"
         user.banReason = request.banReason;
-        return db.save(collection, user)  
+        return db.save(collection, user)
     },
- 
+
     unbanUser: (id) =>{
         const user = user_service.getById(id);
         if(!user) throw new Error("Usuario no encontrado");
         user.meta.status = "ACTIVE";
         user.banExpiresAt = null;
-        return db.save(collection, user)  
+        return db.save(collection, user)
     },
 
     updateProfileImage: (url) => {
-        return db.update(collection, item => item.username === currentLoggedUser, u => ({...u, image: url}) )   
+        return db.update(collection, item => item.username === currentLoggedUser, u => ({...u, image: url}) )
     },
 
     changeEmail: (username, password, newEmail) => {
@@ -56,7 +65,7 @@ export const user_service = {
                 return db.update(collection, u => u.username == username, u => ({...u, email: newEmail}))
             }
             return null;
-        } 
+        }
         return null;
      },
 
@@ -68,7 +77,7 @@ export const user_service = {
                 return db.update(collection, u => u.username == username, u => ({...u, password: newPassword}))
             }
             return null;
-        } 
+        }
         return null;
      },
 
@@ -76,12 +85,12 @@ export const user_service = {
     // HACK: soluciona db._buildMeta() borra campos de meta
     getById: (id) => {
         const user = db.__find(collection, u => u.id == id);
-        const response = db.findWithRelations(collection, item => item.id == id, i => db.__buildMeta(i, collection) ) ; 
-        
+        const response = db.findWithRelations(collection, item => item.id == id, i => db.__buildMeta(i, collection) ) ;
+
         response.meta.banExpiresAt = createMockDate(user.banExpiresAt);
         response.meta.bannedAt = createMockDate(user.bannedAt || null);
         response.meta.banReason = user.banReason;
-        
+
         return response;
     },
 

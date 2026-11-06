@@ -1,13 +1,20 @@
 import { baseService } from '@/mocks/modules/services/baseService.js';
 import { db } from '@/mocks/modules/db';
 
-
 const collection = 'listings';
 
 export const listing_service = {
 
 
     ...(baseService(collection)),
+
+    filterPage: (request) => {
+      const config = {
+        filter: { keyword: 'title' },
+        mapper: i => db.__buildMeta(i, collection)
+      };
+          return db.findPage(collection,request, config);
+      },
 
     create: (data) => {
 
@@ -16,7 +23,7 @@ export const listing_service = {
         if(data?.status != "DRAFT"){
             const product = db["products"].find( p => p.sku == data.sku )
             if(!product) throw new Error("ERROR: SKU no valido o no existe");
-            
+
             data.thumbnail = data.images.length != 0 ? data.images[0] : "";
             data.finalPrice = listing_service
                 .calculateDiscount(data.price, data.discountPercentage)
@@ -31,20 +38,20 @@ export const listing_service = {
     },
 
     calculateDiscount: (basePrice, discountPercent) => {
-        if (!basePrice || !discountPercent) 
+        if (!basePrice || !discountPercent)
             throw new Error("Argumentos nulos al calcular precio")
-        
-        if (basePrice < 0) 
+
+        if (basePrice < 0)
             throw new Error("Precio no puede ser cero")
-    
-        if (discountPercent < 0 || discountPercent > 100) 
+
+        if (discountPercent < 0 || discountPercent > 100)
             throw new Error("Descuento fuera de rango (0 a 100)")
-        
+
         const discountAmount = basePrice * (discountPercent/100)
         const finalPrice = (basePrice - discountAmount).toFixed(2)
 
         return { discountAmount, finalPrice }
-    },   
+    },
 
 
     setStatusForStock(listing){
@@ -67,7 +74,7 @@ export const listing_service = {
 
     getById: (id) => {
 
-        
+
         const data = db.find(collection, item => item.id == id ) ;
         if(data && data.status != "DRAFT"){
             return db._loadRelations(data, collection);
@@ -78,10 +85,10 @@ export const listing_service = {
     updateById: (id, update) => {
         const updateData = listing_service.setStatusForStock(update);
         return db.update(
-            collection, 
-            item => item.id == id , 
-            item => ({ ...item, ...updateData }) 
-        ); 
+            collection,
+            item => item.id == id ,
+            item => ({ ...item, ...updateData })
+        );
     },
 
 }
@@ -91,9 +98,9 @@ export const listing_service = {
 
 export const mapListingProduct = (listing, product) => {
     return {
-         ...listing, 
-         productId: product.id, 
-         productName: product.name, 
+         ...listing,
+         productId: product.id,
+         productName: product.name,
          brand: product.brand,
          weight: product.weight,
          dimensions: product.dimensions,

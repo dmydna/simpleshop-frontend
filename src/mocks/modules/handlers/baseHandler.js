@@ -10,19 +10,28 @@ export const baseHandlers = (BASE_ENDPOINT, SERVICE) => [
     const newUser = SERVICE.create(body);
     if (!newUser) {
       return HttpResponse.json(
-        { message: 'No se pudo crear el item' }, 
+        { message: 'No se pudo crear el item' },
         { status: 500 });
     }
     return HttpResponse.json(newUser);
   }),
 
-  // GET: BY ID 
+  // GET: BY ID
   http.get(`${BASE_ENDPOINT}/:id`, ({ params }) => {
     const id = String(params.id);
     const base = SERVICE.getById(id);
     if (!base) return new HttpResponse(null, { status: 404 });
     return HttpResponse.json(base);
   }),
+
+  // GET STATUS
+  http.get(`${BASE_ENDPOINT}/:id/status`, ({ params }) => {
+    const id = String(params.id);
+    const base = SERVICE.getStatus(id);
+    if (!base) return new HttpResponse(null, { status: 404 });
+    return HttpResponse.json(base);
+  }),
+
 
   http.get(`${BASE_ENDPOINT}/me/:id`, ({ params }) => {
     const id = String(params.id);
@@ -32,7 +41,7 @@ export const baseHandlers = (BASE_ENDPOINT, SERVICE) => [
   }),
 
 
-  // GET: PAGE 
+  // GET: PAGE
   http.get(`${BASE_ENDPOINT}`, ({ request }) => {
     const list = SERVICE.filterPage(request);
     if (!list) return new HttpResponse(null, { status: 404 });
@@ -62,7 +71,7 @@ export const baseHandlers = (BASE_ENDPOINT, SERVICE) => [
 
   // PUT: UPDATE BY ID
   http.put(`${BASE_ENDPOINT}/:id`, async ({ params, request }) => {
-    
+
     const id = String(params.id);
 
 
@@ -92,7 +101,7 @@ export const baseHandlers = (BASE_ENDPOINT, SERVICE) => [
   // PATCH: STATUS
   http.patch(`${BASE_ENDPOINT}/:id/status`, async ({ params, request }) => {
     const id = String(params.id);
-    
+
     let updates;
     try {
       updates = await request.json();

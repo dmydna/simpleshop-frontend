@@ -1,20 +1,34 @@
 
 import { db } from "@/mocks/modules/db";
-import { collectionByFK } from "./config";
+import { collectionByFK, configDB } from "./config";
 
 // --- PAGINATION UTILS ---
 
 /**
  * Extrae parámetros de paginación, ordenamiento y filtros de negocio de la URL.
  */
+
+
+export const copyOf = (data) => {
+  if (Array.isArray(data)) {
+    return [...data]
+  }
+  return {...data}
+
+}
+
+
+
 export const extractPaginationParams = (url) => {
-  const paginationKeys = new Set(['page', 'size', 'sort', 'includeTags', 'query']);
+  const paginationKeys = new Set(['page', 'size', 'sort', 'includeTags', 'query', 'type']);
   const allParams = Object.fromEntries(url.searchParams.entries());
-  
+
   const page = Math.max(0, parseInt(allParams.page) || 0);
   const size = parseInt(allParams.size) || 10;
+  const query = allParams?.query || null;
+  const type = allParams?.type || null;
   const sortParam = allParams.sort;
-  
+
   // Filtrar solo los parámetros de negocio (los que no son de paginación)
   const filters = {};
   for (const [key, value] of Object.entries(allParams)) {
@@ -23,7 +37,7 @@ export const extractPaginationParams = (url) => {
     }
   }
 
-  return { page, size, sortParam, filters };
+  return { page, size, sortParam, filters, query, type };
 };
 
 /**
@@ -75,17 +89,17 @@ export const applyFilters = (data, filters) => {
 export default function findRelation(FK, value){
   if(collectionByFK[FK]){
     const collection = collectionByFK[FK];
-    return db[collection].find(i => i.id == value) 
-  } 
+    return db[collection].find(i => i.id == value)
+  }
   return null
 }
 
 
 export function getRelations(item){
-  const relations = [] 
+  const relations = []
   Object.entries(item).forEach( ([key, value])  => {
       const rel = findRelation(key, value);
-      if(rel) relations.push(rel) 
+      if(rel) relations.push(rel)
     })
   return relations;
 }
@@ -100,9 +114,9 @@ export const applyFiltersWidthRelation = (data, filters) => {
     const relations = getRelations(item);
 
     return Object.entries(filters).every(([key, value]) => {
-  
 
-    // HACK: si no encuentra en item busca el filtro en su primer relacion  
+
+    // HACK: si no encuentra en item busca el filtro en su primer relacion
       const relItem = relations.length != 0 ? relations[0] : {}
 
       const itemValue = item[key] || relItem[key];
@@ -154,11 +168,11 @@ export const applySorting = (data, sortParam) => {
   return [...data].sort((a, b) => {
     const valA = a[field];
     const valB = b[field];
-    
+
     if (typeof valA === 'string') {
       return direction === 'asc' ? valA.localeCompare(valB) : valB.localeCompare(valA);
     }
-    
+
     if (valA < valB) return direction === 'asc' ? -1 : 1;
     if (valA > valB) return direction === 'asc' ? 1 : -1;
     return 0;
@@ -225,7 +239,7 @@ export const dateFromMockArray = (arr, month1Index = false) => {
   }
 
   const [year, monthInput, day, hour, min] = arr;
-  
+
   // Si el mes viene en formato 1-12, restamos 1 para que JS lo entienda (0-11)
   const month = month1Index ? monthInput - 1 : monthInput;
 
@@ -246,9 +260,9 @@ export const listCountByField = async (collection, field, limit) => {
 
   for (const item of baseCollection) {
 
-    // HACK: si no encuentra en item busca el filtro en su primer relacion  
+    // HACK: si no encuentra en item busca el filtro en su primer relacion
     const relations = getRelations(item)
-    const relItem = relations.length == 0 ? {} : relations[0] 
+    const relItem = relations.length == 0 ? {} : relations[0]
 
     const value          = item[field] || relItem[field]
     if (value === undefined || value === null) continue;

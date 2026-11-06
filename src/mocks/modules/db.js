@@ -3,11 +3,11 @@ import listingData from "@/mocks/modules/data/listings.snapshot.json";
 import productData from "@/mocks/modules/data/products.snapshot.json";
 import reviewsData from "@/mocks/modules/data/reviews.snapshot.json";
 import userData from "@/mocks/modules/data/users.snapshot.json";
-import { applyFilters, applyFiltersWidthRelation, applySorting, buildPageResponse, createMockDate, extractPaginationParams } from "@/mocks/modules/utils";
+import { applyFilters, applyFiltersWidthRelation, applySorting, buildPageResponse, copyOf, createMockDate, extractPaginationParams } from "@/mocks/modules/utils";
 
 
 // Variable en memoria para simular el usuario logueado actualmente en el mock
-export let currentLoggedUser = 'admin'; 
+export let currentLoggedUser = 'admin';
 export const setCurrentLoggedUser = (username) => {
   currentLoggedUser = username;
 };
@@ -29,7 +29,7 @@ export const db = {
   orders_items: [],
   product_tags: [],
 
-  
+
   configDB: configDB,
 
 
@@ -78,12 +78,12 @@ export const db = {
   __saveItem(collection, data) {
     // Generar ID
     const id = this.__generateId(collection);
-    
+
     // Generar fecha
     const DATE = createMockDate(new Date());
 
     // Crear objeto con estructura base
-    const status = data.status == "DRAFT" ? "DRAFT" : data.status 
+    const status = data.status == "DRAFT" ? "DRAFT" : data.status
 
     const newItem = {
       id: id,
@@ -91,7 +91,7 @@ export const db = {
       status:  status,
       createdAt: DATE,
       updatedAt: null,
-      deletedAt: null 
+      deletedAt: null
     };
     this[collection].push(newItem);
     return newItem;
@@ -106,7 +106,7 @@ export const db = {
     const { id, meta } = data;
     const index = this.__getIndex(collection, id);
     this[collection][index] = {
-      id, ...update, 
+      id, ...update,
       meta: { ...meta, ...update?.meta, updatedAt: DATE }
     }
     return this[collection].find((item) => item.id === id)
@@ -126,7 +126,7 @@ export const db = {
 
   _loadRelations(entity, parentCol) {
     const meta = db.configDB[parentCol];
-  
+
     if (!meta) return entity;
     if (!meta.relations) return entity;
 
@@ -150,18 +150,18 @@ export const db = {
       meta.relations.oneToOne.forEach(rel => {
         const childCol = db[rel.collection];
         const childMeta = db.configDB[rel.collection];
-      
+
         if (!Array.isArray(childCol)) return;
 
         const fkField = childMeta.FK || rel.FK || meta.FK; // nombre del campo FK
 
         if (rel.owner) {
           /* 2.a  El padre posee la FK  */
-          const fkVal = entity[fkField];    
-          //console.log("fkVal:",fkVal)  
+          const fkVal = entity[fkField];
+          //console.log("fkVal:",fkVal)
           //console.log("childCol:",childCol)       // valor de la FK en el padre
           entity[rel.key] = childCol.find(item => item.id === fkVal) || null;
-          //console.log(`entity[${rel.key}]:`,entity[rel.key] )  
+          //console.log(`entity[${rel.key}]:`,entity[rel.key] )
         } else {
           /* 2.b  El hijo posee la FK  */
           entity[rel.key] = childCol.find(item => item[fkField] === parentId) || null;
@@ -190,7 +190,10 @@ export const db = {
 
 
   // FIXME: omite campos meta al retornar.
-  __buildMeta(entity, collection) {
+  __buildMeta(input, collection) {
+
+    const entity = copyOf(input);
+
     const config = this.configDB[collection];
     if (!config) return entity;
     if (!config.meta) return entity;
@@ -240,24 +243,25 @@ export const db = {
   },
 
   find(collection, filterFn, mapperFn = null) {
-    let entity = this[collection].find(filterFn);
+    let entity = copyOf(this[collection]).find(filterFn);
+
     if (entity && entity.status == "HARD_DELETED") {
       return null
     }
-    if (mapperFn) { 
-      return mapperFn(entity) 
+    if (mapperFn) {
+      return mapperFn(entity)
     }
     return this.__buildMeta(entity, collection);
   },
-  
+
 
   // obtiene de forma segura la colleccion
   collection(collection, limit = null) {
     let copy = null
     if (limit) {
-      copy = this[collection].slice(0, limit)
+      copy = copyOf(this[collection]).slice(0, limit)
     } else {
-      copy = this[collection]
+      copy = copyOf(this[collection])
     }
     return copy
   },
@@ -268,19 +272,18 @@ export const db = {
   },
 
   __find(collection, filterFn, mapperFn = null) {
-    let entity = this[collection].find(filterFn);
+    let entity = copyOf(this[collection].find(filterFn));
     if (entity && entity.status == "HARD_DELETED") {
       return null
     }
-    if (mapperFn) { 
-      return mapperFn(entity) 
+    if (mapperFn) {
+      return mapperFn(entity)
     }
     return entity;
   },
-  
+
   findWithRelations(collection, filterFn, mapperFn = null) {
-    //console.log(this)
-    const entity = this[collection].find(filterFn);
+    const entity = copyOf(this[collection].find(filterFn));
     if (mapperFn) { return mapperFn(this._loadRelations(entity, collection)) }
     return this.__buildMeta(this._loadRelations(entity, collection), collection)
   },
@@ -291,10 +294,10 @@ export const db = {
   },
 
   findAll(collection, filterFn, mapperFn = null) {
-    if (mapperFn) { 
+    if (mapperFn) {
       return this[collection]
         .filter(filterFn || (() => true))
-        .map(mapperFn)  
+        .map(mapperFn)
     }
     return this[collection].filter(filterFn || (() => true));
   },
@@ -306,16 +309,16 @@ export const db = {
   },
 
 
-  findPage(collection, request, mapperFn = null) {
-    console.log("HOLA")
+  findPage(collection, request, config) {
+
     if (!request || !request.url) {
       return { content: [], totalElements: 0, totalPages: 0 };
     }
     const url = new URL(request.url);
     // 1. Extraer parámetros
-    const { page, size, sortParam, filters } = extractPaginationParams(url);
+    const { page, size, sortParam, filters, query, type } = extractPaginationParams(url);
     // 2. Obtener datos base (de la colección o del array mapeado)
-    const baseData = this[collection]
+    const baseData = copyOf(this[collection])
       .filter(i => i.status != "HARD_DELETED")
       .toReversed();
     if (!Array.isArray(baseData)) {
@@ -323,6 +326,11 @@ export const db = {
       return { content: [], totalElements: 0, totalPages: 0 };
     }
     // 3. Aplicar filtros
+    //
+    if (config?.filter && query) {
+      const { keyword } = config.filter;
+      filters[type || keyword] = query;
+    }
     const filteredData = applyFiltersWidthRelation(baseData, filters);
     // 4. Aplicar ordenamiento
     const sortedData = applySorting(filteredData, sortParam);
@@ -331,8 +339,8 @@ export const db = {
     const start = page * size;
     const end = start + size;
     let pageContent = sortedData.slice(start, end);
-    if (mapperFn) {
-      pageContent = pageContent.map(mapperFn)
+    if (config?.mapper) {
+      pageContent = pageContent.map(config.mapper)
     }
     // 6. Construir respuesta (Pasamos sortParam explícitamente para evitar scope issues)
     return { ...buildPageResponse(pageContent, page, size, totalElements, sortParam) };
