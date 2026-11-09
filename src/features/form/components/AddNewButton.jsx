@@ -7,9 +7,9 @@ export default function AddNewButton({to}) {
         <Button
             variant="light"
             onClick={() => navigate(`${to}`)}
-            className="my-2 flex-fill flex-md-grow-0">
+            className="border my-2 flex-fill flex-md-grow-0">
             <i className="bi bi-plus-lg"></i>
-            <span className="fw-medium ms-2">Create new</span>
+            <span className="fw-medium ms-2">Add new</span>
         </Button>
     )
 }

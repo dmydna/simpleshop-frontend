@@ -80,7 +80,7 @@ const UserTable = ({  className }) => {
                                         <Form.Check // prettier-ignore
                                             type='checkbox'
                                             id={`default-radio`}
-                                            className='mt-3 tint'
+                                            className='mt-3 input-tint'
                                             checked={idParam == item.id}
                                             onChange={(e) => {
                                                 e.stopPropagation();
@@ -123,7 +123,7 @@ const UserTable = ({  className }) => {
 
 
                                     <td style={{ lineHeight: '4.2', textAlign: 'start' }}  >
-                                        <RolePill role={item?.role} />
+                                        <StatusPill status={item?.role} />
                                     </td>
 
                                     <td className='fw-medium' style={{ lineHeight: '4.2', textAlign: 'start' }}  >

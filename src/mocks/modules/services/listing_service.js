@@ -1,5 +1,6 @@
 import { baseService } from '@/mocks/modules/services/baseService.js';
 import { db } from '@/mocks/modules/db';
+import { pageDTO } from '../utils';
 
 const collection = 'listings';
 
@@ -9,12 +10,10 @@ export const listing_service = {
     ...(baseService(collection)),
 
     filterPage: (request) => {
-      const config = {
-        filter: { keyword: 'title' },
-        mapper: i => db.__buildMeta(i, collection)
-      };
-          return db.findPage(collection,request, config);
-      },
+      const config = { filter: { keyword: 'title' } };
+      const page = db.findPage(collection, request, config);
+      return pageDTO(collection, page);
+    },
 
     create: (data) => {
 
@@ -73,9 +72,7 @@ export const listing_service = {
     },
 
     getById: (id) => {
-
-
-        const data = db.find(collection, item => item.id == id ) ;
+        const data = db.find(collection, item => item.id == id) ;
         if(data && data.status != "DRAFT"){
             return db._loadRelations(data, collection);
         }

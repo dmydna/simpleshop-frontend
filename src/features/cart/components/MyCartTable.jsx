@@ -52,7 +52,7 @@ export default function MyCartTable({ className, content }) {
                                 </td>
 
                                 {/* PRICE */}
-                                <td className='bg-light fw-medium d-table-cell'
+                                <td className='fw-bold d-table-cell'
                                     style={{zIndex:2, lineHeight: '5.4', textAlign: 'end' }}  > 
                                     <i className='bi bi-currency-dollar'></i>
                                     {(item?.finalPrice*item?.cantidad).toFixed(2) || 0}

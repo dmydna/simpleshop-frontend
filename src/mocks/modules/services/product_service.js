@@ -10,7 +10,7 @@ export const product_service = {
     filterPage: (request) => {
       const config = {
         filter: { keyword: 'name' },
-        mapper: i => db.__buildMeta(i, collection)
+        mapper: i => db.__createDTO(i, collection)
       };
           return db.findPage(collection,request, config);
       },

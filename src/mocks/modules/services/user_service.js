@@ -16,7 +16,7 @@ export const user_service = {
     filterPage: (request) => {
       const config = {
         filter: {keyword: 'username'},
-        mapper: (i) => db.__buildMeta(i, collection),
+        mapper: (i) => db.__createDTO(i, collection),
       };
       return db.findPage(collection, request, config);
     },
@@ -85,7 +85,7 @@ export const user_service = {
     // HACK: soluciona db._buildMeta() borra campos de meta
     getById: (id) => {
         const user = db.__find(collection, u => u.id == id);
-        const response = db.findWithRelations(collection, item => item.id == id, i => db.__buildMeta(i, collection) ) ;
+        const response = db.findWithRelations(collection, item => item.id == id, i => db.__createDTO(i, collection) ) ;
 
         response.meta.banExpiresAt = createMockDate(user.banExpiresAt);
         response.meta.bannedAt = createMockDate(user.bannedAt || null);

@@ -40,7 +40,7 @@ function ListingDetailPage() {
          error={error}
          placeholder={<DetailsPlaceholder />}
       >
-         <Container fluid="xl" className="bg-white rounded mt-2 pt-2">
+         <Container fluid="xl" className="rounded mt-2 pt-2">
             <>
                {
                !currentItem ?

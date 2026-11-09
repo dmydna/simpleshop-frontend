@@ -306,3 +306,55 @@ export function flatMapIn(base, flat){
   const {id, created, updatedAt, deletedAt, ...map} = flat;
   return {...base,...map}
 }
+
+
+
+export function pageDTO(collection, input) {
+  const page = copyOf(input);
+  const content = page.content
+    .map(i => outputDTO(collection, i));
+  page.content = content;
+  return page;
+}
+
+
+export function outputDTO(collection, input) {
+
+  const entity = copyOf(input);
+  const config = configDB[collection];
+
+  if (!config) return entity;
+  if (!config.meta) return entity;
+
+  const defaultMetaFields = ["createdAt", "updatedAt", "deletedAt", "status"];
+  const { meta } = config;
+  // 2. Fusionar campos dinámicos de meta
+  if (Array.isArray(meta)) {
+    meta.forEach(field => {
+      if (!defaultMetaFields.includes(field)) {
+        defaultMetaFields.push(field);
+      }
+    });
+  }
+  // 3. Crear el objeto de salida
+  const responseEntity = {};
+  // 3.1. Crear el objeto 'meta' separado
+  const separateMeta = {};
+  // 3.2. Rellenar el objeto 'meta' separado
+  defaultMetaFields.forEach(field => {
+    if (entity[field] !== undefined) {
+      separateMeta[field] = entity[field];
+    }
+  });
+  // 3.3. Agregar el objeto 'meta' completo al resultado
+  responseEntity.meta = separateMeta;
+
+  // 4. Rellenar los campos normales del entity que NO son de meta
+  Object.keys(entity).forEach(field => {
+    if (!defaultMetaFields.includes(field)) {
+      responseEntity[field] = entity[field];
+    }
+  });
+
+  return responseEntity;
+}

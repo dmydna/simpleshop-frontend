@@ -1,4 +1,5 @@
 import { db } from "@/mocks/modules/db.js";
+import { outputDTO } from "../utils";
 
 export const baseService = (collection) => ({
   create: (data) => {
@@ -17,7 +18,7 @@ export const baseService = (collection) => ({
     return db.findWithRelations(
       collection,
       (item) => item.id == id,
-      (i) => db.__buildMeta(i, collection),
+      (i) => outputDTO(collection, i),
     );
   },
 
@@ -27,7 +28,7 @@ export const baseService = (collection) => ({
 
   filterPage: (request) => {
     const config = {
-      mapper: (i) => db.__buildMeta(i, collection),
+      mapper: (i) => db.__createDTO(i, collection),
     };
     return db.findPage(collection, request, config);
   },

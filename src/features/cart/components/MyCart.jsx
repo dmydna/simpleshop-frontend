@@ -27,7 +27,7 @@ export const MyCart = ({ children, className, clearCart, cartItems }) => {
 
                     <Tintify style={{padding: "4px"}} className="rounded-circle">
                     <i onClick={ handleClear }
-                        style={{ fontSize: "xx-large" }} className="bi bi-x hover-icon"></i>
+                        style={{ fontSize: "xx-large" }} className="bi bi-x fade-hover"></i>
                     </Tintify>
                 </div>
                 <hr />

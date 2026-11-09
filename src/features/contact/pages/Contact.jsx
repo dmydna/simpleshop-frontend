@@ -7,7 +7,7 @@ function Contact() {
 
   return (
       <PageFormLayout>
-      <ContactForm className={'bg-light rounded p-4 p-md-5 mx-auto'} style={{maxWidth: 500}}>
+      <ContactForm className={'bg-white rounded-4 border p-4 p-md-5 mx-auto'} style={{maxWidth: 500}}>
         <div className="d-flex align-items-center justify-content-between mb-4">
           <h1 className="h3 m-0">
             Contacto

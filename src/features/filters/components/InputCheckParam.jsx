@@ -70,7 +70,7 @@ function InputCheckParam({
     <Dropdown className={className + ' w-100'} style={style}>
       <Dropdown.Toggle
         variant={variant}
-        className="border bg-tint container-fluid d-flex toggle-end align-items-center"
+        className="border bg-hover container-fluid d-flex toggle-end align-items-center"
         id="dropdown-basic"
       >
         <span>{label || name} </span>

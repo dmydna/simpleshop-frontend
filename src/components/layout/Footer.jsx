@@ -7,7 +7,7 @@ import { URL_CONTACT } from '@/utils/links';
 function Footer() {
 
   return (
-    <footer id="footer" style={{backgroundColor: "var(--bs-gray-100)"}} className="border-top text-center py-5 mt-0">
+    <footer id="footer" className="bg-white border-top text-center py-5 mt-0">
       <Container fluid="xl">
         <Row>
          <Col className='order-2 mt-4' xs={12} md={6}>

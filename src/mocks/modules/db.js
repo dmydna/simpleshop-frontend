@@ -188,12 +188,9 @@ export const db = {
   },
 
 
-
-  // FIXME: omite campos meta al retornar.
-  __buildMeta(input, collection) {
+  __createDTO(input, collection) {
 
     const entity = copyOf(input);
-
     const config = this.configDB[collection];
     if (!config) return entity;
     if (!config.meta) return entity;
@@ -251,7 +248,7 @@ export const db = {
     if (mapperFn) {
       return mapperFn(entity)
     }
-    return this.__buildMeta(entity, collection);
+    return this.__createDTO(entity, collection);
   },
 
 
@@ -268,7 +265,7 @@ export const db = {
 
   sort(collection, sortFn, limit = null) {
     return this.collection(collection, limit).sort(sortFn)
-      .map(i => this.__buildMeta(i, collection))
+      .map(i => this.__createDTO(i, collection))
   },
 
   __find(collection, filterFn, mapperFn = null) {
@@ -285,7 +282,7 @@ export const db = {
   findWithRelations(collection, filterFn, mapperFn = null) {
     const entity = copyOf(this[collection].find(filterFn));
     if (mapperFn) { return mapperFn(this._loadRelations(entity, collection)) }
-    return this.__buildMeta(this._loadRelations(entity, collection), collection)
+    return this.__createDTO(this._loadRelations(entity, collection), collection)
   },
 
 
@@ -354,7 +351,7 @@ export const db = {
       this[collection][index] = updateFn(this[collection][index])
     }
     if (meta) {
-      return this.__buildMeta(this[collection][index], collection)
+      return this.__createDTO(this[collection][index], collection)
     }
     return this[collection][index];
   },
