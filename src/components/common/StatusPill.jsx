@@ -5,7 +5,7 @@ export default function StatusPill({status, icon}){
 
     const classStatus = {
       // ROLES
-      "ADMIN" :    {color: "pill-dark",      icon:"bi-person"},
+      "ADMIN" :    {color: "pill-primary",   icon:"bi-check-circle"},
       "CLIENT":    {color: "pill-success",   icon:"bi-person"},
       // STATUS
       "ACTIVE":    {color: "pill-primary",   icon:"bi-eye"},
@@ -15,8 +15,8 @@ export default function StatusPill({status, icon}){
       // USER
       "BANNED":    {color: "pill-danger",    icon:"bi-x-circle"},
       // STOCK
-      "In Stock":  {color: "pill-success",   icon:"bi-plus-circle"},
-      "Low Stock": {color: "pill-warning",   icon:"bi-dash-circle"},
+      "In Stock":  {color: "pill-success",   icon:"bi-check-circle"},
+      "Low Stock": {color: "pill-warning",   icon:"bi-exclamation-circle"},
       "Out Stock": {color: "pill-danger",    icon:"bi-x-circle"},
       "Pending":   {color: "pill-secondary", icon:"bi-exclamation-circle"}  
     }

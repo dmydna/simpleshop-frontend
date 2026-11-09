@@ -4,7 +4,7 @@ import { useProfile } from "@features/profile/contexts/ProfileContext.jsx";
 import { Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import userDefaultXL from "/user-default-xl.png";
-import RolePill from "@/components/common/RolePill";
+import StatusPill from "@/components/common/StatusPill";
 
 function CardProfile({ name, image, children, className, imgSize }) {
 
@@ -54,7 +54,7 @@ function CardProfile({ name, image, children, className, imgSize }) {
                     { profile?.email || 'your.email@mail.com' }
                 </span>
                 </Card.Text>
-                <RolePill role={profile?.role} />
+                <StatusPill status={profile?.role} />
 {/*                <p className="small pill-success d-inline-block mb-0" 
                    style={{fontSize: '0.7rem', borderRadius: '5px', paddingInline: '5px', paddingTop: '2px', lineHeight: '11px'}}>
                     {  profile?.role  == 'CLIENT'? 'user' : 'admin' }

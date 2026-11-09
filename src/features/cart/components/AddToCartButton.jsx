@@ -29,11 +29,11 @@ function AddToCartButton({product, className = '',variant='success', children}){
               style={{cursor: "pointer"}}
           >
               <i className="bi bi-plus-lg me-2"></i>
-              {children ? children : 'Add to Cart'}
+              {children ? children : <span className="me-3">Add to Cart</span>}
               {cartItems.map((item) => item?.id === product?.id && 
                   <div key={item.id} 
                        style={{opacity: item?.cantidad == 0 ? '0': '1' }} 
-                       className={`position-relative d-inline-block ms-3`}
+                       className={`position-absolute d-inline-block`}
                   >
                      <span className={`rounded-circle badge bg-white text-success px-${item?.cantidad < 10 ? 2 : 1}`} >
                           {item?.cantidad}

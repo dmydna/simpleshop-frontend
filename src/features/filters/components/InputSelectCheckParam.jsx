@@ -59,7 +59,7 @@ function InputSelectCheckParam({ name, array = [] , className, style, variant = 
     <Dropdown className={className} style={style}>
       <Dropdown.Toggle
         variant={variant}
-        className="border bg-tint container-fluid d-flex toggle-end align-items-center"
+        className="border bg-hover container-fluid d-flex toggle-end align-items-center"
         id="dropdown-basic"
       >
         <b style={{opacity: '.7'}} >{name} :</b>
@@ -73,7 +73,7 @@ function InputSelectCheckParam({ name, array = [] , className, style, variant = 
         {array.map((t) => (
           <div key={t} 
             onClick={() => handleTagChange(t)} 
-            className="multi-col-item bg-tint px-3"
+            className="multi-col-item bg-hover px-3"
           >
             <div className="d-flex gap-3">
                 <Form.Check

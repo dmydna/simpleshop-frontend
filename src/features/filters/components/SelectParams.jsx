@@ -73,6 +73,7 @@ const SelectByStats = ( domian ,{statsOf, label, cols, textStyle, multiseleccion
 			textStyle={multiseleccion  ? textStyle : 'uppercase'}
 			name={label || statsOf}
 			array={Tags}
+			variant={"white bg-white"}
 		/>
 	)
 }
@@ -131,6 +132,7 @@ const RangePrice = () => {
         max={1500}
         type={'$'}
         name={'price'}
+        variant={'white bg-white'}
     />
     )
 }

@@ -7,7 +7,7 @@ function ButtonLink({ handle, icon,children, className, visible=true, role, disa
         <>
             {visible && (
                 <div onClick={safeHandle}
-                    className={`${disabled? 'disabled': ''} btn bg-tint border-0 py-2 mb-2 text-start w-100 d-flex justify-content-between ${className}`}>
+                    className={`${disabled? 'disabled': ''} btn bg-hover border-0 py-2 mb-2 text-start w-100 d-flex justify-content-between ${className}`}>
                         <div className="fw-medium">
                             <i className={`bi ${icon} me-3`}></i>
                             <span className="small">{children}</span>

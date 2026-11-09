@@ -20,7 +20,7 @@ function LoginModal({show, onHide}) {
         <LoginForm className={'bg-light rounded p-5'} style={{maxWidth: 500}}>
          <div className="d-flex align-items-center justify-content-between mb-4">
           <h1 className="fs-4 m-0">Iniciar sesión</h1>
-          <i onClick={()=> onHide(false)} className="h3 bi bi-x m-0 hover-icon"></i> 
+          <i onClick={()=> onHide(false)} className="h3 bi bi-x m-0 fade-hover"></i> 
          </div> 
         </LoginForm> 
       </Modal.Body>

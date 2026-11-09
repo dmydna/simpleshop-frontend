@@ -4,7 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import { Button } from 'react-bootstrap';
 
 
-export default function FilterBarParams({ children, close, badgeParams = false }) {
+export default function FilterBarParams({ children }) {
 	
 	const [searchParams, setSearchParams] = useSearchParams();
 	const allParams = searchParams.toString();

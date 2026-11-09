@@ -81,7 +81,7 @@ function HomePage() {
                         </BannerAds>
                         <BannerAds
                             image={Img3}
-                            className={"bg-wave-0 rounded-4 mb-3 ms-md-2 ms-0"}
+                            className={"bg-wave-0 bg-white rounded-4 mb-3 ms-md-2 ms-0"}
                             btnText={'ver marcas'}
                         >
                             <h5 className="mb-0"> Temporada Invierno </h5>

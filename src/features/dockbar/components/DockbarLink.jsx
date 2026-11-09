@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 
 const variantClasses = {
-  'outline-dark': { bg: 'bg-light', color: 'text-dark' },
+  'outline-dark': { bg: 'bg-white', color: 'text-dark' },
   'outline-primary': { bg: 'bg-light', color: 'text-primary' },
   'primary': { bg: 'bg-primary', color: 'text-white' },
   'secondary': { bg: 'bg-secondary', color: 'text-white' },

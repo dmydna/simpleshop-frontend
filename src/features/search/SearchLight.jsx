@@ -59,18 +59,18 @@ export default function SearchLight({ className }) {
         <span className={`p-0 m-0 border-0`}>
           <span
             onClick={handleType}
-            className="d-inline-block btn opacity-50"
+            className="d-inline-block btn opacity-50 rounded-circle bg-hover fade-hover "
           >
             <i className="bi-gear"></i>
           </span>
           <span
             onClick={handleFilter}
-            className="d-inline-block d-md-none btn opacity-50"
+            className="d-inline-block d-md-none btn opacity-50 rounded-circle bg-hover fade-hover"
           >
             <i className="bi-sliders"></i>
           </span>
         </span>
-        <span className="btn opacity-50">
+        <span className="btn opacity-50 rounded-circle bg-hover fade-hover">
           <i className="bi-search"></i>
         </span>
       </InputGroup>
