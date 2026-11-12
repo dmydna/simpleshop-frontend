@@ -2,7 +2,7 @@ import { Nav, Button } from "react-bootstrap";
 import CartButton from "@features/cart/components/CartButton.jsx";
 import SearchOverlay from "@features/search/SearchOverlay";
 import UserDropdown from "@features/user/components/UserDropdown.jsx";
-
+import ProtectedAction from "@/components/common/ProtectedAction"
 import { useNavbarContext } from "@/contexts/NavbarContext.jsx";
 
 
@@ -16,7 +16,9 @@ function ActionBar(){
           <SearchOverlay/>
           <UserDropdown />
           <div className="d-none d-md-block">
-              <CartButton/>               
+              <ProtectedAction redirect={"/cart"}>
+                <CartButton/>
+              </ProtectedAction>
           </div>
           <Button className='d-block d-md-none' onClick={()=> setShowMenu(prev=>!prev)} variant='light'>
               <i className='bi bi-three-dots'></i>

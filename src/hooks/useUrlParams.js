@@ -15,6 +15,9 @@ export const useUrlParams = () => {
 
     const allParams = useMemo(() => searchParams.toString(),[searchParams])
 
+
+    const redirectParam = searchParams.get('redirect');
+
     const editMode = searchParams.get('mode') === 'edit';
     const draftMode = searchParams.get('mode') === 'draft';
     const viewMode = searchParams.get('mode') === 'view';
@@ -59,6 +62,6 @@ export const useUrlParams = () => {
        idParam, searchParam, categoryParam, statusParam, roleParam, skuParam,
        sortParam, filterParam, allParams, create_banMode, update_banMode,
        pageVersion, modeParam, minPrice, maxPrice, dialogParam,
-       validate, queryParam, typeParam
+       validate, queryParam, typeParam, redirectParam
     }
 }

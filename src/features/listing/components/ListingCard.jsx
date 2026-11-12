@@ -12,7 +12,9 @@ function ListingCard({ children, className, cols, imgSize, ...item}){
 
            <Card className={`${className || 'm-2'}`}>
 
-              <ProductButtonBar item={item} />
+              {item?.meta?.status != "DELETED" && 
+                  <ProductButtonBar item={item} />
+              }
 
               <Link 
                 className="text-decoration-none text-reset p-0"

@@ -281,7 +281,11 @@ td #default-radio {
 .carousel-control-next,
 .carousel-control-prev {
     width: 5%;
+    opacity: .5;
+    scale: .8;
 }
+.carousel-control-next { margin-right: -18px; }
+.carousel-control-prev { margin-left: -18px; }
 
 .truncate-2 {
     display: -webkit-box;

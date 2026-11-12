@@ -217,10 +217,10 @@ function App() {
           </Routes>
           
           <ToastContainer 
-            theme="colored"
+/*            theme="colored"*/
             hideProgressBar={true} 
-            autoClose={1000} 
-            position="bottom-left"
+            autoClose={2000} 
+            position="bottom-right"
             limit={3} 
           />
 

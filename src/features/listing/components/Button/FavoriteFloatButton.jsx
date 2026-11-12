@@ -6,10 +6,11 @@ import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Spinner } from "react-bootstrap";
-
+import { useAuthContext } from "@/features/auth/contexts/AuthContext";
 
 export default function FavoriteFloatButton({item, style, className}){
-	
+
+   const { isAuth } = useAuthContext()
    const [isFavorite, setIsFavorite] = useState(false);
    const navigate = useNavigate();
    const { setSearchParams } = useUrlState()
@@ -28,7 +29,7 @@ export default function FavoriteFloatButton({item, style, className}){
       },
       onError: (err) =>{
          if (err?.code === 'TOKEN_EXPIRED') {
-            setSearchParams(prev => ({...prev, dialog: 'expiredsession'})) 
+            setSearchParams(prev => ({...prev, dialog: 'expiredsession'}))
             return;
          }
          toast.warning(err?.menssage || "Operacion Error");
@@ -40,16 +41,17 @@ export default function FavoriteFloatButton({item, style, className}){
    const deleteFavorite = useAsync(favoriteService.Delete, {...options(msg_del)});
    const checkFavorite  = useAsync(favoriteService.isFavoriteProduct);
 
-   const checkFavoriteStatus = useCallback(async () => { 
-      if(item?.id != undefined) 
-         setIsFavorite(await checkFavorite.execute(item.id)) 
+   const checkFavoriteStatus = useCallback(async () => {
+      if(item?.id != undefined)
+         setIsFavorite(await checkFavorite.execute(item.id))
    }, [item])
 
     useEffect(() => {
         checkFavoriteStatus();
     }, [checkFavoriteStatus]);
 
-    const toggleFavorite = useCallback( () => {
+    const toggleFavorite = useCallback( (isAuth) => {
+      if(!isAuth) return
       if( !isFavorite ) {
          createFavorite.execute(item.id)
       }else{
@@ -60,19 +62,19 @@ export default function FavoriteFloatButton({item, style, className}){
 
 	return (
       <>
-         {createFavorite?.loading && 
+         {createFavorite?.loading &&
             <span className="p-2 rounded-circle">
                <Spinner size="sm"/>
             </span>}
-         {!createFavorite?.loading && 
+         {!createFavorite?.loading &&
             <ToggleIcon
                disabled= { item?.meta?.status !== "ACTIVE" }
                status={ isFavorite }
             	style={ style }
-               className={`border rounded-circle bg-wh01 ${className}`} 
-               action={ toggleFavorite }
+               className={`border rounded-circle bg-wh01 ${className}`}
+               action={ () => toggleFavorite(isAuth) }
                icon="heart"
-            />}   
+            />}
       </>
 	)
 }

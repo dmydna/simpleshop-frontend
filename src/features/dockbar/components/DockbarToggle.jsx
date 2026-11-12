@@ -14,7 +14,6 @@ export default function DockbarToggle({id, className}){
         	}else{
         		body.classList.add("active-bar")
         	}	
-
 		}
 	},[])
 

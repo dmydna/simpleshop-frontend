@@ -1,8 +1,20 @@
 import DockbarLink from "@/features/dockbar/components/DockbarLink";
 import DockbarToggle from "@/features/dockbar/components/DockbarToggle";
 import { URL_DASHBOARD, URL_DEV, URL_LISTING_LIST, URL_PRODUCT_LIST, URL_USER_LIST } from "@/utils/links";
+import { useAuthContext } from "@/features/auth/contexts/AuthContext"
+import { useEffect } from "react"
 
 export default function DockbarAdmin() {
+
+    const {isAdmin} = useAuthContext()
+
+    useEffect(()=>{
+        const body = document.querySelector("body");
+        if([...body.classList].includes("active-bar")){
+            body.classList.remove("active-bar")
+        }
+    },[isAdmin])
+
 
     return (
         <ul className="list-group list-group-flush">
