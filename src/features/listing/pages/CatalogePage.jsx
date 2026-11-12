@@ -4,6 +4,7 @@ import { useListingSync } from "@/features/listing/hooks/useCatalogeSync.js";
 import { useListing } from "@/features/listing/hooks/useListing.js";
 import ListingContextLayout from "@/features/listing/layout/ListingContextLayout.jsx";
 import AddToCartButton from "@features/cart/components/AddToCartButton.jsx";
+import AddToCartButton2 from "@features/cart/components/AddToCartButton2.jsx";
 import Pagination from "@features/pagination/components/Pagination.jsx";
 import { ListingPlaceholder } from "@features/placeholder/ListingPlaceholder.jsx";
 
@@ -53,10 +54,12 @@ function Cataloge() {
                     status={p.meta.status}
                     className={"p-2 text-center text-uppercase my-2"} 
                   >
-                    <AddToCartButton 
+                    
+                    <AddToCartButton2 
                       className={`m-2 ${p.meta.status !== "ACTIVE" ? 'disabled' : ''}`} 
                       variant="outline-success" 
                       product={p} />
+
                   </ListingDetailStatus>  
                 </ListingCard>
               ))}

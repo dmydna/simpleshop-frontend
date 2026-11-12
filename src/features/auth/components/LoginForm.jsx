@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo, useCallback } from "react";
 import {Alert, Button, Col, Form} from "react-bootstrap";
 import {Link, useNavigate} from "react-router-dom";
 import {useForm} from "@hooks/useForm.js";
 import { useAuthContext } from "@f/auth/contexts/AuthContext.jsx";
 import PublicRoute from "@/components/common/PublicRoute";
+import { useUrlParams } from "@/hooks/useUrlParams";
 
 
 function LoginForm({ children, style, className}){
@@ -12,15 +13,18 @@ function LoginForm({ children, style, className}){
     const { onChange, formData} = useForm()
 
     const navigate = useNavigate();
-    
+
+    const { redirectParam } = useUrlParams()
 
     useEffect(()=> setReset(true),[])
+
  
-    const handleSubmit = async  (e) =>{
+    const handleSubmit = async(e) =>{
         e.preventDefault();
         await login(formData)
-        navigate("/user")
-   };
+        navigate(redirectParam? decodeURI(redirectParam) : '/user')
+   }
+
 
 
     return (
