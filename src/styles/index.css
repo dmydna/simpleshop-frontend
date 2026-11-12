@@ -70,7 +70,7 @@ td #default-radio {
 
 
 
-.tint, .btn-tint {
+.input-tint, .btn-input-tint {
     position: relative;
     display: flex;
     width: 40px;
@@ -79,8 +79,8 @@ td #default-radio {
     align-items: center;
     transition: .8s;
 }
-.tint:has(input:checked),
-.tint:hover, .btn-tint {
+.input-tint:has(input:checked),
+.input-tint:hover, .btn-input-tint {
     content: "";
     background: #00000012;
     border-radius: 100%;
@@ -158,9 +158,12 @@ td #default-radio {
     width: 135px;
 } 
 
-.hover-icon{
-    opacity: .8;
-}
+
+.fade-hover-0{ opacity: .5; }
+.fade-hover-1{ opacity: .9; }
+
+
+.fade-hover{ opacity: .5; }
 
 .muted{
     opacity: .3;
@@ -176,7 +179,7 @@ td #default-radio {
 
 
 
-.hover-icon:hover {
+.fade-hover:hover, .fade-hover-1:hover {
     color: black;
     cursor: pointer;
     opacity: 1 !important;
@@ -278,7 +281,11 @@ td #default-radio {
 .carousel-control-next,
 .carousel-control-prev {
     width: 5%;
+    opacity: .5;
+    scale: .8;
 }
+.carousel-control-next { margin-right: -18px; }
+.carousel-control-prev { margin-left: -18px; }
 
 .truncate-2 {
     display: -webkit-box;
@@ -393,9 +400,10 @@ td #default-radio {
 
 
 .island {
-    background: #ffffff;
+    background: #fff!important;
     border-radius: 16px !important;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: none!important;
 }
 
 .sub-island {
@@ -750,7 +758,7 @@ tr:last-child {
 .left-0 { left: 0!important }
 .right-0 { right: 0!important }
 .vh-50 { height: 50vh!important }
-.bg-tint:hover { 
+.bg-hover:hover { 
     background-color: rgba(0, 0, 0, 0.1)!important; 
     cursor: pointer;
 }

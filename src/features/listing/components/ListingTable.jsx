@@ -100,7 +100,7 @@ const ListingTable = ({ className }) => {
                                         <Form.Check // prettier-ignore
                                             type='checkbox'
                                             id={`default-radio`}
-                                            className='mt-3 tint position-relative'
+                                            className='mt-3 input-tint position-relative'
                                             checked={idParam == item.id}
                                             onChange={(e) => {
                                                 e.stopPropagation();

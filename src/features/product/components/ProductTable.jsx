@@ -77,7 +77,7 @@ function ProductTable({ className }) {
                                         <Form.Check // prettier-ignore
                                             type='checkbox'
                                             id={`default-radio`}
-                                            className='mt-3 tint'
+                                            className='mt-3 input-tint'
                                             checked={idParam == item.id}
                                             onChange={(e) => {
                                                 e.stopPropagation();

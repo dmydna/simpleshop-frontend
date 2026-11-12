@@ -63,7 +63,7 @@ export function CartProvider({ children }) {
   const removeFromCart = (productoCart) => {
 
     setCartCount((prevContador) => 
-      prevContador - productoCart.cantidad)
+      prevContador == 0 ? 0 :  prevContador - 1)
     setTotalPrice((prevTotal) => 
       prevTotal - (productoCart.finalPrice * productoCart.cantidad))
     setTotalDiscount((prevTotal) => 
@@ -156,6 +156,50 @@ export function CartProvider({ children }) {
     );
   }
 
+const addToCartQuantity = (productoAAgregar, cantidad) => {
+ 
+      if (productoAAgregar.stock <= 0) {
+        return false
+      }
+
+      if (productoAAgregar.stock < cantidad){
+        return false
+      }
+
+    
+      const productoExiste = cartItems.find(
+        (item) => item.id === productoAAgregar.id 
+      );
+
+      if (productoExiste) {
+        //  actualiza la cantidad del producto
+        setCartItems((prevProductos) =>
+          prevProductos.map((item) =>
+            item.id === productoAAgregar.id && item.stock 
+              ? { ...item, cantidad: cantidad } // Incrementa la cantidad
+              : item
+          )
+        );
+      } else {
+        setCartItems((prevProductos) => [ // retorno implicito de un array 
+          ...prevProductos,
+          { ...productoAAgregar, cantidad: cantidad },
+        ]);
+        setCartCount((prevCounter) => (
+        productoAAgregar.stock ? prevCounter + 1 : prevCounter
+      ));
+
+      }
+
+
+
+
+
+      return true;
+
+    }
+
+
     const addToCart = (productoAAgregar) => {
  
       if (productoAAgregar.stock <= 0) {
@@ -230,6 +274,7 @@ export function CartProvider({ children }) {
           products,
           clearCart,
           addToCart,
+          addToCartQuantity,
           couponDiscount,
           setCantidadCartItem, 
           setCouponDiscount, 

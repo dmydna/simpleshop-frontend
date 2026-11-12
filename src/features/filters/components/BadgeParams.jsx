@@ -72,10 +72,11 @@ const BadgeParams = ({ className, style, blacklist = [] }) => {
                 }
 
                 return(
-                <Badge
+                <small>    
+                    <Badge
                     key={`${item.key}-${item.value}-${index}`} // Key única basada en valor
                     pill
-                    bg="light"
+                    bg="white"
                     text="dark"
                     className={`${item.value} border me-2 mb-2 p-2 px-3`}
                     style={{ cursor: "pointer" }}
@@ -84,7 +85,9 @@ const BadgeParams = ({ className, style, blacklist = [] }) => {
                     <span className="fw-bold me-1">{item.key}:</span> 
                     <span className="text-lowercase">{item.value}</span>
                     <i className="ms-1 bi bi-x text-muted" />
-                </Badge>)
+                    </Badge>
+                </small>
+                )
             })}
         </Col>
     );

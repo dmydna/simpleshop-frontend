@@ -11,7 +11,7 @@ function CardPromo({Img, children, variant , to, cta, className, p, m}){
       
       >
        <Col 
-        className={`bg-light d-flex align-items-center justify-content-center px-4 py-5`} md={6}>
+        className={`bg-white d-flex align-items-center justify-content-center px-4 py-5`} md={6}>
          <img src={Img}
            className="img-fluid rounded"
            style={{ maxHeight: "220px", objectFit: "contain" }}

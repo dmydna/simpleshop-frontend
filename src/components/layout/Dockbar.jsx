@@ -11,7 +11,7 @@ function Dockbar({}) {
       {/* -- Sidebar PC (solo para admin) --*/}
         <>
           <div id="dashbar" style={{ zIndex: "1050", width: "80px", paddingTop: "50px" }} 
-            className='fixed-top d-none d-md-block h-100 bg-light p-2 border-end'>
+            className='bg-white fixed-top d-none d-md-block h-100 p-2 border-end'>
             <DockbarAdmin />
           </div>
         </>
@@ -19,7 +19,7 @@ function Dockbar({}) {
       {/* -- Sidebar Mobile (para todos) --*/}      
       {(
         <div style={{ zIndex: "100", height: "75px", overflowX: "auto", overflowY: "hidden", paddingTop: "0px" }}
-          className='fixed-bottom d-block d-md-none w-100 bg-light p-2 border-top'>
+          className='bg-white fixed-bottom d-block d-md-none w-100 p-2 border-top'>
           <DockbarMobile />
         </div>
       )}

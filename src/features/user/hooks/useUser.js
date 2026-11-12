@@ -5,7 +5,7 @@ import { useFetchElem } from "@/hooks/useFetchElem.js";
 
 export const useUser = (fetchElemMethod=null) => {
 
-    const {loading: loadingList, error: errorList, content,setContent, ...props}
+    const {loading: loadingList, error: errorList, content, setContent, ...props}
         = useFetchData({service: userService})
 
     const {loading: loadingItem, error: errorItem, currentItem, setCurrentItem, id, setId, fetchElem, refreshElem }

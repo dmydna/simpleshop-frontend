@@ -2,7 +2,7 @@ import StatusPill from "@/components/common/StatusPill";
 import ProductButtonBar from "@/features/listing/components/ProductButtonBar";
 import { Card, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
-
+import CarrouselReviews from "@/features/review/components/CarrouselReviews.jsx";
 
 function ListingCard({ children, className, cols, imgSize, ...item}){
 
@@ -12,7 +12,9 @@ function ListingCard({ children, className, cols, imgSize, ...item}){
 
            <Card className={`${className || 'm-2'}`}>
 
-              <ProductButtonBar item={item} />
+              {item?.meta?.status != "DELETED" && 
+                  <ProductButtonBar item={item} />
+              }
 
               <Link 
                 className="text-decoration-none text-reset p-0"
@@ -37,11 +39,14 @@ function ListingCard({ children, className, cols, imgSize, ...item}){
                 >
                    {item.title || "N/A"}
                 </Card.Title>
-                {item?.finalPrice != item?.price &&
                   <Card.Text style={{marginTop: '-15px'}} className="mb-0 small text-secondary position-absolute">
-                    <strike>$ {item?.price}</strike>
+                  {item?.finalPrice != item?.price && <strike>$ {item?.price} </strike>  }
+                  {item?.rating && item?.rating > 0 && 
+                  <div className="d-inline mx-2">
+                        <i className="bi bi-star"></i>
+                        <span> {(item?.rating || 0).toFixed(1)} </span>
+                    </div> }
                   </Card.Text> 
-                }
                 <Card.Text className="fs-3 fw-medium  mb-1">
                   $ {item?.finalPrice || "..."}  
                   <span className="mx-2 text-success fw-medium fs-6">

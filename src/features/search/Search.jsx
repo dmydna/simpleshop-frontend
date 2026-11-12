@@ -80,12 +80,12 @@ function Search({toggle, setToggle}){
             <Button
               style={{opacity: .4}}
               variant="ligth"
-              className={`bi bi-sliders border-0 hover-icon`}
+              className={`bi bi-sliders border-0 fade-hover`}
               onClick={(e)=> handleFilter(e)} >
             </Button>
             <Button variant="ligth" 
               style={{opacity: .4}}
-              className={`bi-search border-0 hover-icon`}
+              className={`bi-search border-0 fade-hover`}
               onClick={(e)=> handleSubmit(e)} >
             </Button>
           </InputGroup>

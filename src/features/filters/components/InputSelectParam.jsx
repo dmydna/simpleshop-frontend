@@ -67,7 +67,7 @@ function InputSelectParam({ name, Enum, label }) {
             </Form.Label>
             <Form.Select 
                 style={{ lineHeight: '25px',fontSize: '.9rem', paddingLeft: `${label?.length*0.6 || name?.length*0.8}rem` }} 
-                className='bg-light bg-tint dropdown-toggle-custom small text-muted fw-semibold text-capitalize' 
+                className='bg-light bg-hover dropdown-toggle-custom small text-muted fw-semibold text-capitalize' 
                 value={selected} 
                 onChange={(e) => addParam(e.target.value)}
             >

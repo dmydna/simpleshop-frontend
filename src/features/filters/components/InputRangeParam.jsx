@@ -92,7 +92,7 @@ function InputRangeParam({
         <Dropdown style={style} className={`${className} mb-2 w-100`}>
             <Dropdown.Toggle
                 variant={variant}
-                className="border bg-tint d-flex align-items-center container-fluid text-start toggle-end" 
+                className="border bg-hover d-flex align-items-center container-fluid text-start toggle-end" 
                 id="dropdown-basic"
             >
                 <span>{label || name} </span>

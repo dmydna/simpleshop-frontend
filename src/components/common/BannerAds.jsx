@@ -5,7 +5,7 @@ function BannerAds({image, children, className, imgWith, btnText}){
 
     return(
       <Col sm={12} md={12} lg
-      className={`d-flex flex-column flex-md-row align-items-stretch rounded overflow-hidden $`}
+      className={`d-flex flex-column flex-md-row align-items-stretch rounded overflow-hidden`}
       >
         <div  className={`${className} p-5 border rounded d-flex justify-content-between flex-wrap flex-fill shadow-sm`}>
           <div className="flex-fill flex-md-grow-0">

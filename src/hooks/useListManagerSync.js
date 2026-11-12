@@ -16,7 +16,7 @@ export const useListManagerSync = ({ baseHook }) => {
     const [searchParams, setSearchParams] = useSearchParams();
 
     const {availabilityParam, tableVersion, tagsParam, hashParam, pageParam,
-       idParam, searchParam, categoryParam, statusParam, roleParam,
+       idParam, searchParam, categoryParam, roleParam , statusParam,
        sortParam, minPrice, maxPrice, queryParam, typeParam } = useUrlParams()
 
 
@@ -30,7 +30,7 @@ export const useListManagerSync = ({ baseHook }) => {
             if(typeParam){
                 setFilters({ query: queryParam, qtype: typeParam })
             }else{
-                setFilters({ query: typeParam })
+                setFilters({ query: queryParam })
             }
         }
         if (typeParam)      {
@@ -52,7 +52,7 @@ export const useListManagerSync = ({ baseHook }) => {
 
     }, [tagsParam, pageParam, categoryParam, tableVersion, statusParam,
         searchParam, setFilters, setCurrentPage, totalElements,availabilityParam,setId,
-        sortParam, minPrice, maxPrice, queryParam
+        sortParam, minPrice, maxPrice, queryParam, roleParam
     ])
 
 

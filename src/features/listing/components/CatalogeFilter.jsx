@@ -16,8 +16,8 @@ export default function CatalogeFilter(){
 	
 			<FilterBarParams badgeParams={true}>
 				<div className="d-flex flex-fill gap-3 flex-wrap flex-md-nowrap">
-					<SelectParams.Tags className='w-100'/>
-					<SelectParams.RangePrice  className='w-100'/>
+					<SelectParams.Tags className='w-100 bg-white'/>
+					<SelectParams.RangePrice  className='w-100 bg-white'/>
 				</div>
 			</FilterBarParams>
 		</>}

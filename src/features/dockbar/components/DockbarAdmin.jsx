@@ -1,8 +1,20 @@
 import DockbarLink from "@/features/dockbar/components/DockbarLink";
 import DockbarToggle from "@/features/dockbar/components/DockbarToggle";
 import { URL_DASHBOARD, URL_DEV, URL_LISTING_LIST, URL_PRODUCT_LIST, URL_USER_LIST } from "@/utils/links";
+import { useAuthContext } from "@/features/auth/contexts/AuthContext"
+import { useEffect } from "react"
 
 export default function DockbarAdmin() {
+
+    const {isAdmin} = useAuthContext()
+
+    useEffect(()=>{
+        const body = document.querySelector("body");
+        if([...body.classList].includes("active-bar")){
+            body.classList.remove("active-bar")
+        }
+    },[isAdmin])
+
 
     return (
         <ul className="list-group list-group-flush">
@@ -13,7 +25,7 @@ export default function DockbarAdmin() {
             </div>
 
             <DockbarLink
-                className='mb-4'
+                className='mb-4 fade-hover-1'
                 to={URL_DASHBOARD}
                 icon="bi-gear"
                 label="panel"
@@ -21,21 +33,21 @@ export default function DockbarAdmin() {
 
 
             <DockbarLink
-                className="mb-4"
+                className="mb-4 fade-hover-1"
                 to={URL_LISTING_LIST}
                 icon="bi-sticky"
                 label="listings"
             />
 
             <DockbarLink
-                className="mb-4"
+                className="mb-4 fade-hover-1"
                 to={URL_PRODUCT_LIST}
                 icon="bi-box-seam"
                 label="products"
             />
 
             <DockbarLink
-                 className="mb-4"
+                 className="mb-4 fade-hover-1"
                 to={URL_USER_LIST}
                 icon="bi-person"
                 label="users"
@@ -43,7 +55,7 @@ export default function DockbarAdmin() {
 
 
             <DockbarLink
-                className="mb-3 d-none"
+                className="mb-3 d-none fade-hover-1"
                 to={URL_DEV}
                 icon="bi-terminal"
                 label="demo"

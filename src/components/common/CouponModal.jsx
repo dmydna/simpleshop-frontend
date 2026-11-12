@@ -35,7 +35,7 @@ function CouponModal({show, onHide}){
           </Card.Text>
           </div>
  
-          <i onClick={() => onHide(false)} className="h3 bi bi-x m-0 hover-icon"></i> 
+          <i onClick={() => onHide(false)} className="h3 bi bi-x m-0 fade-hover"></i> 
         </div>
 
         <div 

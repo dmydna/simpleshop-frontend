@@ -40,7 +40,7 @@ function ListingDetailPage() {
          error={error}
          placeholder={<DetailsPlaceholder />}
       >
-         <Container fluid="xl" className="bg-white rounded mt-2 pt-2">
+         <Container fluid="xl" className="rounded mt-2 pt-2">
             <>
                {
                !currentItem ?
@@ -54,7 +54,7 @@ function ListingDetailPage() {
                         />
 
                         {/** Carrousel */}
-                        <Col sm={12} md={7}>
+                        <Col sm={12} lg={7}>
                            <CarouselImages
                               order={true}
                               className="m-0"
@@ -64,7 +64,7 @@ function ListingDetailPage() {
                         </Col>
 
                         {/**Buy Card */}
-                        <Col style={{ top: '60px' }} className="sticky-md-bottom" xs={12} md={5}>
+                        <Col style={{ top: '60px' }} className="sticky-lg-bottom" xs={12} lg={5}>
                            <ProductBuyCard
                               {...currentItem}
                               className='p-3f border island h-100' 
@@ -72,7 +72,7 @@ function ListingDetailPage() {
                         </Col>
 
                         {/**Product Specs */}
-                        <Col className="mt-3 mt-5 mx-0" sm={12} md={7}>
+                        <Col className="mt-3 mt-5 mx-0" sm={12} lg={7}>
                            <Col md={12} className='p-3f border island rounded-4' >
                               <ProductSpecs producto={currentItem} >
                                  <div className="fs-5 fw-medium mb-3">
@@ -83,7 +83,7 @@ function ListingDetailPage() {
                         </Col >
 
                         {/**Product Description */}
-                        <Col className="small mt-3 mx-0" xs={12} md={7}  >
+                        <Col className="small mt-3 mx-0" xs={12} lg={7}  >
                            <Col md={12} style={{ minHeight: "220px" }} className='p-3f border island rounded-4' >
                               <div className="fs-5 fw-medium mb-5">Descripcion</div>
                               <p className="text-secondary">
@@ -96,7 +96,7 @@ function ListingDetailPage() {
 
                         {currentItem.reviews && (
                            currentItem.reviews.length > 0 && (
-                              <Col className="mt-3 mx-0" xs={12} md={7}>
+                              <Col className="mt-3 mx-0" xs={12} lg={7}>
                                  <Col md={12} className='p-3f border island rounded-4' >
                                     <CarrouselReviews
                                         title={"Reseñas"}
