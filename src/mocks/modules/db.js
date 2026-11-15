@@ -155,16 +155,16 @@ export const db = {
 
         const fkField = childMeta.FK || rel.FK || meta.FK; // nombre del campo FK
 
+        let fkVal = null;
         if (rel.owner) {
           /* 2.a  El padre posee la FK  */
-          const fkVal = entity[fkField];
-          //console.log("fkVal:",fkVal)
-          //console.log("childCol:",childCol)       // valor de la FK en el padre
+          fkVal = entity[fkField];
+          // valor de la FK en el padre
           entity[rel.key] = childCol.find(item => item.id === fkVal) || null;
-          //console.log(`entity[${rel.key}]:`,entity[rel.key] )
         } else {
+          fkVal = entity[fkField];
           /* 2.b  El hijo posee la FK  */
-          entity[rel.key] = childCol.find(item => item[fkField] === parentId) || null;
+          entity[rel.key] = childCol.find(item => fkVal === parentId) || null;
         }
       });
     }
@@ -301,7 +301,10 @@ export const db = {
 
 
   exists(collection, filterFn) {
-    if (this.find(collection, filterFn)) { return true; }
+    const finded = this.find(collection, filterFn);
+    if (Object.keys(finded).length !== 0) {
+      return true; 
+    }
     return false;
   },
 

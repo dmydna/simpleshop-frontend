@@ -9,6 +9,7 @@ export const configDB = {
     id: { field: "id",  type: "string" },
     FK:   "username" , // HACK deberia ser "reviewId" por convencion
     relations: {
+      // matchea "FK" en "collection" y lo mapea en reviews[key]
       oneToOne: [
         {  key: "user", collection: "users",  owner: true }
       ]

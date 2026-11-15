@@ -11,7 +11,6 @@ const [BASE_ENDPOINT, SERVICE] = [`${BASE_URL}/${ENDPOINT.FAVORITE}`, favorite_s
 
 export const favoriteHandlers = [
 
-  ...(baseHandlers(BASE_ENDPOINT, SERVICE)),
   
   // POST: CREATE
   http.post(`${BASE_ENDPOINT}/:id`, ({ params }) => {
@@ -32,4 +31,5 @@ export const favoriteHandlers = [
     return HttpResponse.json(user);
   }),
 
+  ...(baseHandlers(BASE_ENDPOINT, SERVICE)),
 ];

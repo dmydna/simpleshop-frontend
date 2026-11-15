@@ -12,7 +12,7 @@ export const favorite_service = {
 
 
     create: (listingId, userId) =>{
-        const existingFavorite = db.find(collection, (item) => item.userId == userId && item.listingId == listingId);
+        const existingFavorite = db.exists(collection, (item) => item.userId == userId && item.listingId == listingId);
         const existingListing = listing_service.getById(listingId);
         const existingUser = user_service.getById(userId);
 
@@ -37,17 +37,17 @@ export const favorite_service = {
     existsById: (id) => {
         const auth = user_service.getMyProfile()
         const fav = db.exists(collection, f => f.userId === auth.id && f.listingId == id)
+        console.log(db[collection], fav)
         return {"isFavorite": fav }
     },
 
     filterPage: (request) => {
-        return db.findPage(collection, request, favoriteMapper)
+        return db.findPage(collection, request, { mapper: favoriteMapper })
     },
 
     deleteById:(listingId) => {
         return db.deleteFrom(collection, i => i.listingId == listingId)
     },
-
 
 }
 
