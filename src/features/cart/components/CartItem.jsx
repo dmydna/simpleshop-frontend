@@ -1,7 +1,7 @@
 import { Card, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useCart } from "@f/cart/contexts/CartContext.jsx";
-import CartInput from "@f/cart/components/CartInput.jsx";
+import CartControl from "@/features/cart/components/CartControl.jsx";
 
 function CartItem({item, index}) {
 
@@ -25,7 +25,7 @@ function CartItem({item, index}) {
                     </Card.Title>
 
                     <div className="d-flex flex-wrap justify-content-between align-items-center">
-                    <CartInput className={'order-1 order-md-2'} producto={item}/>
+                    <CartControl className={'order-1 order-md-2'} producto={item}/>
                       <div className="text-secondary small m-0 d-none d-md-block">
                         <i className="bi bi-eye me-1"></i> 
                         stock: 

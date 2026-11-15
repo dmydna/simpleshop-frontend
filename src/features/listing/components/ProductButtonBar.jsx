@@ -9,7 +9,7 @@ import { useState } from "react";
 
 
 
-export default function  ProductButtonBar({item}){
+export default function  ProductButtonBar({className, item}){
 
 	const {isAdmin} = useAuthContext()
     // Hide/Show buttons crud
@@ -27,7 +27,9 @@ export default function  ProductButtonBar({item}){
     } 
 
 	return(
-             <div className="d-flex gap-2 position-absolute w-100 left-0 justify-content-between px-2">
+             <div  className={
+                `d-flex gap-2 position-absolute w-100 left-0 justify-content-between px-2 ${className}`
+            }>
   
                 <div className='d-flex gap-2'>
                     {hide && (
@@ -45,21 +47,26 @@ export default function  ProductButtonBar({item}){
                     )}
 
                     {!hide && (
-                        <>
-                            <EditFloatButton item={item} />
+                        <>  <div style={{scale: '.9'}}>
+                                <EditFloatButton item={item} />
+                            </div>
                             {/* <DeleteFloatButton item={item} />*/}
-                            <StatusFloatButton item={item} /> 
+                            <div style={{scale: '.9'}}>
+                                <StatusFloatButton item={item} /> 
+                            </div>
                         </>
                     )}
 
                 </div>
                     
                 {isAdmin && (
-                    <IconTint
-                      className="rounded-circle align-selft-end" 
-                      action={handleHide}
-                      icon={`three-dots${hide ? '' : '-vertical'}`}
-                    />
+                    <div style={{scale: '.9'}}>
+                        <IconTint
+                          className="rounded-circle align-selft-end" 
+                          action={handleHide}
+                          icon={`three-dots${hide ? '' : '-vertical'}`}
+                        />
+                    </div>
                 )}
 
               </div>

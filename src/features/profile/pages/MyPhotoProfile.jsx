@@ -4,11 +4,12 @@ import { useEffect, useState } from 'react';
 import { Button } from "react-bootstrap";
 import { useProfile } from "@f/profile/contexts/ProfileContext.jsx";
 import Header from '@/components/layout/Header';
-
+import { useUrlState } from "@/hooks/useUrlState";
 
 const MyPhotoProfile = ({ title, className }) => {
 
   const [preview, setPreview] = useState(null);
+  const { setSearchParams } = useUrlState();
   const [image, setImage] = useState([]);
   const { updateImage, loading, profile, success, setSuccess, error, setError } = useProfile();
 
@@ -17,10 +18,11 @@ const MyPhotoProfile = ({ title, className }) => {
   }, [profile])
 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const selectedFile = image
-    updateImage(selectedFile)
+    await updateImage(selectedFile);
+    setSearchParams(prev => ({...prev, pageVersion: Date.now()}))
   }
 
   return (

@@ -11,7 +11,6 @@ function BuyNowButton({handle, variant, children, className}){
             type="submit"
             onClick={()=> handle()}
         >
-            <i className="bi bi-cart3 me-3"></i>
             {children ? children : 'Buy Now'}
         </Button>
     )

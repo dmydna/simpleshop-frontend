@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-
+import CircleButton from '@common/CircleButton'
 
 function ImageUploader({ image, setImage, setPreview, preview }) {
 
@@ -82,7 +82,7 @@ function ImageUploader({ image, setImage, setPreview, preview }) {
 
   return (
     <div className="upload-container mb-4">
-      <div className="p-5 border-3 border border-dashed rounded-4 upload-img" style={{ position: 'relative' }}>
+      <div className="bg-light p-5 border-3 border border-dashed rounded-4 upload-img" style={{ position: 'relative' }}>
         <input
           type="file"
           ref={fileInputRef}
@@ -93,12 +93,28 @@ function ImageUploader({ image, setImage, setPreview, preview }) {
 
         {preview ? (
           <div style={{ zIndex: 20, position: 'relative' }} className="d-block mx-auto text-center">
-            <img
+            <div className="d-flex justify-content-center">
+            <img className="border rounded-4 mx-2"
               src={preview}
               alt="Vista previa"
-              style={{ maxWidth: '270px', maxHeight: '150px', objectFit: 'contain' }}
+              style={{ width: '170px', height: '170px', objectFit: 'contain' }}
             />
-            <div className="mt-3">
+            <div className="flex-column">
+                <CircleButton 
+                   className="mb-1 shadow-xs bg-white" 
+                   onClick={handleRemove}
+                 >
+                  <i className="bi bi-x-lg text-danger" />
+                </CircleButton>  
+                <CircleButton  
+                  className="shadow-sm bg-white"
+                  onClick={handleClick}
+                >
+                  <i className="bi bi-pencil" />
+                </CircleButton> 
+            </div>
+            </div>
+            <div className="mt-3 d-none">
               <button className="btn btn-sm btn-outline-secondary me-2" onClick={handleClick}>
                 Cambiar imagen
               </button>
