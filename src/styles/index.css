@@ -93,7 +93,7 @@ td #default-radio {
 
 .selected td, .selected td span:not(.pill-base) { 
 /*    background-color: #6c757d24;*/
-    color: black!important; 
+    color: black; 
     font-weight: bold!important
 }
 .secondary td { background-color: #a7a7a724 !important}

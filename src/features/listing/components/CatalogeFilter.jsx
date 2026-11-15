@@ -6,11 +6,11 @@ import SelectParams from "@f/filters/components/SelectParams";
 
 export default function CatalogeFilter(){
 	
-	const { filterParam } = useUrlParams()
+	const { showParam } = useUrlParams()
 
 	return(
 	<>
-		{filterParam === 'show' && <>
+		{showParam === 'filter' && <>
         	<CategoryNav className='d-none d-md-block' />
         	<CategoryCarrousel className='d-block d-md-none' />
 	

@@ -5,11 +5,10 @@ export default function AddNewButton({to}) {
     const navigate = useNavigate()
     return (
         <Button
-            variant="light"
             onClick={() => navigate(`${to}`)}
-            className="border my-2 flex-fill flex-md-grow-0">
-            <i className="bi bi-plus-lg"></i>
-            <span className="fw-medium ms-2">Add new</span>
+            className="btn-sm rounded-2 border-0 bg-primary bg-opacity-10 text-primary my-2 flex-fill flex-md-grow-0">
+            <i className="bi bi-plus-lg fs-5"></i>
+            <span className="fw-medium p-2">Add new</span>
         </Button>
     )
 }

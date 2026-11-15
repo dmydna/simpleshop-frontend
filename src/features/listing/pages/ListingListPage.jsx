@@ -14,7 +14,7 @@ const ListingListPage = () => {
                 </p>
             </div>
             
-            <div className="d-flex justify-content-between mb-4 flex-wrap" >
+            <div className="d-flex justify-content-between mb-4 flex-wrap gap-2" >
                 <AddNewButton to={`${URL_LISTING_CRUD}?mode=create`} />
                 <SearchLight className='flex-fill flex-md-grow-0'/>
             </div>

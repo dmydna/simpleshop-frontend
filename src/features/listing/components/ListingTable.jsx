@@ -11,6 +11,7 @@ import { placeholderURL } from '@utils/image';
 import { formatDate } from "@utils/mappers";
 import React from 'react';
 import { Button, Form, Table } from 'react-bootstrap';
+import BadgeCount from '@/components/common/BadgeCount';
 
 
 const ListingTable = ({ className }) => {
@@ -111,15 +112,25 @@ const ListingTable = ({ className }) => {
 
                                     {/* Thumbnail & Title */}
                                     <td>
+                                        {item?.stock &&
+
+                                        <div style={{marginLeft: '20px'}}
+                                            className='position-relative d-inline'>
+                                            <BadgeCount 
+                                                limit={99}
+                                                quantity={item?.stock || 0}
+                                            />
+                                        </div>
+                                        /*<span className={`mx-1 fw-medium bg-dark bg-opacity-10 text-dark rounded-3 small px-1`}>
+                                            {item?.stock < 10 ? `0${item?.stock}` : item.stock }</span>*/
+                                        }   
+
                                         <img
                                             style={{ objectFit: 'contain', width: '60px', height: '60px' }} // Altura fija igual al texto
                                             className={`bg-white border border-1 rounded flex-shrink-0 ${item?.meta?.status == "INACTIVE" ? 'img-secondary-': ''}`}
                                             src={item?.thumbnail || placeholderURL.listing(item?.id)}
                                         />
-                                        {item?.stock &&
-                                        <span className={`mx-1 fw-medium bg-dark bg-opacity-10 text-dark rounded-3 small px-1`}>
-                                            {item?.stock < 10 ? `0${item?.stock}` : item.stock }</span>
-                                        }
+                                        
                                         <span id={"title-item-table"} className={`mx-2 fw-medium ${item?.meta?.status == "INACTIVE"? '' : ''}`}>
                                             {item?.title}</span>
                                     </td>

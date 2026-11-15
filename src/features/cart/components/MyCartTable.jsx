@@ -1,4 +1,4 @@
-import CartInput from '@/features/cart/components/CartInput';
+import CartControl from '@/features/cart/components/CartControl';
 import { Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
@@ -41,7 +41,7 @@ export default function MyCartTable({ className, content }) {
                                     <span className='fw-medium'>
                                         <Link className='text-decoration-none text-dark' to={`/p/${item.id}`}>{item?.title}</Link>
                                     </span>
-                                    <CartInput style={{width: '150px'}} producto={item}/>
+                                    <CartControl style={{width: '180px'}} producto={item}/>
                                 </td>
 
                                 {/* DESCRIPTION */}

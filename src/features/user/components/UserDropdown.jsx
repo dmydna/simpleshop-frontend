@@ -9,12 +9,14 @@ import userDefault from "/user-default-xs.png";
 import { URL_DASHBOARD, URL_USER_FAVORITE, URL_USER_PURCHASES } from "@/utils/links";
 import { useAsync } from "@/hooks/useAsync";
 import { userService } from "@features/user/service/userService";
-
+import { useUrlParams } from "@/hooks/useUrlParams";
 
 
 function UserDropdown({ className }) {
 
   const { auth, isAuth, logout, isAdmin } = useAuthContext();
+
+  const { pageVersion } = useUrlParams();
   const [isActive, setIsActive] = useState(false)
   const [imageUser, setImageUser] = useState(null)
   
@@ -42,7 +44,7 @@ function UserDropdown({ className }) {
   useEffect(()=>{
     myUser()
 
-  },[auth])
+  },[auth, pageVersion])
 
   useEffect(()=>{
     console.log("cambia imagen de navbar", imageUser)

@@ -13,7 +13,7 @@ export function HoverIcon({action, children, icon, className, disabled}){
           onClick={action} 
 	    	  onMouseEnter={()=>setIsHovered(true)} 
 	    	  onMouseLeave={()=>setIsHovered(false)} 
-            style={{lineHeight:'0px', padding: '10px'}}
+            style={{ lineHeight:'0px', padding: '10px'}}
             className={`btn ${className || ''} z-index-10 ${disabled? 'disabled': ''}`}>
             <i className={iconClass}></i> 
             {children}

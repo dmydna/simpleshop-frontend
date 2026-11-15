@@ -2,8 +2,6 @@ import {  useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 
 
-// TODO: cambiar de nombre pendiente
-// TODO: mover a @dashboard
 
 /** Este componete  declara todos los parametros busquedas que se usaran en la app*/
 export const useUrlParams = () => {
@@ -52,6 +50,7 @@ export const useUrlParams = () => {
 
 
     const filterParam = searchParams.get('filter');
+    const showParam = searchParams.get('show');
 
     const typeParam = searchParams.get('type');
 
@@ -62,6 +61,6 @@ export const useUrlParams = () => {
        idParam, searchParam, categoryParam, statusParam, roleParam, skuParam,
        sortParam, filterParam, allParams, create_banMode, update_banMode,
        pageVersion, modeParam, minPrice, maxPrice, dialogParam,
-       validate, queryParam, typeParam, redirectParam
+       validate, queryParam, typeParam, redirectParam, showParam
     }
 }
