@@ -11,7 +11,7 @@ function Search({toggle, setToggle}){
     const width = useWindowsWidth()
     const navigate = useNavigate();
     const location = useLocation();
-    const { filterParam } = useUrlParams()
+    const { showParam } = useUrlParams()
     const { setSearchParams }  = useUrlState() 
 
 
@@ -41,14 +41,14 @@ function Search({toggle, setToggle}){
     function handleFilter(e) {
       e.preventDefault();
       if(window.location.pathname === `${BASE_URL}`){
-        if(filterParam == 'show'){
-          setSearchParams(prev => ({...prev, filter: null}) )
+        if(showParam == 'filter'){
+          setSearchParams(prev => ({...prev, show: null}) )
          }else{
-          setSearchParams(prev => ({...prev, filter: 'show'} )) 
+          setSearchParams(prev => ({...prev, show: 'filter'} )) 
         }
         return
       }
-      navigate(`${BASE_URL}?filter=show`);
+      navigate(`${BASE_URL}?show=filter`);
     }
     
     
@@ -95,7 +95,7 @@ function Search({toggle, setToggle}){
             style={{zIndex: 99999 }}
           >
             {/* !! convierte a booleano cualquier expresion */}
-            <Dropdown.Menu className={`w-100 position-absolute`}>
+            <Dropdown.Menu className={`w-100 position-absolute mt-2`}>
               {listings?.slice(0,6).map((p) => (
                 <Dropdown.Item
                   onClick={() => {
@@ -106,8 +106,9 @@ function Search({toggle, setToggle}){
                   as={Link}
                   to={`/products/${p.id}/${p.title}`}
                   key={p.id}
-                >
-                  {p.title}
+                > 
+                  <img src={p.thumbnail} width={45} className="border roudned" />
+                  <span className="mx-2">{p.title}</span>
                 </Dropdown.Item>
               ))}
                   <Dropdown.Item
@@ -115,12 +116,15 @@ function Search({toggle, setToggle}){
                     setShow(false);
                     setToggle(false);
                   }}
-                  className="text-truncate overflow-hidden py-2 border-top"
+
+                  className="text-truncate overflow-hidden mt-2 py-2 border-top"
                   as={Link}
-                  to={`${BASE_URL}?query=${query}`}
+                  to={totalElements != 0 ? `${BASE_URL}?query=${query}` : "#"}
                   key={99}
                 >
-                 (<b>{totalElements}</b>) Resultados Encontrados 
+                  {totalElements != 0 ? "Show all results" : "Not search found" 
+                  }
+                 
                 </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>

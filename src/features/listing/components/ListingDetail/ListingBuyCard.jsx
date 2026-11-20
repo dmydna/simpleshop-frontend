@@ -3,16 +3,15 @@ import StatusPill from "@/components/common/StatusPill";
 import { useAuthContext } from "@/features/auth/contexts/AuthContext.jsx";
 import AdminFloatButton from "@/features/listing/components/Button/AdminFloatButton.jsx";
 import BuyNowButton from "@common/BuyNowButton.jsx";
-import AddToCartButton from "@f/cart/components/AddToCartButton.jsx";
 import { useCart } from "@f/cart/contexts/CartContext.jsx";
 import { Card, InputGroup } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import ListingDetailStatus from "@/features/listing/components/ListingDetail/ListingDetailStatus"
 import Pill from "@/components/common/Pill";
-import CartInput2 from "@f/cart/components/CartInput2"
-import AddToCartButton2 from "@/features/cart/components/AddToCartButton2";
+import CartControl3 from "@/features/cart/components/CartControl3"
 
-export default function ProductBuyCard({ className, ...item }) {
+
+export default function ListingBuyCard({ className, ...item }) {
 
   const { addToCart, cartItems } = useCart()
   const navigate = useNavigate()
@@ -29,14 +28,14 @@ export default function ProductBuyCard({ className, ...item }) {
   return (
     <Card className={`${className}`}>
 
-      <div style={{marginTop: '-12px', marginBottom: '12px'}} className="d-flex
+      <div style={{margin:'-12px 0px 12px' }} className="d-flex
         justify-content-between
         flex-wrap flex-fill">
         <div className="mt-2">
           <StarRating value={item.rating} size={20} /> {/* 17 */}
         </div>
         <AdminFloatButton className="bg-white d-flex"
-        style={{ height: '38px', zIndex: 10 }} item={item} />
+        style={{ scale: '.9', height: '38px', zIndex: 10 ,marginRight: '-12px' }} item={item} />
       </div>
 
       <Card.Body className="p-0">
@@ -76,16 +75,15 @@ export default function ProductBuyCard({ className, ...item }) {
       <InputGroup className="w-100 align-items-center gap-2 flex-wrap">
 
           <ListingDetailStatus status={item?.meta?.status}>
-              <AddToCartButton2
-                className={`${item?.meta?.status !== "ACTIVE" ? 'disabled' : ''}`}
-                variant="outline-success"
-                product={item} />
+
+              <CartControl3 className="flex-fill" producto={item}/>
 
               <BuyNowButton
-                className={`m-0 w-100 ${item?.stock ? '': 'disabled'}`}
+                className={`m-0 w-100 ${item?.stock ? '': 'disabled'} p-2 fw-medium`}
                 variante='primary'
                 handle={handleClick}
               />
+              
           </ListingDetailStatus>
 
       </InputGroup>

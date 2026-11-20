@@ -1,7 +1,7 @@
 import BreadCrumb from "@/components/layout/BreadCrumb.jsx";
 import CarouselGrid from "@/features/listing/components/CarrouselGrid";
-import ProductBuyCard from "@/features/listing/components/ListingDetail/ProductBuyCard.jsx";
-import ProductSpecs from "@/features/listing/components/ListingDetail/ProductSpecs.jsx";
+import ListingBuyCard from "@/features/listing/components/ListingDetail/ListingBuyCard.jsx";
+import ListingSpecs from "@/features/listing/components/ListingDetail/ListingSpecs.jsx";
 import { listingService } from "@/features/listing/services/listingService.js";
 import CarrouselReviews from "@/features/review/components/CarrouselReviews.jsx";
 import { useFetchElem } from "@/hooks/useFetchElem.js";
@@ -65,7 +65,7 @@ function ListingDetailPage() {
 
                         {/**Buy Card */}
                         <Col style={{ top: '60px' }} className="sticky-lg-bottom" xs={12} lg={5}>
-                           <ProductBuyCard
+                           <ListingBuyCard
                               {...currentItem}
                               className='p-3f border island h-100' 
                            />
@@ -74,11 +74,11 @@ function ListingDetailPage() {
                         {/**Product Specs */}
                         <Col className="mt-3 mt-5 mx-0" sm={12} lg={7}>
                            <Col md={12} className='p-3f border island rounded-4' >
-                              <ProductSpecs producto={currentItem} >
+                              <ListingSpecs producto={currentItem} >
                                  <div className="fs-5 fw-medium mb-3">
                                     Características del producto
                                  </div>
-                              </ProductSpecs>
+                              </ListingSpecs>
                            </Col>
                         </Col >
 

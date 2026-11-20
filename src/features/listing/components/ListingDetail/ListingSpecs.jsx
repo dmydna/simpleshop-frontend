@@ -3,7 +3,7 @@ import { Table, Button, Form, InputGroup } from "react-bootstrap";
 
 
 
-function ProductSpecs({ producto, children }) {
+function ListingSpecs({ producto, children }) {
 
 
   return (
@@ -78,4 +78,4 @@ function ProductSpecs({ producto, children }) {
   );
 }
 
-export default ProductSpecs;
+export default ListingSpecs;

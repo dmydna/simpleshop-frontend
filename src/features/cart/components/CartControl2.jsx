@@ -1,15 +1,16 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
-import { Button, Form, InputGroup } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { useCart } from "@f/cart/contexts/CartContext.jsx";
 import { toast } from "react-toastify";
+import CartInput from "@f/cart/components/CartInput";
 
 
-function CartInput2({ producto, className, style, size="md", disabled=false }) {
+export default function CartControl2({ producto, className, style, size="md", disabled=false, variant="primary" }) {
 
 
   const { removeFromCart, addToCartQuantity, cartItems } = useCart();
 
-  const [cantidad, setCantidad] = useState(!producto.cantidad ? 0 : producto.cantidad)
+  const [cantidad, setCantidad] = useState(!producto.cantidad ? 1 : producto.cantidad )
 
 
   const incCart = (producto)=>{
@@ -21,8 +22,6 @@ function CartInput2({ producto, className, style, size="md", disabled=false }) {
   const decCart = (producto)=>{
     setCantidad((prev)=> prev > 0 && prev <= producto.stock ?  
     (!producto.cantidad ? prev : producto.cantidad)  - 1 : 0 )
-
-
   }
 
   const elimItem = useCallback((producto) => {
@@ -57,7 +56,7 @@ function CartInput2({ producto, className, style, size="md", disabled=false }) {
 
   useEffect(()=>{
   	const findItem = cartItems.find(item => item.id == producto.id);
-  	setCantidad(findItem?.cantidad || 0)
+  	setCantidad(findItem?.cantidad || 1)
   },[cartItems])
 
 
@@ -76,52 +75,19 @@ function CartInput2({ producto, className, style, size="md", disabled=false }) {
   return (
     <div style={style} className={`d-flex gap-2 my-2 ${className}`}>
 
-      {/* Boton eliminar */}
-      <Button
-        disabled={disabled}
-      	style={{minWidth: '35px'}}	
-        className="btn btn-sm shadow-sm border rounded overflow-hidden pagination-input-group"
-        variant="outline-dark"
-        onClick={() => elimItem(producto)}
-      ><i className="bi bi-trash3 smal pe-1"></i>
-      </Button>
-
-      <InputGroup size="xs" className="shadow-sm border rounded overflow-hidden pagination-input-group">
-
-        {/* Boton + */}
-        <Button
+        <CartInput
           disabled={disabled}
-          className="btn p-1 border-0 ps-3 btn-sm"
-          onClick={() =>  decCart(producto) }
-          variant
-        ><i className="bi bi-dash-lg"></i>
-        </Button>
-
-        {/* InputCart */}
-        <Form.Control
-          disabled={disabled}
-          type="text"
-          value={cantidad}
-          className="text-center border-0 fw-bold no-arrows"
-          style={{ width: "30px", fontSize: "0.9rem", boxShadow: 'none' }}
-        ></Form.Control>
-
-        {/* Boton - */}
-        <Button
-          disabled={disabled}
-          className="btn p-1 border-0 pe-3 btn-sm"
-          onClick={() => incCart(producto)}
-          variant
-        ><i className="bi bi-plus-lg"></i>
-        </Button>
-   
-      </InputGroup>
+          quantity={cantidad}
+          delCart={() => elimItem(producto)}
+          decCart={() => decCart(producto)} 
+          incCart={() => incCart(producto)}
+        />
 
         <Button
           disabled={disabled}
         	style={{minWidth: '70px'}}
             className="btn btn-sm shadow-sm border rounded overflow-hidden"
-            variant="success"
+            variant={variant}
           onClick={() => { addItem(producto) }}
         > <small>{ btnTxt }</small>
         </Button> 
@@ -130,5 +96,3 @@ function CartInput2({ producto, className, style, size="md", disabled=false }) {
     
   );
 }
-
-export default CartInput2;
