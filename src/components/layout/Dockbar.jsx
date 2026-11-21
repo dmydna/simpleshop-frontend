@@ -18,8 +18,8 @@ function Dockbar({}) {
 
       {/* -- Sidebar Mobile (para todos) --*/}      
       {(
-        <div style={{ zIndex: "100", height: "75px", overflowX: "auto", overflowY: "hidden", paddingTop: "0px" }}
-          className='bg-white fixed-bottom d-block d-md-none w-100 p-2 border-top'>
+        <div style={{ zIndex: "100", height: "65px", overflowX: "auto", overflowY: "hidden", paddingTop: "0px" }}
+          className='bg-white fixed-bottom d-block d-md-none w-100 p-0 border-top'>
           <DockbarMobile />
         </div>
       )}
