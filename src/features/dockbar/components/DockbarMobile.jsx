@@ -15,38 +15,51 @@ export default function DockbarMobile({ onShow, expandable = true }) {
 
   
     return (
-        <ul style={{width: "500px"}} className="mx-3 mx-sm-auto list-group list-group-flush flex-row justify-content-between">
+        <ul className="d-flex w-100 p-0">
 
+            <div className="flex-fill">
+                <DockbarLink
+                    style={{width: '60px', marginInline: 'auto'}} 
+                    to={URL_HOME}
+                    icon="bi-house"
+                    label="home"
+                />
+            </div>    
 
-            <DockbarLink
-                to={URL_HOME}
-                icon="bi-house"
-                label="home"
-            />
+            <div className="flex-fill">
+                <DockbarLink
+                    style={{width: '60px', marginInline: 'auto'}} 
+                    to={URL_CATALOG}
+                    icon="bi-list-ul"
+                    label="products"
+                />
+            </div>
 
-            <DockbarLink
-                to={URL_CATALOG}
-                icon="bi-list-ul"
-                label="products"
-            />
-
-            <DockbarLink
-                to={`${isAuth ? URL_USER_HOME : URL_LOGIN}`}
-                icon="bi-person"
-                label="account"
-            />
+            <div className="flex-fill">
+                <DockbarLink
+                    style={{width: '60px', marginInline: 'auto'}} 
+                    to={`${isAuth ? URL_USER_HOME : URL_LOGIN}`}
+                    icon="bi-person"
+                    label="account"
+                />
+            </div>
 
             {isAdmin && (
-                <DockbarLink
-                    to={URL_DASHBOARD}
-                    icon="bi-gear"
-                    label="panel"
-                />
+                <div className="flex-fill">
+                    <DockbarLink
+                        style={{width: '60px', marginInline: 'auto'}}    
+                        to={URL_DASHBOARD}
+                        icon="bi-gear"
+                        label="panel"
+                    />
+                </div>
             )}
 
-            <div>
-             <CartButton style={{padding: "10px"}}/> 
-              <p style={{fontSize: ".700rem"}} className="m-0 text-center">cart</p>
+            <div className="flex-fill text-center">
+                <div className="mx-auto" style={{width: '60px'}}>   
+                <CartButton style={{padding: "10px"}}/> 
+                    <p style={{fontSize: ".700rem"}} className="m-0 text-center">cart</p>
+                </div>
             </div>
 
 

@@ -72,7 +72,7 @@ function ListingDetailPage() {
                         </Col>
 
                         {/**Product Specs */}
-                        <Col className="mt-3 mt-5 mx-0" sm={12} lg={7}>
+                        <Col className="mt-3 mx-0" sm={12} lg={7}>
                            <Col md={12} className='p-3f border island rounded-4' >
                               <ListingSpecs producto={currentItem} >
                                  <div className="fs-5 fw-medium mb-3">
