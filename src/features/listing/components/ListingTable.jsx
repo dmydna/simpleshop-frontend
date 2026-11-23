@@ -10,7 +10,7 @@ import { useListing } from '@features/listing/hooks/useListing';
 import { placeholderURL } from '@utils/image';
 import { formatDate } from "@utils/mappers";
 import React from 'react';
-import { Button, Form, Table } from 'react-bootstrap';
+import { Badge, Button, Form, Table } from 'react-bootstrap';
 import BadgeCount from '@/components/common/BadgeCount';
 
 
@@ -74,9 +74,10 @@ const ListingTable = ({ className }) => {
                                 <th style={{ width: '150px' }} className='text-secondary'>
                                     <SortByParam name='availabilityStatus'>Availability</SortByParam>
                                 </th>
-{/*                                <th style={{ width: '150px' }} className='text-secondary'>
+                                <th style={{ width: '150px' }} className='text-secondary'>
                                     Stock
-                                </th>*/}
+                                </th>
+
                                 <th style={{ width: '150px' }} className='d-block d-table-cell d-md-none text-secondary'></th>
                             </tr>
                         </thead>
@@ -112,19 +113,7 @@ const ListingTable = ({ className }) => {
 
                                     {/* Thumbnail & Title */}
                                     <td>
-                                        {item?.stock &&
-
-                                        <div style={{marginLeft: '20px'}}
-                                            className='position-relative d-inline'>
-                                            <BadgeCount 
-                                                limit={99}
-                                                quantity={item?.stock || 0}
-                                            />
-                                        </div>
-                                        /*<span className={`mx-1 fw-medium bg-dark bg-opacity-10 text-dark rounded-3 small px-1`}>
-                                            {item?.stock < 10 ? `0${item?.stock}` : item.stock }</span>*/
-                                        }   
-
+                                        
                                         <img
                                             style={{ objectFit: 'contain', width: '60px', height: '60px' }} // Altura fija igual al texto
                                             className={`bg-white border border-1 rounded flex-shrink-0 ${item?.meta?.status == "INACTIVE" ? 'img-secondary-': ''}`}
@@ -173,6 +162,10 @@ const ListingTable = ({ className }) => {
                                             {item?.stock || 0}
                                         </span>
                                     </td>*/}
+                                    {/**Stock */}
+                                    <td style={{ lineHeight: '4.2', textAlign: 'start' }} >
+                                        <Badge className="text-white" bg={"dark"} >{item?.stock || 0}</Badge>
+                                    </td>
 
                                     {/**Action */}
                                     <td className='small d-table-cell d-md-none'
@@ -186,6 +179,8 @@ const ListingTable = ({ className }) => {
                                         </Button>
 
                                     </td>
+
+
                                 </tr>
                                 )
                             )}

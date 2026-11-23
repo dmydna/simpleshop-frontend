@@ -13,7 +13,6 @@ export const useUrlParams = () => {
 
     const allParams = useMemo(() => searchParams.toString(),[searchParams])
 
-
     const redirectParam = searchParams.get('redirect');
 
     const editMode = searchParams.get('mode') === 'edit';
@@ -53,14 +52,15 @@ export const useUrlParams = () => {
     const showParam = searchParams.get('show');
 
     const typeParam = searchParams.get('type');
+    const actionParam = searchParams.get('action');
 
     return {
-       editMode, viewMode, createMode, copyMode,
+       editMode, viewMode, createMode, copyMode, actionParam,
        draftMode, edit_draftMode,create_draftMode,itemId,
        availabilityParam, tableVersion, tagsParam, hashParam, pageParam,
        idParam, searchParam, categoryParam, statusParam, roleParam, skuParam,
        sortParam, filterParam, allParams, create_banMode, update_banMode,
        pageVersion, modeParam, minPrice, maxPrice, dialogParam,
-       validate, queryParam, typeParam, redirectParam, showParam
+       validate, queryParam, typeParam, redirectParam, showParam, setSearchParams
     }
 }

@@ -1,11 +1,15 @@
 import { useUrlState } from "@/hooks/useUrlState";
-import { useMemo } from "react";
+import { createContext, useContext, useMemo } from "react";
 import { Modal } from "react-bootstrap";
 
 
 
+export const ModalParamContext = createContext(null)
 
-export default function ModalParam({ children, param, inverse = false, size="sm" }) {
+
+
+
+export default function ModalParam({ className, children, param, inverse = false, size = "sm" }) {
 
 
     const { searchParams, setSearchParams } = useUrlState();
@@ -49,7 +53,7 @@ export default function ModalParam({ children, param, inverse = false, size="sm"
     const close = () => {
         setSearchParams(prev => {
             const next = { ...prev };
-            next[key]= null
+            next[key] = null
             return next;
         });
     };
@@ -58,16 +62,38 @@ export default function ModalParam({ children, param, inverse = false, size="sm"
     if (!key) return null;
 
     return (
-        <Modal
-            show={show}
-            onHide={close}
-            size={size}
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
-        >
-            <Modal.Body className="p-0">
-                {children(close)}
-            </Modal.Body>
-        </Modal>
+        <ModalParamContext.Provider value={close}>
+            <Modal
+                className={className}
+                show={show}
+                onHide={close}
+                size={size}
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+            >
+                <Modal.Body className="p-0">
+                    {typeof children == 'function' ? children(close) : children}
+                </Modal.Body>
+            </Modal>
+        </ModalParamContext.Provider>
     );
+}
+
+
+export const ModalParamHeader = ({ children, x=false}) => {
+
+    const close = useContext(ModalParamContext);
+
+    return (
+        <div className="d-flex align-items-center justify-content-between mb-4">
+            <h1 className="fs-4 m-0">{children}</h1>
+            <span className="d-flex justify-content-center align-items-center rounded-circle bg-hover fade-hover" 
+                style={{ width: '40px', height: '40px' }}>
+                
+                {x && <i onClick={() => close()} 
+                    className="h3 bi bi-x p-0 m-0"></i>
+                }
+            </span> 
+        </div>
+    )
 }

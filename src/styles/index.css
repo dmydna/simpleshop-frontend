@@ -758,6 +758,10 @@ tr:last-child {
 .left-0 { left: 0!important }
 .right-0 { right: 0!important }
 .vh-50 { height: 50vh!important }
+
+.bg-tint{
+    background-color: rgba(0, 0, 0, 0.1)!important; 
+}
 .bg-hover:hover { 
     background-color: rgba(0, 0, 0, 0.1)!important; 
     cursor: pointer;
@@ -805,4 +809,49 @@ tr:last-child {
     .bg-heaven{
         background-size: cover;
     }
+}
+
+
+/* Aplica desde el tamaño más pequeño hasta antes del breakpoint md (< 768px) */
+
+
+@media (max-width: 767.98px) {
+  .modal.fade .modal-dialog {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    top: auto;
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
+    transform: translateY(100%);
+    transition: transform 0.3s ease-out;
+  }
+
+  .modal.show .modal-dialog {
+    transform: translateY(0);
+  }
+
+  .modal-dialog-centered {
+    align-items: end!important;
+  }
+
+  .modal-content {
+    border: 0;
+    border-radius: 1rem 1rem 0 0;
+    max-height: 85vh; /* Deja espacio libre arriba para ver el resto de la app */
+    display: flex;
+    flex-direction: column;
+  }
+
+  .modal-body {
+    overflow-y: auto;
+  }
+}
+
+
+.form-check-input:checked[type=checkbox] {
+    border-radius: 50% !important;
+    font-size: 1rem !important;
 }

@@ -17,6 +17,7 @@ export default function StatusPill({status, icon}){
       // STOCK
       "In Stock":  {color: "pill-success",   icon:"bi-check-circle"},
       "Low Stock": {color: "pill-warning",   icon:"bi-exclamation-circle"},
+      "Out of Stock": {color: "pill-danger",    icon:"bi-x-circle"},
       "Out Stock": {color: "pill-danger",    icon:"bi-x-circle"},
       "Pending":   {color: "pill-secondary", icon:"bi-exclamation-circle"}  
     }

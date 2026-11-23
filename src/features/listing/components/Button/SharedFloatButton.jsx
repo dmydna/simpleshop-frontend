@@ -4,10 +4,12 @@ import { useAsync } from "@hooks/useAsync";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useState, useMemo } from "react"
+import { useUrlState } from "@/hooks/useUrlState";
 
 export default function SharedFloatButton({item, style, className}){
 	
 
+    const { setSearchParams } = useUrlState()
     const [copied, setCopied] = useState(false);
 
 
@@ -20,12 +22,16 @@ export default function SharedFloatButton({item, style, className}){
         setTimeout(() => setCopied(false), 2000);
     };
 
+    const handleShowShared= () => {
+      setSearchParams(prev => ({...prev, dialog: 'shared'}))
+    }
+
 	return (
         <HoverIcon
            disabled={copied}
            style={style}
            className={`border rounded-circle bg-wh01 ${className}`} 
-           action={ handleCopy }
+           action={ handleShowShared }
            icon={"share"}
         />
 	)

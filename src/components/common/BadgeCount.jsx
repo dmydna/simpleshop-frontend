@@ -1,6 +1,6 @@
 import { Badge, Button } from "react-bootstrap";
 
-export default function BadgeCount({className, variant="dark", quantity, limit=9}){
+export default function BadgeCount({className, variant="dark", quantity=0, limit=9}){
 
 	return(
         <small className={className}>

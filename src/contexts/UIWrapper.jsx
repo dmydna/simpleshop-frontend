@@ -1,4 +1,5 @@
 import LoginModalParam from "@/features/auth/components/LoginModalParam";
+import RegisterModalParam from "@/features/auth/components/RegisterModalParam";
 import ContactModalParam from "@/features/contact/components/ContactModalParam";
 
 export default function UIWrapper({children}) {
@@ -7,6 +8,7 @@ export default function UIWrapper({children}) {
     <>
       {children}
       <LoginModalParam />
+      <RegisterModalParam />
       <ContactModalParam />
     </>
   );

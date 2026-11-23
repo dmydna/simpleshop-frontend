@@ -12,13 +12,14 @@ import { useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import { useUrlParams } from "@/hooks/useUrlParams";
+import SharedModal from "@/components/common/SharedModal";
 
 
 
 function ListingDetailPage() {
 
 
-   const { pageVersion } = useUrlParams()
+   const { pageVersion, dialogParam } = useUrlParams()
    const { hash } = useParams()
    
    const { loading, error, currentItem, fetchDataByHash, setId, refreshElem } 
@@ -129,6 +130,7 @@ function ListingDetailPage() {
                }
             </>
          </Container>
+         <SharedModal />
       </AppStatus>
    );
 }

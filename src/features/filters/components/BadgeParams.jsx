@@ -1,4 +1,4 @@
-import { Badge, Col } from "react-bootstrap";
+import { Alert, Badge, Col } from "react-bootstrap";
 import React, { useMemo } from "react";
 import { useSearchParams } from 'react-router-dom';
 
@@ -65,6 +65,17 @@ const BadgeParams = ({ className, style, blacklist = [] }) => {
             className={`${className} ${expandedParams.length !== 0 ? 'mt-3' : ''} d-flex flex-wrap align-items-center mx-auto`} 
             style={style}
         >
+
+            {window.innerWidth < 768 && expandedParams.length > 1 &&
+                <small className="w-100">
+                    <Alert style={{maxWidth: '768px'}} className="my-2 p-2">
+                        <i className="bi bi-check-circle" />
+                        <span className="mx-3">filter applied</span>
+                    </Alert>
+                </small>
+            }
+
+
             {expandedParams.map((item, index) => {
 
                 if(blacklist.includes(item.key)){
