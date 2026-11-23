@@ -33,7 +33,7 @@ export default function AdminFloatButton({item, style, className}){
 			)}
 			{!hide && (
 				<div className="d-flex gap-2">
-					<ProtectedAction>
+					<ProtectedAction redirect={`${window.location.pathname}?action=togglefav`}>
 						<FavoriteFloatButton item={item} />
 					</ProtectedAction>
 					<SharedFloatButton item={item} />

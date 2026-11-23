@@ -13,6 +13,9 @@ import ListingDetailStatus from "../components/ListingDetail/ListingDetailStatus
 import FallbackNotSearchResults from "@features/fallback/components/FallbackNotSearchResults.jsx"
 
 import CatalogeHeader from "@features/listing/components/CatalogeHeader"
+import ModalParam, { ModalParamHeader } from "@/components/common/ModalParam";
+import { useEffect, useMemo, useState } from "react";
+import { useUrlParams } from "@/hooks/useUrlParams";
 
 
 function Cataloge() {
@@ -23,6 +26,13 @@ function Cataloge() {
   // Maneja los parametros de busqueda
   useListingSync({ ...baseHook });
 
+
+  const [isMd, setMd] = useState(false)
+
+  useEffect(()=>{
+    setMd(window.innerWidth < 768) 
+  },[window.innerWidth])
+
   return (
     <>
       <ListingContextLayout
@@ -32,7 +42,9 @@ function Cataloge() {
         <>
           <Container fluid="xl" className="rounded mt-2 mb-5 pb-5">
 
-            <CatalogeFilter />
+            <div className="d-none d-md-block">
+              <CatalogeFilter />
+            </div>
 
             <div className="pt-3">
               <CatalogeHeader {...baseHook} />
@@ -75,6 +87,23 @@ function Cataloge() {
               className={`container-xl`}
               totalPages={totalPages}
             />}
+
+        <ModalParam className={"d-md-none"} size="md" param='show=filter'>
+          
+          <style>{`
+            .fade.modal-backdrop.show {display:none}
+            @media (max-width: 767.98px)  {  
+              .fade.modal-backdrop.show {
+                display: block;
+              }
+            }
+            `}</style>
+
+          <div className="p-3">
+            <ModalParamHeader x>filter</ModalParamHeader>
+            <CatalogeFilter />
+          </div>
+        </ModalParam>       
         </>
       </ListingContextLayout>
     </>

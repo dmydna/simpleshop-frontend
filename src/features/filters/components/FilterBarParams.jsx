@@ -1,14 +1,17 @@
 import InputSelectParam from "@features/filters/components/InputSelectParam"
 import BadgeParams from "@features/filters/components/BadgeParams"
 import { useSearchParams } from "react-router-dom";
-import { Button } from 'react-bootstrap';
+import { Alert, Button } from 'react-bootstrap';
 
 
 export default function FilterBarParams({ children }) {
 	
 	const [searchParams, setSearchParams] = useSearchParams();
 	const allParams = searchParams.toString();
-	const clearParams = () => setSearchParams(new URLSearchParams());
+
+	const newFilters = new URLSearchParams()
+	newFilters.set('show', 'filter')
+	const clearParams = () => setSearchParams(newFilters);
 
 	return (
 		<div className="">
@@ -28,8 +31,9 @@ export default function FilterBarParams({ children }) {
 			</div>
 
 			</div>
+
 			<div className={`my-3 ${!allParams ? '' : 'border-top'}`}>
-				<BadgeParams blacklist={['filter', 'page', 'dialog', 'query', 'tableVersion']} />
+				<BadgeParams blacklist={['filter', 'show' ,'page', 'dialog', 'query', 'tableVersion']} />
 			</div>
 
 

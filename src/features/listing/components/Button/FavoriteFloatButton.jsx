@@ -3,17 +3,19 @@ import { favoriteService } from "@/features/favorite/services/favoriteService";
 import { useAsync } from "@/hooks/useAsync";
 import { useUrlState } from "@/hooks/useUrlState";
 import { useCallback, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Spinner } from "react-bootstrap";
 import { useAuthContext } from "@/features/auth/contexts/AuthContext";
+import { useUrlParams } from "@/hooks/useUrlParams";
 
 export default function FavoriteFloatButton({item, style, className}){
 
    const { isAuth } = useAuthContext()
    const [isFavorite, setIsFavorite] = useState(false);
-   const navigate = useNavigate();
+
+
    const { setSearchParams } = useUrlState()
+   const { actionParam }     = useUrlParams()
 
    const msg_add = "Add to favorites";
    const msg_del = "Remove to favorites";
@@ -50,6 +52,8 @@ export default function FavoriteFloatButton({item, style, className}){
         checkFavoriteStatus();
     }, [checkFavoriteStatus]);
 
+
+
     const toggleFavorite = useCallback( (isAuth) => {
       if(!isAuth) return
       if( !isFavorite ) {
@@ -58,6 +62,14 @@ export default function FavoriteFloatButton({item, style, className}){
          deleteFavorite.execute(item.id)
       }
     }, [createFavorite, deleteFavorite, isFavorite])
+
+
+
+    useEffect(()=>{
+      if(actionParam == 'togglefav'){
+         toggleFavorite(isAuth)
+      }
+    },[actionParam, isAuth])
 
 
 	return (

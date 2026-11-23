@@ -14,8 +14,14 @@ function CategoryCarrousel({className}){
   };
 
   return (
+    <>
+      <style>{`
+        .carousel-control-next {filter: invert(1);}
+        .carousel-control-prev {filter: invert(1);}
+       `}</style>
+
     <Carousel className={`${className}`} activeIndex={index} onSelect={handleSelect}>
-      
+
       <Carousel.Item>
         <CategoryItem 
           col='col-12 col-md-12 col-lg-3'
@@ -60,6 +66,7 @@ function CategoryCarrousel({className}){
         />
       </Carousel.Item>
     </Carousel>
+    </>
   );
 
 }

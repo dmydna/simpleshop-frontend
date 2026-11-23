@@ -23,7 +23,7 @@ export const useListingSync = ({
         if (queryParam)           { setFilters({ query: queryParam }) }
         if (categoryParam)        { setFilters({category: categoryParam}) }
         if (!allParams)           { setFilters({})}
-        if (minPrice && maxPrice) { setFilters({ minPrice, maxPrice })}
+        if (minPrice && maxPrice) { setFilters({ minPrice, maxPrice })}  
 
     }, [searchParam,minPrice, maxPrice, tagsParam, minPrice, 
         maxPrice,pageParam, categoryParam, filterParam, allParams, setFilters, 

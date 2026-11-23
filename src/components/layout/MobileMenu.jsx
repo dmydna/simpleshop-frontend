@@ -1,5 +1,6 @@
 import { useNavbarContext } from "@/contexts/NavbarContext.jsx";
 import { useAuthContext } from "@/features/auth/contexts/AuthContext.jsx";
+import { useUrlState } from "@/hooks/useUrlState";
 import { URL_DASHBOARD, URL_LOGIN, URL_SIGIN, URL_USER_HOME } from "@/utils/links";
 import { Button, Nav, Offcanvas } from 'react-bootstrap';
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -13,7 +14,8 @@ function MobileMenu({ children }) {
 
   const location = useLocation()
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { setSearchParams } = useUrlState()
   const handleClose = () => setShowMenu(false);
   const handleShow = () => setShowMenu(true);
 
@@ -25,15 +27,26 @@ function MobileMenu({ children }) {
   };
 
   const handleLogin = () => {
-    showMenu &&
+/*    showMenu &&
       handleClose()
-    navigate(URL_LOGIN);
+    navigate(URL_LOGIN);*/
+
+    setSearchParams(prev => {
+      handleClose();
+      return {...prev, dialog: 'login'}
+    })
   }
 
   const handleRegister = () => {
-    showMenu &&
+/*    showMenu &&
       handleClose()
-    navigate(URL_SIGIN);
+    navigate(URL_SIGIN);*/
+
+    setSearchParams(prev => {
+      handleClose();
+      return {...prev, dialog: 'register'}
+    })
+
   }
 
 
